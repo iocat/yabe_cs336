@@ -1,0 +1,55 @@
+
+.login-section{
+	background-image: url("img/login-bg.jpg");
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	padding: 130px 0;
+	height: 100vh;
+
+}
+
+
+
+.login-section .row:first-child{
+	padding-right: 3%;
+	height: 100%;
+}
+
+
+
+.signinfield{
+	margin: 3% auto;
+}
+
+.signinfield div:first-child{
+	text-align: right;
+}
+.signinfield input{
+	width: 50%;
+	height: 35px;
+	margin: 0 30% 0 10%;
+	border-radius: 5px;
+	border: 1px solid #9cdbb7;
+	padding: 0 20px;
+	font-size: 80%;
+}
+.signinfield input:focus{
+	outline: 2px solid rgba(156,219,183,0.8);
+	outline-radius: 5px;
+}
+
+.container .btn-important{
+	color: #FFF;
+	margin-bottom: 30px;
+}
+
+.register-link {
+	display: block;
+	color: #000;
+	font-size: 80%;
+	font-weight: 300;
+	text-transform: capitalize;
+	text-decoration: none;
+}

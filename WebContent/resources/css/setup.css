@@ -1,0 +1,120 @@
+
+/* Base color: 9cdbb7 or rgb(156,219,183)*/
+*{
+    margin: 0;
+    padding: 0;
+    outline-color: #fff; /* remove browser default outline */
+    box-sizing: border-box; /* IMPORTANT ONE: to make sure all the width and height include the padding and border */
+}
+
+html{
+    background-color: #fff;
+    color: #555;
+    font-family: 'Lato', 'Arial', sans-serif;
+    /* Font setup for scaling */
+    font-size: 20px;
+    font-weight: 300;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+}
+
+.clearfix:after{
+    content: ".";
+    clear: both;
+    display: block;
+    height: 0;
+    visibility: hidden;
+    zoom: 1;
+}
+
+/* REUSABLE COMPONENTS */
+.row{
+	width: 100%;
+	padding: 0 auto;
+	text-align: center;
+}
+.logo img{
+	margin-top:5px;
+	width: 110px;
+}
+
+/* ------------------------- 
+	HEADER & FOOTER
+ -------------------------*/
+header,
+footer{
+	background-color: rgba( 0, 0, 0, 0.4);
+	position: fixed;
+	width: 100%;
+}
+
+header{
+	color: rgba(255, 255, 255, 0.3);
+	height: 50px;
+	top: 0;
+}
+
+
+footer p{
+	text-align: center;
+}
+
+footer{
+	position: fixed;
+	bottom:0;
+	width: 100%;
+	color: #fff;
+}
+
+
+/* ------------------------- 
+	HEADINGS
+ -------------------------*/
+ 
+h1{
+	margin-bottom: 20px;
+	font-size: 200%;
+	color: #5AC488;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+h3{
+	font-weight: 400;
+	font-size: 150%;
+}
+
+
+/* ------------------------- 
+	BUTTONS
+ -------------------------*/
+.btn{
+	padding: 10px 30px;
+	border-color: #9cdbb7;
+	background-color: #fff;
+	border: 2px solid #9cdbb7;
+	border-radius: 2px;
+	transform: background 0.3s;
+}
+
+.btn-important{
+	background-color:#4BBE7D;
+	border: none;
+}
+
+.btn-important:hover{
+	background-color:#369660;
+}
+
+
+/* ------------------------- 
+	SPECIAL CONTAINTER
+ -------------------------*/
+
+div.container{
+	border: 2px solid #9cdbb7;
+	background-color: rgba(255,255,255,0.7);
+	border-radius: 5px;
+	padding: 5% 3%;
+	box-shadow: 0px 3px rgba(0,0,0,0.2);
+}
+
