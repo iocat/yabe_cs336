@@ -31,9 +31,12 @@
 </head>
 <body>
 	<%@ page import="com.yabe.Utils"%>
-	<%! 	String username = new String();
+	<%! 	
+			// Page request parameter
+			String username = new String();
 			String password = new String();
-			boolean keepedIn = false; 
+			boolean keepedIn = false;
+			
 			void pageStateInit( HttpServletRequest request){
 				if ( request.getParameter("keepSignedIn").equals("true") ){
 					this.keepedIn = true;
