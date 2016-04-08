@@ -2,11 +2,10 @@
 <html>
 	<head lang="en-US">
 		<title>Login</title>
-		<meta name="viewport" content="max-width=device-width, initial-scale=1.0"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<link href="${pageContext.request.contextPath}/vendors/css/normalize.css" rel="stylesheet" type="text/css">
 		<link href="${pageContext.request.contextPath}/vendors/css/grid.css" rel="stylesheet" type="text/css">
 		<link href="${pageContext.request.contextPath}/vendors/css/normalize.css" rel="stylesheet" type="text/css">
-		
 		<link href="${pageContext.request.contextPath}/resources/css/setup.css" rel="stylesheet" type="text/css">
 		<link href="${pageContext.request.contextPath}/resources/css/login.css" rel="stylesheet" type="text/css">
 		<link href='https://fonts.googleapis.com/css?family=Lato:400,700,300,100' rel='stylesheet' type='text/css'>
@@ -21,16 +20,16 @@
 					<!--  blank div -->
 				</div>
 				<div class="col span-3-of-4 container">
-					<form method="POST" action="/homepage">
+					<form method="POST" action="${pageContext.request.contextPath}/homepage.jsp">
 						<div class="row">
-							<h1>Yabe</h1>
+							<h1 class="title">Yabe</h1>
 						</div>
 						<div class= "row signinfield">
 							<div class="col span-1-of-3">
 								<label for="username">Username</label>
 							</div>
 							<div class="col span-2-of-3">
-								<input type="text" name="username" placeholder="Happy user" required>
+								<input id="username" type="text" name="username" placeholder="Happy user" required />
 							</div>
 						</div>
 						<div class= "row signinfield">
@@ -38,8 +37,11 @@
 								<label for="password">Password</label>
 							</div>
 							<div class="col span-2-of-3">
-								<input type="password" name="password" required>
+								<input id="password" type="password" name="password" required />
 							</div>
+						</div>
+						<div class= "row signinfield">
+							<input type="checkbox" name="keepSignedIn" value="true" id="keepSignedIn" checked> <label for="keepSignedIn">Keep me signed in.</label>
 						</div>
 						<input class=" btn btn-important" type="submit" value="Sign In">
 						<a href="${pageContext.request.contextPath}/new-account.jsp" class="register-link"> Create a new Account ?</a>

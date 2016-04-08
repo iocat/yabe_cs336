@@ -1,5 +1,7 @@
 
-/* Base color: 9cdbb7 or rgb(156,219,183)*/
+/* Base color: 9cdbb7 or rgb(156,219,183)
+	Darker: #369660
+*/
 *{
     margin: 0;
     padding: 0;
@@ -99,22 +101,56 @@ h3{
 .btn-important{
 	background-color:#4BBE7D;
 	border: none;
+	color: white;
 }
 
 .btn-important:hover{
 	background-color:#369660;
 }
 
+/* ------------------------- 
+	INPUT FIELDS
+ -------------------------*/
+input[type=checkbox]{
+	margin-right: 5px;
+}
 
 /* ------------------------- 
 	SPECIAL CONTAINTER
  -------------------------*/
 
-div.container{
+.container {
 	border: 2px solid #9cdbb7;
 	background-color: rgba(255,255,255,0.7);
 	border-radius: 5px;
-	padding: 5% 3%;
+	padding: 3% 3%;
 	box-shadow: 0px 3px rgba(0,0,0,0.2);
+	max-width: 600px;
+	margin: 0 auto;
 }
 
+.container input[type=text],
+.container input[type=password]{
+	width: 70%;
+	height: 30px;
+	
+	margin-right:30%;
+	margin-left: 10%;
+	
+	padding: 0 10px;
+	border-radius: 5px;
+	border: 1px solid #9cdbb7;
+	font-size: 80%;
+}
+
+.container input{
+	margin-bottom: 0.01%;
+}
+
+.container input[type=submit]{
+	margin-top: 10px;
+}
+.container input:focus{
+	outline: 2px solid rgba(156,219,183,0.8);
+	outline-radius: 5px;
+}
