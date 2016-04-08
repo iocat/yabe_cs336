@@ -6,6 +6,7 @@
 	padding: 0;
 	outline-color: #fff; /* remove browser default outline */
 	box-sizing: border-box;
+	outline: none;
 	/* IMPORTANT ONE: to make sure all the width and height include the padding and border */
 }
 
@@ -34,6 +35,10 @@ html {
 	width: 100%;
 	padding: 0 auto;
 	text-align: center;
+}
+
+section{
+	padding: 100px 1%;
 }
 
 .logo img {
@@ -65,13 +70,14 @@ footer {
 	bottom: 0;
 	width: 100%;
 	color: #fff;
+	font-size: 90%;
+	font-weight: 100;
 }
 
 /* ------------------------- 
 	HEADINGS
  -------------------------*/
 h1 {
-	margin-bottom: 20px;
 	font-size: 200%;
 	color: #5AC488;
 	font-weight: 700;
@@ -86,15 +92,14 @@ h3 {
 /* ------------------------- 
 	BUTTONS
  -------------------------*/
-.btn {
+.btn,
+.btn-important {
 	padding: 10px 30px;
-	border-color: #9cdbb7;
-	background-color: #fff;
 	border: 2px solid #9cdbb7;
 	border-radius: 5px;
 }
 
-.btn-important:link,.btn-important:visited,.btn-important {
+.btn-important{
 	background-color: #4BBE7D;
 	border: none;
 	color: white;
@@ -129,7 +134,8 @@ input[type=checkbox] {
 	margin: 0 auto;
 }
 
-.container input[type=text],.container input[type=password] {
+.container input[type=text],
+.container input[type=password] {
 	width: 70%;
 	height: 35px;
 	margin-right: 30%;
@@ -137,19 +143,22 @@ input[type=checkbox] {
 	padding: 0 10px;
 	border-radius: 5px;
 	font-size: 80%;
-}
-
-.container input {
+	
 	margin-bottom: 0.01%;
 	transition: border 0.4s;
 	border: 2px solid transparent;
-	outline: none;
+}
+
+.container input {
+	
+	
 }
 
 .container input[type=submit] {
 	margin-top: 10px;
 }
 
-.container input:focus {
+.container input[type=text]:focus,
+.container input[type=password]:focus  {
 	border: 2px solid rgba(156, 219, 183, 0.8);
 }

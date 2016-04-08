@@ -1,29 +1,23 @@
 <!DOCTYPE html>
-
-<%! // Page context path
-	String pagePath;
-%>
-<%
-	pagePath = request.getContextPath();
-%>
 <html lang="en-US">
 <head>
-<title>YABE - Create a new account</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>YABE - Create a new account</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<%! /* Page context path*/ String pagePath;%>
+	<% pagePath = request.getContextPath(); %>
+	<link href="<%=pagePath%>/vendors/css/normalize.css" rel="stylesheet"
+		type="text/css">
+	<link href="<%=pagePath%>/vendors/css/grid.css" rel="stylesheet"
+		type="text/css">
+	<link href="<%=pagePath%>/vendors/css/normalize.css" rel="stylesheet"
+		type="text/css">
 
-<link href="<%=pagePath%>/vendors/css/normalize.css" rel="stylesheet"
-	type="text/css">
-<link href="<%=pagePath%>/vendors/css/grid.css" rel="stylesheet"
-	type="text/css">
-<link href="<%=pagePath%>/vendors/css/normalize.css" rel="stylesheet"
-	type="text/css">
-
-<link href="<%=pagePath%>/resources/css/setup.css" rel="stylesheet"
-	type="text/css">
-<link href="<%=pagePath%>/resources/css/new-account.css"
-	rel="stylesheet" type="text/css">
-<link
-	href='https://fonts.googleapis.com/css?family=Lato:400,700,300,100'
+	<link href="<%=pagePath%>/resources/css/setup.css" rel="stylesheet"
+		type="text/css">
+	<link href="<%=pagePath%>/resources/css/new-account.css"
+		rel="stylesheet" type="text/css">
+	<link
+		href='https://fonts.googleapis.com/css?family=Lato:400,700,300,100'
 	rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -84,21 +78,15 @@
 								placeholder="Your address" required>
 						</div>
 					</div>
-
 					<div class="row">
 						<input type="submit" value="Create" class="btn btn-important">
 					</div>
 				</form>
 			</div>
 		</div>
-
 	</section>
 	<footer>
 		<p>Copyright &copy; 2016 YABE. All Rights Reserved.</p>
 	</footer>
-
-
-
 </body>
-
 </html>

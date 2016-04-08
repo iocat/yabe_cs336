@@ -31,10 +31,10 @@
 </head>
 <body>
 	<%@ page import="com.yabe.Utils"%>
-	<%! String username = new String();
+	<%! 	String username = new String();
 			String password = new String();
 			boolean keepedIn = false; 
-			void pageStateInit( HttpServletRequest request, String user, String password, boolean keepedIn){
+			void pageStateInit( HttpServletRequest request){
 				if ( request.getParameter("keepSignedIn").equals("true") ){
 					this.keepedIn = true;
 				}else{
@@ -43,22 +43,23 @@
 				this.username = request.getParameter("username");
 				this.password = request.getParameter("password");
 			}
-		%>
+	%>
 	<% 
-			if(session.isNew()){
-				if (Utils.isEmpty(username) || Utils.isEmpty(password)){
-					response.sendRedirect("index.jsp");
-					return;
-				}
-				
-				// check username and password in the database: if there is no username or password move user back to the index
-				// if ok: go on
-				// store user name in cookies
-				
-				// if not: go back to the previous one.
-			}else{
-				
+		pageStateInit(request);
+		if(session.isNew()){
+			if (Utils.isEmpty(username) || Utils.isEmpty(password)){
+				response.sendRedirect("index.jsp");
+				return;
 			}
-		%>
+			
+			// check username and password in the database: if there is no username or password move user back to the index
+			// if ok: go on
+			// store user name in cookies
+			
+			// if not: go back to the previous one.
+		}else{
+			
+		}
+	%>
 </body>
 </html>

@@ -4,22 +4,19 @@
 <title>Login</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<%! // Page context path
-			String pagePath;
-		%>
-<%
-			pagePath = request.getContextPath();
-		%>
+<%! /* Page context path */ String pagePath;	%>
+<%pagePath = request.getContextPath();%>
 <link href="<%=pagePath%>/vendors/css/normalize.css" rel="stylesheet"
 	type="text/css">
 <link href="<%=pagePath%>/vendors/css/grid.css" rel="stylesheet"
 	type="text/css">
 <link href="<%=pagePath%>/vendors/css/normalize.css" rel="stylesheet"
 	type="text/css">
-<link href="<%=pagePath%>/resources/css/setup.css" rel="stylesheet"
-	type="text/css">
 <link href="<%=pagePath%>/resources/css/login.css" rel="stylesheet"
 	type="text/css">
+<link href="<%=pagePath%>/resources/css/setup.css" rel="stylesheet"
+	type="text/css">
+
 <link
 	href='https://fonts.googleapis.com/css?family=Lato:400,700,300,100'
 	rel='stylesheet' type='text/css'>
@@ -62,7 +59,7 @@
 							id="keepSignedIn" checked> <label for="keepSignedIn">Keep
 							me signed in.</label>
 					</div>
-					<input class=" btn btn-important" type="submit" value="Sign In">
+					<input class="btn-important" type="submit" value="Sign In">
 					<a href="<%=pagePath%>/new-account.jsp" class="register-link">
 						Create a new Account ?</a>
 				</form>
