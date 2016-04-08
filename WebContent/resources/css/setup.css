@@ -1,156 +1,155 @@
-
 /* Base color: 9cdbb7 or rgb(156,219,183)
 	Darker: #369660
 */
-*{
-    margin: 0;
-    padding: 0;
-    outline-color: #fff; /* remove browser default outline */
-    box-sizing: border-box; /* IMPORTANT ONE: to make sure all the width and height include the padding and border */
+* {
+	margin: 0;
+	padding: 0;
+	outline-color: #fff; /* remove browser default outline */
+	box-sizing: border-box;
+	/* IMPORTANT ONE: to make sure all the width and height include the padding and border */
 }
 
-html{
-    background-color: #fff;
-    color: #555;
-    font-family: 'Lato', 'Arial', sans-serif;
-    /* Font setup for scaling */
-    font-size: 20px;
-    font-weight: 300;
-    text-rendering: optimizeLegibility;
-    overflow-x: hidden;
+html {
+	background-color: #fff;
+	color: #555;
+	font-family: 'Lato', 'Arial', sans-serif;
+	/* Font setup for scaling */
+	font-size: 20px;
+	font-weight: 300;
+	text-rendering: optimizeLegibility;
+	overflow-x: hidden;
 }
 
-.clearfix:after{
-    content: ".";
-    clear: both;
-    display: block;
-    height: 0;
-    visibility: hidden;
-    zoom: 1;
+.clearfix:after {
+	content: ".";
+	clear: both;
+	display: block;
+	height: 0;
+	visibility: hidden;
+	zoom: 1;
 }
 
 /* REUSABLE COMPONENTS */
-.row{
+.row {
 	width: 100%;
 	padding: 0 auto;
 	text-align: center;
 }
-.logo img{
-	margin-top:5px;
+
+.logo img {
+	margin-top: 5px;
 	width: 110px;
 }
 
 /* ------------------------- 
 	HEADER & FOOTER
  -------------------------*/
-header,
-footer{
-	background-color: rgba( 0, 0, 0, 0.4);
+header,footer {
+	background-color: rgba(0, 0, 0, 0.4);
 	position: fixed;
 	width: 100%;
 }
 
-header{
+header {
 	color: rgba(255, 255, 255, 0.3);
 	height: 50px;
 	top: 0;
 }
 
-
-footer p{
+footer p {
 	text-align: center;
 }
 
-footer{
+footer {
 	position: fixed;
-	bottom:0;
+	bottom: 0;
 	width: 100%;
 	color: #fff;
 }
 
-
 /* ------------------------- 
 	HEADINGS
  -------------------------*/
- 
-h1{
+h1 {
 	margin-bottom: 20px;
 	font-size: 200%;
 	color: #5AC488;
 	font-weight: 700;
 	text-transform: uppercase;
 }
-h3{
+
+h3 {
 	font-weight: 400;
 	font-size: 150%;
 }
 
-
 /* ------------------------- 
 	BUTTONS
  -------------------------*/
-.btn{
+.btn {
 	padding: 10px 30px;
 	border-color: #9cdbb7;
 	background-color: #fff;
 	border: 2px solid #9cdbb7;
-	border-radius: 2px;
-	transform: background 0.3s;
+	border-radius: 5px;
 }
 
-.btn-important{
-	background-color:#4BBE7D;
+.btn-important:link,.btn-important:visited,.btn-important {
+	background-color: #4BBE7D;
 	border: none;
 	color: white;
+	transition: background-color 0.8s, box-shadow 0.2s;
 }
 
-.btn-important:hover{
-	background-color:#369660;
+.btn-important:hover {
+	background-color: #369660;
+	box-shadow: 0px 0px 20px rgba(156, 219, 183, 0.3);
 }
 
+.btn-important:active {
+	box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.3);
+}
 /* ------------------------- 
 	INPUT FIELDS
  -------------------------*/
-input[type=checkbox]{
+input[type=checkbox] {
 	margin-right: 5px;
 }
 
 /* ------------------------- 
 	SPECIAL CONTAINTER
  -------------------------*/
-
 .container {
 	border: 2px solid #9cdbb7;
-	background-color: rgba(255,255,255,0.7);
+	background-color: rgba(255, 255, 255, 0.7);
 	border-radius: 5px;
 	padding: 3% 3%;
-	box-shadow: 0px 3px rgba(0,0,0,0.2);
+	box-shadow: 0px 3px rgba(0, 0, 0, 0.2);
 	max-width: 600px;
 	margin: 0 auto;
 }
 
-.container input[type=text],
-.container input[type=password]{
+.container input[type=text],.container input[type=password] {
 	width: 70%;
-	height: 30px;
-	
-	margin-right:30%;
+	height: 35px;
+	margin-right: 30%;
 	margin-left: 10%;
-	
 	padding: 0 10px;
 	border-radius: 5px;
-	border: 1px solid #9cdbb7;
 	font-size: 80%;
 }
 
-.container input{
+.container input {
 	margin-bottom: 0.01%;
+	transition: border 0.4s;
+	border: 2px solid transparent;
+	outline: none;
 }
 
-.container input[type=submit]{
+.container input[type=submit] {
 	margin-top: 10px;
 }
-.container input:focus{
-	outline: 2px solid rgba(156,219,183,0.8);
-	outline-radius: 5px;
+
+.container input:focus {
+	border: 2px solid rgba(156, 219, 183, 0.8);
 }

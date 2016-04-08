@@ -1,37 +1,43 @@
-
-.login-section{
-	background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("img/login-bg.jpg");
+.login-section {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+		url("img/login-bg.jpg");
 	background-attachment: fixed;
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;
 	padding: 130px 0;
-	
 	height: 100%;
 	min-height: 100vh;
 }
 
-.login-section .row:first-child{
+.login-section .row:first-child {
 	padding-right: 3%;
 	height: 100%;
 }
 
-.login-section .title{
+.login-section .title {
 	font-size: 300%;
 	color: #369660;
 }
-.login-section .container{
-	background-color: rgba(255,255,255,0.65);
+
+.login-section .container {
+	background-color: rgba(255, 255, 255, 0.65);
 }
-.signinfield{
+
+.signinfield {
 	margin: 3% auto;
 }
 
-.signinfield div:first-child{
+.signinfield div label {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.signinfield div:first-child {
 	text-align: right;
 }
 
-.container .btn-important{
+.container .btn-important {
 	color: #FFF;
 	margin-bottom: 30px;
 }
