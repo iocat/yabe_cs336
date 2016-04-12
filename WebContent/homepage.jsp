@@ -1,11 +1,9 @@
+<%@page import="com.yabe.util.DBConnector"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%! // Page context path
-	String pagePath;
-%>
-<%
-	pagePath = request.getContextPath();
-%>
+	String pagePath;%>
+<% pagePath = request.getContextPath(); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -30,11 +28,10 @@
 	rel='stylesheet' type='text/css'>
 </head>
 <body>
-	<%@ page import="com.yabe.Utils"%>
+	<%@ page import="com.yabe.util.Utils,com.yabe.model.*"%>
 	<%! 	
 			// Page request parameter
-			String username = new String();
-			String password = new String();
+			Account account;
 			boolean keepedIn = false;
 			
 			void pageStateInit( HttpServletRequest request){
@@ -43,26 +40,19 @@
 				}else{
 					this.keepedIn =  false;
 				}
-				this.username = request.getParameter("username");
-				this.password = request.getParameter("password");
+				account = new Account(request.getParameter("username"),request.getParameter("password"));
 			}
 	%>
 	<% 
 		pageStateInit(request);
-		if(session.isNew()){
-			if (Utils.isEmpty(username) || Utils.isEmpty(password)){
-				response.sendRedirect("index.jsp");
-				return;
-			}
+		
 			
 			// check username and password in the database: if there is no username or password move user back to the index
 			// if ok: go on
 			// store user name in cookies
 			
 			// if not: go back to the previous one.
-		}else{
-			
-		}
+		
 	%>
 </body>
 </html>

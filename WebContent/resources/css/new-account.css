@@ -1,5 +1,5 @@
 .new-account-section {
-	padding: 7% 7%;
+	padding: 40px 7%;
 	/* Magic code: cover everything at least but the height should cover everything */
 	height: 100%;
 	min-height: 100vh; background-size : cover;
@@ -10,7 +10,7 @@
 }
 
 .new-account-box {
-	background-color: rgba(255, 255, 255, 0.7);
+	background-color: rgba(255, 255, 255, 0.85);
 	padding: 50px 0;
 	height: 80%;
 }
@@ -26,4 +26,10 @@
 
 .new-acc-field div:first-child {
 	text-align: right;
+}
+
+.error{
+	line-height: 180%;
+	margin-bottom: 10px;
+	color: red;
 }

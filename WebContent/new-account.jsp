@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<%! /* Page context path*/ String pagePath;%>
 	<% pagePath = request.getContextPath(); %>
+	<%@ page import="com.yabe.util.Utils" %>
 	<link href="<%=pagePath%>/vendors/css/normalize.css" rel="stylesheet"
 		type="text/css">
 	<link href="<%=pagePath%>/vendors/css/grid.css" rel="stylesheet"
@@ -32,7 +33,16 @@
 		</div>
 		<div class="row">
 			<div class="new-account-box container ">
-				<form method="POST" action="<%=pagePath%>/create-account.jsp">
+				<form method="POST" action="<%=pagePath%>/create-account">
+					
+					<%  
+						String login = request.getParameter("login");
+						boolean failed = !Utils.isEmpty(login) && login.equals("failed");
+						if (failed) {%>
+							<div class="row">
+								<p class="error"> Fail to create a new account. <br>Please check your information</p>
+							</div>
+					<%}%>
 					<div class="row new-acc-field">
 						<div class="col span-1-of-3">
 							<label for="username">Username</label>

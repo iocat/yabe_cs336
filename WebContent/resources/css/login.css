@@ -44,3 +44,8 @@
 	text-transform: capitalize;
 	text-decoration: none;
 }
+
+@media screen only and(max-width: 484px ){
+	
+	
+}
