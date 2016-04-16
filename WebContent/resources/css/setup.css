@@ -1,5 +1,7 @@
-/* Base color: 9cdbb7 or rgb(156,219,183)
-	Darker: #369660
+/* 
+	Base color: 	#9cdbb7 or rgb(156,219,183)
+	Darker base:	#369660
+	Alert:			#e53935
 */
 * {
 	margin: 0;
@@ -45,6 +47,14 @@ section{
 	margin-top: 5px;
 	width: 110px;
 }
+
+div.alert{
+	border: 1px solid #e53935;
+}
+p.alert{
+	color:#e53935;
+}
+
 
 /* ------------------------- 
 	HEADER & FOOTER

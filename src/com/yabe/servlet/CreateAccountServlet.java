@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yabe.model.Account;
 import com.yabe.model.User;
 import com.yabe.util.Utils;
 
@@ -50,8 +51,10 @@ public class CreateAccountServlet extends HttpServlet {
 		request.getSession().invalidate();
 		try {
 			if (user.insertIntoDB() == true){	
-				RequestDispatcher rd = this.getServletContext().getRequestDispatcher("homepage.jsp");
-				
+				// Sucessfully register + redirect to the login page
+				request.setAttribute("user",  user);
+				RequestDispatcher rd = request.getRequestDispatcher("login");
+				rd.forward(request, response);
 			}else{
 				// TODO: Create an unable to create an account page or rediect back to the login page
 				response.sendRedirect("");

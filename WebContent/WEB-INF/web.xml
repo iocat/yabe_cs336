@@ -1,29 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  
+  <!-- CREATE ACCOUNT PAGE -->
+  <!-- Presentation -->
   <servlet>
-    <servlet-name>LoginPage</servlet-name>
-    <jsp-file>/index.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LoginPage</servlet-name>
-    <url-pattern>/index.jsp</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>CreateNewAccount</servlet-name>
+    <servlet-name>CreateAccount</servlet-name>
     <jsp-file>/new-account.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
-    <servlet-name>CreateNewAccount</servlet-name>
+    <servlet-name>CreateAccount</servlet-name>
     <url-pattern>/new-account.jsp</url-pattern>
   </servlet-mapping>
+  <!-- Logic -->
   <servlet>
-    <servlet-name>CreateAccount</servlet-name>
+    <servlet-name>CreateAccountHandler</servlet-name>
     <servlet-class>com.yabe.servlet.CreateAccountServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>CreateAccount</servlet-name>
+    <servlet-name>CreateAccountHandler</servlet-name>
     <url-pattern>/create-account</url-pattern>
   </servlet-mapping>
+  
+  <!-- LOGIN PAGE -->
+  <!-- Presentation -->
+  <servlet>
+    <servlet-name>LoginPage</servlet-name>
+    <jsp-file>/login.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginPage</servlet-name>
+    <url-pattern>/login.jsp</url-pattern>
+  </servlet-mapping>
+  <!-- Logic -->
+  <servlet>
+  	<servlet-name>LoginHandler</servlet-name>
+  	<servlet-class>com.yabe.servlet.LoginHandlerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>LoginHandler</servlet-name>
+  	<url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  
+  <!-- MAIN PAGE -->
+  <!-- Logic -->
+  <servlet>
+  	<servlet-name>MainPageHandler</servlet-name>
+  	<servlet-class>com.yave.servlet.MainPageHandlerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>MainPageHandler</servlet-name>
+  	<url-pattern>/main-page</url-pattern>
+  </servlet-mapping>
+  <!-- Presentation -->
+  <servlet>
+  	<servlet-name>MainPage</servlet-name>
+  	<jsp-file>/main-page.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>MainPage</servlet-name>
+  	<url-pattern>/main-page.jsp</url-pattern>
+  </servlet-mapping>
+  
+  <!-- STATIC RESOURCES folder that is needed to be shared -->
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>/resources/*</url-pattern>

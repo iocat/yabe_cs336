@@ -29,13 +29,4 @@ public class Utils {
 		return null;
 	}
 	
-	public static boolean nonNullStringList(String...strings){
-		for (int i = 0; i < strings.length; i++){
-			if (isEmpty(strings[i])){
-				return false;
-			}
-		}
-		return true;
-	}
-	
 }

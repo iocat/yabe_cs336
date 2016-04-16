@@ -1,11 +1,21 @@
+<%@ page import="com.yabe.util.Utils, com.yabe.model.*"%>
+
+<%! 
+	// Page variable declaration 
+	String pagePath;				// Page context path
+	boolean failedToLogin = false;	// Failed to login	
+%>
+<%	
+	// Page variable initialization
+	pagePath = request.getContextPath();
+	failedToLogin = !Utils.isEmpty(request.getParameter("login")) &&
+			request.getParameter("login").equals("failed");		
+%>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
 	<title>YABE - Create a new account</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<%! /* Page context path*/ String pagePath;%>
-	<% pagePath = request.getContextPath(); %>
-	<%@ page import="com.yabe.util.Utils" %>
 	<link href="<%=pagePath%>/vendors/css/normalize.css" rel="stylesheet"
 		type="text/css">
 	<link href="<%=pagePath%>/vendors/css/grid.css" rel="stylesheet"
@@ -32,15 +42,12 @@
 			<h1>Create new Account</h1>
 		</div>
 		<div class="row">
-			<div class="new-account-box container ">
+			<div class="new-account-box container <%if (failedToLogin){ %>alert<%}%> ">
 				<form method="POST" action="<%=pagePath%>/create-account">
-					
 					<%  
-						String login = request.getParameter("login");
-						boolean failed = !Utils.isEmpty(login) && login.equals("failed");
-						if (failed) {%>
+						if (failedToLogin) {%>
 							<div class="row">
-								<p class="error"> Fail to create a new account. <br>Please check your information</p>
+								<p class="alert"> Fail to create a new account. <br>Please check your information</p>
 							</div>
 					<%}%>
 					<div class="row new-acc-field">

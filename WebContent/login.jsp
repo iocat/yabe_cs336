@@ -1,11 +1,20 @@
+<%@ page import="com.yabe.util.Utils"%>
+<%! 
+	// Page variable declaration 
+	String pagePath;				// Page context path
+	boolean failedToLogin = false;	// Failed to login	
+%>
+<%	
+	// Page variable initialization
+	pagePath = request.getContextPath();
+	failedToLogin = !Utils.isEmpty(request.getParameter("login")) &&
+			request.getParameter("login").equals("failed");		
+%>
 <!DOCTYPE html>
 <html>
 <head lang="en-US">
 <title>Login</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<%! /* Page context path */ String pagePath;	%>
-<%pagePath = request.getContextPath();%>
 <link href="<%=pagePath%>/vendors/css/normalize.css" rel="stylesheet"
 	type="text/css">
 <link href="<%=pagePath%>/vendors/css/grid.css" rel="stylesheet"
@@ -27,16 +36,21 @@
 			<img src="<%=pagePath%>/resources/img/yabe-logo.png">
 		</div>
 	</header>
-	<section class="login-section">
+	<section class="login-section" >
 		<div class="row">
 			<div class="col span-1-of-4">
 				<!--  blank div -->
 			</div>
-			<div class="col span-3-of-4 container">
-				<form method="POST" action="<%=pagePath%>/homepage.jsp">
+			<div class="col span-3-of-4 container <%if(failedToLogin){ %>alert<%}%>">
+				<form method="POST" action="<%=pagePath%>/login">
 					<div class="row">
 						<h1 class="title">Yabe</h1>
 					</div>
+					<%if (failedToLogin){%>
+					<div class="row">
+						<p class="alert"> Your username or Password is incorrect. </p> 
+					</div>
+					<% } %>
 					<div class="row signinfield">
 						<div class="col span-1-of-3">
 							<label for="username">Username</label>
