@@ -18,53 +18,61 @@ import com.yabe.util.Utils;
 /**
  * Servlet implementation class CreateAccountHandler
  */
-@WebServlet("/CreateAccountHandler")
+@WebServlet("/create-account")
 public class CreateAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CreateAccountServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public CreateAccountServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String username = request.getParameter("username");
-		String password = Utils.encodePassword(request.getParameter("password"));
+		String password = Utils
+				.encodePassword(request.getParameter("password"));
 		String name = request.getParameter("name");
 		String address = request.getParameter("address");
 		String email = request.getParameter("email");
 		User user = new User(username, password, name, address, email);
 		request.getSession().invalidate();
 		try {
-			if (user.insertIntoDB() == true){	
-				// Sucessfully register + redirect to the login page
-				request.setAttribute("user",  user);
-				RequestDispatcher rd = request.getRequestDispatcher("login");
-				rd.forward(request, response);
-			}else{
-				// TODO: Create an unable to create an account page or rediect back to the login page
+			if (user.insertIntoDB() == true) {
+				// Sucessfully register + redirect to the main page
+				Cookie cookie = new Cookie("account", username);
+				response.addCookie(cookie);
+				new Account(username)
+						.storeSession(request.getSession().getId());
+				response.sendRedirect("main-page.jsp");
+			} else {
+				// TODO: Create an unable to create an account page or rediect
+				// back to the login page
 				response.sendRedirect("");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			response.setStatus(302);
-			response.setHeader("Location", this.getServletContext().getContextPath()+"/new-account.jsp?login=failed");
+			response.setHeader("Location", this.getServletContext()
+					.getContextPath() + "/new-account.jsp?login=failed");
 		}
-	
+
 	}
 
 }

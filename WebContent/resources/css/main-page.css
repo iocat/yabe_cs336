@@ -1,0 +1,85 @@
+
+
+input,
+label,
+a,
+span,
+.leftLabel,
+.rightLabel,
+select{
+	font-size: 70%!important;
+}
+
+label{
+	transition: color 0.2s;
+	width: inherit;
+}
+
+label:hover{
+	color: #369660;
+}
+
+.create-auction a{
+	text-align: center;
+	text-decoration: none;
+}
+
+header{
+	background-color: #fff;
+	box-shadow: 0 2px 2px rgba(0,0,0,0.3);
+}
+
+/* -----------------------------*/
+/*           FILTER SECTION     */
+/* -----------------------------*/
+.section-filter input[type=text]{
+	border-color: #9cdbb7;
+}
+
+.section-filter{
+	float: left;
+	width: 30%;
+	overflow: hidden;
+}
+
+.section-filter>div:nth-child(2){
+	margin-top: 20px;
+	min-height: 70vh;
+}
+
+.section-filter>.container-with-tabs>div{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.section-filter .btn{
+	font-weight: 400;
+}
+
+
+.filter-sub-section{
+	margin: 15px 0;
+}
+.filter-sub-section div{
+	text-align: left;
+}
+
+/* -----------------------------*/
+/*           RESULT SECTION     */
+/* -----------------------------*/
+.section-result{
+	float: left;
+	width: 70%;
+	max-width: 900px;
+	overflow: hidden;
+}
+
+.section-result:before{
+	content: "Search Results";
+	padding-bottom: 10px;
+	display: block;
+}
+
+footer{
+	position: relative;
+}

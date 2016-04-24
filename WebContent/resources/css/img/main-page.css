@@ -1,0 +1,18 @@
+
+.section-filter{
+	float: left;
+	width: 20%;
+	overflow: hidden;
+}
+
+.section-result{
+	float: left;
+	width: 80%;
+	overflow: hidden;
+}
+
+
+footer{
+	position: relative;
+}
+

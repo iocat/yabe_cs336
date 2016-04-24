@@ -1,3 +1,7 @@
+.container{
+	max-width: 600px;
+}
+
 .login-section {
 	background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
 		url("img/login-bg.jpg");
@@ -50,4 +54,10 @@
 @media screen only and(max-width: 484px ){
 	
 	
+}
+
+
+footer{
+	position: fixed;
+	bottom: 0;
 }

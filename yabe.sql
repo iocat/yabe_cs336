@@ -36,6 +36,7 @@ DROP TABLE IF EXISTS handheld;
 CREATE TABLE account (
     username CHAR(30),
     password CHAR(40) NOT NULL,
+    sessionId CHAR(32),
     PRIMARY KEY (username)
 );
 
@@ -60,6 +61,7 @@ CREATE TABLE user(
     name CHAR(255) NOT NULL,
     email CHAR(255) NOT NULL,
     address CHAR( 200 ) NOT NULL,
+    profilePicture CHAR(36),
     FOREIGN KEY (username) REFERENCES account(username)
 );
 
@@ -77,9 +79,11 @@ CREATE TABLE emails (
 
 CREATE TABLE item(
     itemId INT,
+    name VARCHAR(100),
     manufacturer CHAR(30),
     cond ENUM('NEW', 'NEW_OTHER','MANU_REFUR' ,'SELL_REFUR','USED','FOR_PARTS') ,
     description TEXT CHARACTER SET utf8,
+    picture CHAR(36),
     PRIMARY KEY (itemId)
 );
 
@@ -91,10 +95,10 @@ CREATE TABLE auction (
 
     purchaser CHAR(30),
     soldPrice FLOAT,
-    soldTime FLOAT,
+    soldTime DATETIME,
 
     openDate DATETIME NOT NULL,
-    closingDate DATETIME NOT NULL,
+    closeDate DATETIME NOT NULL,
     minimumPrice FLOAT NOT NULL,
     minimumIncrement FLOAT NOT NULL, 
     FOREIGN KEY (purchaser) REFERENCES user(username),
@@ -323,7 +327,7 @@ FOR EACH ROW BEGIN
 END$$
 DELIMITER ;
 
-INSERT INTO account
+INSERT INTO account(username, password)
 VALUES ('admin', 'admin'),
      ('rep', 'rep'),
      ('user1', 'user1'),
@@ -335,7 +339,7 @@ VALUES ('admin');
 INSERT INTO representative
 VALUES ('rep', 'Thanh Ngo', 'rep@gmail.com');
 
-INSERT INTO user
+INSERT INTO user(username, name, email, address)
 VALUES ('user1', 'Justin Chong', 'user1@gmail.com', 'NJ'),
     ('user2', 'Michael Reid', 'user2@gmail.com', 'NJ');
 
