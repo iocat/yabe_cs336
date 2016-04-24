@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.yabe.util.DBConnector;
-import com.yabe.util.SQLUtils;
 import com.yabe.util.Utils;
+import com.yabe.util.sql.SQLUtils;
 
 public class User extends Account implements Retrievable {
 	private final String SQL_CREATE_USER = "INSERT INTO "

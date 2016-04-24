@@ -11,8 +11,7 @@ public class DBConnector {
 	private static final String CLASS_PROJECT_DB= "jdbc:mysql://127.0.0.1/yabe";
 	
 	private static final String USERNAME = "root";
-	private static final String PASSWORD ="mFelix2261";
-	/* AWizN283lNN */
+	private static final String PASSWORD ="AWizN283lNN";
 	
 	private static String projectDB = CLASS_PROJECT_DB;
 	

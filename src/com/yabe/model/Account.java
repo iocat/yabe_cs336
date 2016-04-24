@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.yabe.util.DBConnector;
-import com.yabe.util.SQLUtils;
+import com.yabe.util.sql.SQLUtils;
 
 public class Account implements Retrievable {
 	private String username;

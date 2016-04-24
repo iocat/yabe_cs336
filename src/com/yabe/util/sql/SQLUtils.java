@@ -1,4 +1,4 @@
-package com.yabe.util;
+package com.yabe.util.sql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
