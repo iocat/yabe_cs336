@@ -7,25 +7,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SQLUtils {
-	public static void closeQuitely(ResultSet rs){
-		try{
+	public static void closeQuitely(ResultSet rs) {
+		try {
 			rs.close();
-		}catch(SQLException e){
-			
+		} catch (SQLException e) {
+
 		}
 	}
-	public static void closeQuitely(Statement stmt){
-		try{
+
+	public static void closeQuitely(Statement stmt) {
+		try {
 			stmt.close();
-		}catch(SQLException e){
-			
+		} catch (SQLException e) {
+
 		}
 	}
-	public static void closeQuitely(Connection conn){
-		try{
+
+	public static void closeQuitely(Connection conn) {
+		try {
 			conn.close();
-		}catch(SQLException e){
-			
+		} catch (SQLException e) {
+
 		}
 	}
 }

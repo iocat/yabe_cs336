@@ -19,28 +19,28 @@ import com.yabe.util.Utils;
 @WebFilter("/main-page.jsp")
 public class MainPageFilter implements Filter {
 
-    public MainPageFilter() {
-    }
+	public MainPageFilter() {
+	}
 
 	public void destroy() {
 	}
 
-	
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response,
+			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		Cookie[] cookies = req.getCookies();
 		Account acc;
-		if (cookies != null){
-			for (Cookie cookie : cookies){
-				switch (cookie.getName()){
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				switch (cookie.getName()) {
 				case "account":
-					// Found the account 
+					// Found the account
 					acc = new Account(cookie.getValue());
 					acc.retrieveData();
-					System.out.println(acc.getSessionId());
-					if ( Utils.isEmpty(acc.getSessionId() ) ||
-							!acc.getSessionId().equals(req.getSession().getId())){
+					if (Utils.isEmpty(acc.getSessionId())
+							|| !acc.getSessionId().equals(
+									req.getSession().getId())) {
 						res.sendRedirect("login.jsp");
 					}
 					break;
@@ -51,7 +51,7 @@ public class MainPageFilter implements Filter {
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
-		
+
 	}
 
 }

@@ -78,10 +78,8 @@ public class Auction extends Item implements Retrievable {
 		this.purchaser = purchaser;
 	}
 
-	
 	@Override
 	public void retrieveData() {
-		
 
 	}
 
