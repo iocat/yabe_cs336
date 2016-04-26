@@ -89,10 +89,10 @@ CREATE TABLE item(
 
 -- Merge Auction with sells and purchased(By someone) 
 CREATE TABLE auction (
-    seller CHAR(30),
     itemId INT,
-    PRIMARY KEY (seller, itemId),
-
+    PRIMARY KEY (itemId),
+	seller CHAR(30) NOT NULL,
+	
     purchaser CHAR(30),
     soldPrice FLOAT,
     soldTime DATETIME,
@@ -108,14 +108,13 @@ CREATE TABLE auction (
 
 -- Merge bidsOn with time ( make time an attribute ) 
 CREATE TABLE bidsOn (
-    seller CHAR(30),
     itemId INT,
     bidder CHAR(30),
     time DATETIME,
 
     amount FLOAT,
-    PRIMARY KEY ( seller, itemId, bidder, time ),
-    FOREIGN KEY (seller, itemId) REFERENCES auction(seller,itemId),
+    PRIMARY KEY (itemId, bidder, time ),
+    FOREIGN KEY (itemId) REFERENCES auction(itemId),
     FOREIGN KEY (bidder) REFERENCES user(username)
 );
 
@@ -282,7 +281,10 @@ DELIMITER $$
 CREATE TRIGGER bidderNotSeller
 BEFORE INSERT ON bidsOn
 FOR EACH ROW BEGIN
-    IF NEW.bidder = NEW.seller THEN
+    IF EXISTS(SELECT * 
+              FROM auction A
+              WHERE NEW.itemId = A.itemId AND
+                    NEW.bidder = A.seller) THEN
         SIGNAL SQLSTATE '10000' SET MESSAGE_TEXT = 'the bidder cannot be the seller';
     END IF;
 END$$
