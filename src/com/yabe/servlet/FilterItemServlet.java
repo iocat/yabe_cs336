@@ -77,7 +77,7 @@ public class FilterItemServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		String FILTER_ITEM = "SELECT I.name, I.description, I.picture"
+		String FILTER_ITEM = "SELECT I.itemId, I.name, I.description, I.picture"
 				+ " FROM item I, computer C, auction A"
 				+ " WHERE I.itemId = C.itemId AND"
 				+ 		" I.itemId = A.itemId AND"
@@ -137,14 +137,19 @@ public class FilterItemServlet extends HttpServlet {
 				switch(condition){
 				case "New":
 					cond ="NEW";
+					break;
 				case "NewOther":
 					cond="NEW_OTHER";
+					break;
 				case "ManuRefur":
 					cond="MANU_REFUR";
+					break;
 				case "Used":
 					cond="USED";
+					break;
 				case "SellRefur":
 					cond="SELL_REFUR";
+					break;
 				}
 				FILTER_ITEM += " I.cond = '"+ cond+"' "; 
 				time++;
@@ -184,6 +189,7 @@ public class FilterItemServlet extends HttpServlet {
 			rs = stmt.executeQuery();
 			while(rs.next()){
 				Item item = new Item();
+				item.setItemId(rs.getString("itemId"));
 				item.setName(rs.getString("name"));
 				item.setDescription(rs.getString("description"));
 				item.setPictureURL("resources/img/item/"+rs.getString("picture"));

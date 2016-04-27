@@ -25,6 +25,17 @@
     <servlet-name>MainPage</servlet-name>
     <url-pattern>/main-page.jsp</url-pattern>
   </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>Item</servlet-name>
+    <jsp-file>/item.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Item</servlet-name>
+    <url-pattern>/item.jsp</url-pattern>
+  </servlet-mapping>
+  
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>/resources/*</url-pattern>

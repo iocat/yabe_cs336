@@ -1,10 +1,6 @@
 // A singleton class for Database connection to mysql
 package com.yabe.util;
 
-import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
-import org.apache.tomcat.jdbc.pool.DataSource;
-import org.apache.tomcat.jdbc.pool.PoolProperties;
-
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 

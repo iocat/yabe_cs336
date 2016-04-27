@@ -1,5 +1,3 @@
-
-
 input,
 label,
 a,
@@ -8,6 +6,11 @@ span,
 .rightLabel,
 select{
 	font-size: 70%!important;
+}
+
+a{
+	text-decoration: none;
+	font-size: 200%;
 }
 
 label{
@@ -82,4 +85,15 @@ header{
 
 footer{
 	position: relative;
+}
+/* -----------------------------*/
+/*     ITEM  RESULT SECTION     */
+/* -----------------------------*/
+
+.res-item{
+	text-align:center;
+}
+.res-item .item-name{
+	color: #369660;
+	font-size: 130%;
 }

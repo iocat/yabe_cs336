@@ -5,11 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.yabe.util.DBConnector;
 import com.yabe.util.sql.SQLUtils;
 
 public class Item implements Retrievable {
 
+	private String ITEM_PAGE_URL = "item.jsp";
 	private String itemId;
 	private String name;
 	private String manufacturer;
@@ -68,6 +72,14 @@ public class Item implements Retrievable {
 
 	public void setPictureURL(String pictureURL) {
 		this.pictureURL = pictureURL;
+	}
+	public JSONObject getJSONObject() throws JSONException{
+		JSONObject json = new JSONObject();
+		json.put("pictureURL", this.getPictureURL());
+		json.put("name", name);
+		json.put("description", this.description);
+		json.put("url", ITEM_PAGE_URL+"?id="+itemId);
+		return json;
 	}
 
 	public void retrieveData() {

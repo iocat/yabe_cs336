@@ -173,7 +173,7 @@
 								<input type="checkbox" name="brandSamsung" value="true" id="brandSamsung" > <label for="brandSamsung">Samsung</label>
 							</div>
 							<div>
-								<input type="checkbox" name="brandAsus" value="true" id="brandAsus" > <label for="brandAsus">ASUS</label>
+								<input type="checkbox" name="brandAsus" value="true" id="brandAsus" > <label for="brandAsus">Asus</label>
 							</div>
 							<div>
 								<input type="checkbox" name="brandIBM" value="true" id="brandIBM" > <label for="brandIBM">IBM</label>
@@ -198,13 +198,13 @@
 					
 					
 					<div class="row">
-						<input type="submit" class="btn" value="Search" id="item-filter-submit">
+						<a href="#section-result"><input type="submit" class="btn" value="Search" id="item-filter-submit"></a>
 					</div>
 				</div>
 			</div>
 		</section>
-		<section class="section-result">
-			<div class="container">
+		<section class="section-result" id="section-result">
+			<div class="container clearfix">
 				<!-- Repetitive ( 3 times ) -->
 				<div class="row">
 					<div class="col">

@@ -10,6 +10,7 @@ import com.yabe.util.Utils;
 import com.yabe.util.sql.SQLUtils;
 
 public class User extends Account implements Retrievable {
+	private final String USER_PAGE_URL = "user";
 	private final String SQL_CREATE_USER = "INSERT INTO "
 			+ "user(username,name,email,address)" + " VALUES (?, ?, ?, ?) ";
 

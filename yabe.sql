@@ -275,6 +275,16 @@ CREATE TABLE handheld(
     FOREIGN KEY (itemId) REFERENCES computer(itemId)
 );
 
+CREATE VIEW tablet AS 
+SELECT * 
+FROM handheld
+WHERE isTablet = 0;
+
+CREATE VIEW smartphone AS 
+SELECT * 
+FROM handheld
+WHERE isTablet <> 0;
+
 -- Trigger Constraint: 
 -- 1. the bidder should not be the seller of the item.
 DELIMITER $$
