@@ -1,0 +1,43 @@
+.container{
+	max-width: 600px;
+}
+
+.create-auction-section {
+	padding: 40px 7%;
+	/* Magic code: cover everything at least but the height should cover everything */
+	height: 100%;
+	min-height: 100vh; background-size : cover;
+	background-attachment: fixed;
+	background-image: url(img/new-acc-bg.jpg);
+	overflow: hidden;
+	background-size: cover;
+}
+
+.create-auction-box {
+	background-color: rgba(255, 255, 255, 0.85);
+	padding: 50px 0;
+	height: 80%;
+}
+
+.create-auction-box .row {
+	margin: 3px auto;
+}
+
+.create-auction-box label {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.new-auc-field div:first-child {
+	text-align: right;
+}
+
+.error{
+	line-height: 180%;
+	margin-bottom: 10px;
+	color: red;
+}
+footer{
+	position: fixed;
+	bottom: 0;
+}
