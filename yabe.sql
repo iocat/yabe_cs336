@@ -244,7 +244,7 @@ CREATE TABLE runByProcessor(
     FOREIGN KEY (processorName, manufacturer) REFERENCES processor( processorName, manufacturer)
 );
 
-CREATE TABLE latop(
+CREATE TABLE laptop(
     itemId INT,
     PRIMARY KEY (itemId),
     FOREIGN KEY (itemId) REFERENCES computer(itemId)
@@ -344,6 +344,5 @@ VALUES ('rep', 'Thanh Ngo', 'rep@gmail.com');
 INSERT INTO user(username, name, email, address)
 VALUES ('user1', 'Justin Chong', 'user1@gmail.com', 'NJ'),
     ('user2', 'Michael Reid', 'user2@gmail.com', 'NJ');
-
 
 
