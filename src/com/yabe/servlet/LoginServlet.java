@@ -16,9 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yabe.model.Account;
-import com.yabe.model.Admin;
-import com.yabe.model.Representative;
-import com.yabe.model.User;
 import com.yabe.util.Utils;
 
 @WebServlet("/login")

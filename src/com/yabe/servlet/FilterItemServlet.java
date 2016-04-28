@@ -22,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.yabe.model.Auction;
 import com.yabe.model.Item;
 import com.yabe.util.DBConnector;
 import com.yabe.util.Utils;
@@ -77,7 +78,7 @@ public class FilterItemServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		String FILTER_ITEM = "SELECT I.name, I.description, I.picture"
+		String FILTER_ITEM = "SELECT I.itemId, I.name, I.description, I.picture"
 				+ " FROM item I, computer C, auction A"
 				+ " WHERE I.itemId = C.itemId AND"
 				+ 		" I.itemId = A.itemId AND"
@@ -137,14 +138,19 @@ public class FilterItemServlet extends HttpServlet {
 				switch(condition){
 				case "New":
 					cond ="NEW";
+					break;
 				case "NewOther":
 					cond="NEW_OTHER";
+					break;
 				case "ManuRefur":
 					cond="MANU_REFUR";
+					break;
 				case "Used":
 					cond="USED";
+					break;
 				case "SellRefur":
 					cond="SELL_REFUR";
+					break;
 				}
 				FILTER_ITEM += " I.cond = '"+ cond+"' "; 
 				time++;
@@ -180,18 +186,17 @@ public class FilterItemServlet extends HttpServlet {
 			conn = DBConnector.getConnectionPool().getConnection();
 			stmt = conn.prepareStatement(FILTER_ITEM);
 			SQLUtils.constructPreparedStatement(stmt, params);
-			System.out.println(stmt.toString());
 			rs = stmt.executeQuery();
 			while(rs.next()){
-				Item item = new Item();
+				Auction item = new Auction();
+				item.setItemId(rs.getString("itemId"));
 				item.setName(rs.getString("name"));
 				item.setDescription(rs.getString("description"));
-				item.setPictureURL("resources/img/item/"+rs.getString("picture"));
+				item.setPictureURL(rs.getString("picture"));
 				items.put(item.getJSONObject());
 			}
 			result.put("items", items);
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -200,7 +205,6 @@ public class FilterItemServlet extends HttpServlet {
 			SQLUtils.closeQuitely(stmt);
 			SQLUtils.closeQuitely(rs);
 		}
-		System.out.println(result.toString());
 		response.setContentType("text/json");
 		response.getWriter().write(result.toString());
 		

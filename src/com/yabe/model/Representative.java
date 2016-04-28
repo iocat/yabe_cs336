@@ -34,7 +34,7 @@ public class Representative extends Account implements Retrievable {
 		super(username);
 	}
 
-	public void retrieveData() {
+	public void retrieve() {
 		final String SQL_RETRIEVE_REP = "SELECT password, email "
 				+ "FROM account NATURAL JOIN representative "
 				+ "WHERE username = ?";

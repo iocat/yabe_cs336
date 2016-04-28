@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yabe.model.Account;
+import com.yabe.model.User;
 import com.yabe.util.Utils;
 
 @WebFilter("/main-page.jsp")
@@ -37,11 +38,15 @@ public class MainPageFilter implements Filter {
 				case "account":
 					// Found the account
 					acc = new Account(cookie.getValue());
-					acc.retrieveData();
+					acc.retrieve();
 					if (Utils.isEmpty(acc.getSessionId())
 							|| !acc.getSessionId().equals(
 									req.getSession().getId())) {
 						res.sendRedirect("login.jsp");
+					}else{
+						User user = new User(acc.getUsername());
+						user.retrieve();
+						request.setAttribute("user", user);
 					}
 					break;
 				}

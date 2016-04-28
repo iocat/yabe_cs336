@@ -5,17 +5,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.yabe.util.DBConnector;
 import com.yabe.util.Utils;
 import com.yabe.util.sql.SQLUtils;
 
 public class User extends Account implements Retrievable {
-	private final String SQL_CREATE_USER = "INSERT INTO "
+	private static final String USER_PAGE_URL = "user.jsp";
+	private static final String USER_PROFILE_PICTURE_LOCATION = "resources/img/user/";
+	private static final String SQL_CREATE_USER = "INSERT INTO "
 			+ "user(username,name,email,address)" + " VALUES (?, ?, ?, ?) ";
 
 	private String name;
 	private String email;
 	private String address;
+	private String profilePicture;
 
 	/* ACCESSORS */
 	public String getEmail() {
@@ -79,9 +85,9 @@ public class User extends Account implements Retrievable {
 		return rows == 1;
 	}
 
-	public void retrieveData() {
-		super.retrieveData();
-		final String SQL_RETRIEVE_USER = "SELECT name, email, address "
+	public void retrieve() {
+		super.retrieve();
+		final String SQL_RETRIEVE_USER = "SELECT name, email, address, profilePicture "
 				+ "FROM user " + "WHERE username = ?";
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -95,6 +101,7 @@ public class User extends Account implements Retrievable {
 				this.name = rs.getString(1);
 				this.email = rs.getString(2);
 				this.address = rs.getString(3);
+				this.profilePicture = rs.getString(4);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -104,5 +111,26 @@ public class User extends Account implements Retrievable {
 			SQLUtils.closeQuitely(rs);
 		}
 	}
+	
+	public JSONObject getJSONObject(){
+		JSONObject user = new JSONObject();
+		try {
+			user.put("username", this.getUsername());
+			user.put("name", this.name);
+			user.put("profile-picture", USER_PROFILE_PICTURE_LOCATION+this.profilePicture+".jpg");
+			user.put("url", USER_PAGE_URL+"?uname="+this.getUsername());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
 
+	public String getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+	
 }

@@ -25,6 +25,26 @@
     <servlet-name>MainPage</servlet-name>
     <url-pattern>/main-page.jsp</url-pattern>
   </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>AuctionPage</servlet-name>
+    <jsp-file>/auction.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuctionPage</servlet-name>
+    <url-pattern>/auction.jsp</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>CreateAuctionPage</servlet-name>
+    <jsp-file>/create-auction.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateAuctionPage</servlet-name>
+    <url-pattern>/create-auction.jsp</url-pattern>
+  </servlet-mapping>
+  
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>/resources/*</url-pattern>

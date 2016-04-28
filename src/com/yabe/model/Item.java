@@ -5,11 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.yabe.util.DBConnector;
 import com.yabe.util.sql.SQLUtils;
 
 public class Item implements Retrievable {
 
+	private static final String ITEM_PICTURE_LOCATION = "resources/img/item/";
 	private String itemId;
 	private String name;
 	private String manufacturer;
@@ -69,8 +73,16 @@ public class Item implements Retrievable {
 	public void setPictureURL(String pictureURL) {
 		this.pictureURL = pictureURL;
 	}
+	public JSONObject getJSONObject() throws JSONException{
+		JSONObject json = new JSONObject();
+		json.put("pictureURL", ITEM_PICTURE_LOCATION+this.pictureURL+".jpg");
+		json.put("name", name);
+		json.put("description", this.description);
+		
+		return json;
+	}
 
-	public void retrieveData() {
+	public void retrieve() {
 		final String ITEM_SQL = "SELECT name, manufacturer, cond, description, picture "
 				+ "FROM item " + "WHERE itemId = ? ";
 		Connection conn = null;
