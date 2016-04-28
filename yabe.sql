@@ -46,14 +46,14 @@ CREATE TABLE account (
 CREATE TABLE admin(
     username CHAR(30),
     PRIMARY KEY (username),
-    FOREIGN KEY (username) REFERENCES account(username)
+    FOREIGN KEY (username) REFERENCES account(username) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE representative(
     username CHAR(30) PRIMARY KEY,
     name CHAR(255) NOT NULL,
     email CHAR(255) NOT NULL,
-    FOREIGN KEY (username) REFERENCES account(username)
+    FOREIGN KEY (username) REFERENCES account(username) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE user(
@@ -62,7 +62,7 @@ CREATE TABLE user(
     email CHAR(255) NOT NULL,
     address CHAR( 200 ) NOT NULL,
     profilePicture CHAR(36),
-    FOREIGN KEY (username) REFERENCES account(username)
+    FOREIGN KEY (username) REFERENCES account(username) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Merge table Date and Time into table email ( make date and time an attribute )
@@ -101,9 +101,9 @@ CREATE TABLE auction (
     closeDate DATETIME NOT NULL,
     minimumPrice FLOAT NOT NULL,
     minimumIncrement FLOAT NOT NULL, 
-    FOREIGN KEY (purchaser) REFERENCES user(username),
-    FOREIGN KEY (seller) REFERENCES user(username),
-    FOREIGN KEY (itemId) REFERENCES item(itemId)
+    FOREIGN KEY (purchaser) REFERENCES user(username) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (seller) REFERENCES user(username) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (itemId) REFERENCES item(itemId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Merge bidsOn with time ( make time an attribute ) 
@@ -114,16 +114,16 @@ CREATE TABLE bidsOn (
 
     amount FLOAT,
     PRIMARY KEY (itemId, bidder, time ),
-    FOREIGN KEY (itemId) REFERENCES auction(itemId),
-    FOREIGN KEY (bidder) REFERENCES user(username)
+    FOREIGN KEY (itemId) REFERENCES auction(itemId) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (bidder) REFERENCES user(username) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE alert (
     username CHAR(30),
     itemId INT,
     PRIMARY KEY (username, itemId),
-    FOREIGN KEY (username) REFERENCES user(username),
-    FOREIGN KEY (itemId) REFERENCES item (itemId)
+    FOREIGN KEY (username) REFERENCES user(username) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (itemId) REFERENCES item (itemId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE graphicCard(
@@ -155,8 +155,8 @@ CREATE TABLE computer(
 
     graphicCardName CHAR(30),
     PRIMARY KEY (itemId),
-    FOREIGN KEY (itemId) REFERENCES item(itemId),
-    FOREIGN KEY (graphicCardName) REFERENCES graphicCard(graphicCardName)
+    FOREIGN KEY (itemId) REFERENCES item(itemId) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (graphicCardName) REFERENCES graphicCard(graphicCardName) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -172,8 +172,8 @@ CREATE TABLE hasHardDrive (
     driveId INT,
     size INT,
     PRIMARY KEY (itemId, driveId),
-    FOREIGN KEY (itemId) REFERENCES computer(itemId),
-    FOREIGN KEY (driveId) REFERENCES hardDrive(driveId)
+    FOREIGN KEY (itemId) REFERENCES computer(itemId) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (driveId) REFERENCES hardDrive(driveId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE computerCamera (
@@ -188,8 +188,8 @@ CREATE TABLE cameraSupports (
     itemId INT,
     cameraId INT,
     PRIMARY KEY (itemId, cameraId),
-    FOREIGN KEY (cameraId) REFERENCES computerCamera(cameraId),
-    FOREIGN KEY (itemId) REFERENCES computer(itemId)
+    FOREIGN KEY (cameraId) REFERENCES computerCamera(cameraId) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (itemId) REFERENCES computer(itemId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Merge up back and front camera ( try adding isBack? Boolean value)
@@ -203,8 +203,8 @@ CREATE TABLE supportsConnection (
     itemId INT,
     connectionId INT,
     PRIMARY KEY (itemId,connectionId),
-    FOREIGN KEY (itemId) REFERENCES computer(itemId),
-    FOREIGN KEY (connectionId) REFERENCES connection (connectionId)
+    FOREIGN KEY (itemId) REFERENCES computer(itemId) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (connectionId) REFERENCES connection (connectionId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -212,20 +212,20 @@ CREATE TABLE bluetooth(
     connectionId INT,
     version CHAR(10),
     PRIMARY KEY (connectionId),
-    FOREIGN KEY (connectionId) REFERENCES connection(connectionId)
+    FOREIGN KEY (connectionId) REFERENCES connection(connectionId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE wifi (
     connectionId INT,
     bandwidth INT,
     PRIMARY KEY (connectionId),
-    FOREIGN KEY (connectionId) REFERENCES connection(connectionId)
+    FOREIGN KEY (connectionId) REFERENCES connection(connectionId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE GPS(
     connectionId INT,
     PRIMARY KEY (connectionId),
-    FOREIGN KEY (connectionId) REFERENCES connection(connectionId)
+    FOREIGN KEY (connectionId) REFERENCES connection(connectionId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE processor (
@@ -240,20 +240,20 @@ CREATE TABLE runByProcessor(
     processorName CHAR(30),
     manufacturer CHAR(30),
     PRIMARY KEY (itemId, processorName,manufacturer),
-    FOREIGN KEY (itemId) REFERENCES computer(itemId),
-    FOREIGN KEY (processorName, manufacturer) REFERENCES processor( processorName, manufacturer)
+    FOREIGN KEY (itemId) REFERENCES computer(itemId) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (processorName, manufacturer) REFERENCES processor( processorName, manufacturer) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE laptop(
     itemId INT,
     PRIMARY KEY (itemId),
-    FOREIGN KEY (itemId) REFERENCES computer(itemId)
+    FOREIGN KEY (itemId) REFERENCES computer(itemId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE desktop(
     itemId INT, 
     PRIMARY KEY ( itemId),
-    FOREIGN KEY (itemId) REFERENCES computer(itemId)
+    FOREIGN KEY (itemId) REFERENCES computer(itemId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Merge up, add a boolean isTablet? 
@@ -272,7 +272,7 @@ CREATE TABLE handheld(
     simType ENUM('STANDARD','MICRO', 'NANO') ,
 
     PRIMARY KEY (itemId),
-    FOREIGN KEY (itemId) REFERENCES computer(itemId)
+    FOREIGN KEY (itemId) REFERENCES computer(itemId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE VIEW tablet AS 
