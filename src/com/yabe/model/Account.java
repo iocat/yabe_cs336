@@ -152,7 +152,7 @@ public class Account implements Retrievable {
 		}
 	}
 
-	public void retrieveData() {
+	public void retrieve() {
 		final String SQL_RETRIEVE_ACCOUNT = "SELECT username, password, sessionId "
 				+ " FROM account " + " WHERE username = ?";
 		Connection conn = null;

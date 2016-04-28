@@ -61,19 +61,25 @@ $(document).ready(function(){
 		// Receive the data from server
 		if (filterItemAjaxRequest.readyState === 4){
 			// Show the result
-			$('.section-result>.container').html("");
+			$('#results').html("");
 			var items = JSON.parse(filterItemAjaxRequest.responseText)["items"];
+			if(items.length===0){
+				$('#results').html("<div class=\"row\" style=\"margin-top: 100px;\">There is no items.</div>")
+				return;
+			}
 			for( var i = 0; i < items.length ; i++){
 				$('.section-result>.container').append(
 					"<div class=\"res-item col span-1-of-3\">" + 
 						"<a href=\""+ items[i]["url"]+" \">"+
-							"<img class=\"item-image\" src=\""+ items[i]["pictureURL"] + " \">"+"<p class=\"item-name\">"+items[i]["name"]+"</p>"+
+							"<div class=\"item-img\">" +
+								"<img class=\"item-image\" src=\""+ items[i]["pictureURL"] + " \">"+
+							"</div>"+
+							"<p class=\"item-name\">"+items[i]["name"]+"</p>"+
 						"</a>"+
 					"</div>");
 			}
 		}
 	};
-	
 	// Bind the ajax item Request to the submit button
 	$('#item-filter-submit').click(function(){
 		var query = "";
@@ -118,22 +124,48 @@ $(document).ready(function(){
 		filterItemAjaxRequest.send(encodeURI(query));
 		
 	});
-	
-	
 	var filterUserAjaxRequest = getAjax();
 	filterUserAjaxRequest = getAjax();
 	filterUserAjaxRequest.onreadystatechange = function(){
 		if (filterUserAjaxRequest.readyState === 4){
-			// Show the Result
+			$('.section-result>.container').html("");
+			var users = JSON.parse(filterUserAjaxRequest.responseText)["users"];
+			if(users.length==0){
+				$('#results').html("<div class=\"row\" style=\"margin-top: 100px;\">There is no users.</div>")
+				return;
+			}
+			for( var i = 0 ; i < users.length; i++){
+				$('#results').append(
+					"<div class=\"res-user col span-1-of-4 \">"+
+						"<a href=\""+users[i]["url"]+"\">"+
+							"<div class=\"res-user-img\">" +
+								"<img src=\""+ users[i]["profile-picture"] +"\"\>"+
+							"</div>"+
+							"<p class=\"res-user-name\">"+
+									users[i]["name"]+
+							"</p>"+
+						"</a>"+
+					"</div>"	
+				)
+			}
 		}
 	};
 	
 	// Bind the ajax user request to the submit button
 	$('#user-filter-submit').click(function(){
-		alert("usersearch");
-		filterUserAjaxRequest.open("GET","filter/user",true)
+		var query = "name="+$('#name').val();
+		filterUserAjaxRequest.open("GET","filter/user?"+query,true);
 		filterUserAjaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
-		filterUserAjaxRequest.send(/* Add send parameter*/)
+		filterUserAjaxRequest.send();
+	});
+	// Initiate the page
+	$('#item-filter-submit').trigger("click");
+	
+	$('#item-filter-tab').click(function(){
+		$('#item-filter-submit').trigger("click");
 	})
 	
+	$('#user-filter-tab').click(function(){
+		$('#user-filter-submit').trigger("click");
+	})
 });

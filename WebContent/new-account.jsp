@@ -95,6 +95,15 @@
 								placeholder="Your address" required>
 						</div>
 					</div>
+					<div class="row new-acc-field">
+						<div class="col span-1-of-3">
+							<label for="profile-picture">Profile Picture</label>
+						</div>
+						<div class="col span-2-of-3">
+							<input type="file" name="profile-picture" id="profile-picture"
+								 required>
+						</div>
+					</div>
 					<div class="row">
 						<input type="submit" value="Create" class="btn btn-important">
 					</div>

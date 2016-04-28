@@ -311,7 +311,7 @@ FOR EACH ROW BEGIN
         WHERE item.itemId = NEW.itemId ) = 1 THEN
         SIGNAL SQLSTATE '10001' SET MESSAGE_TEXT = 'one item can only have at most one auction associated with it';
     END IF;
-    IF NOT EXISTS ( SELECT *
+    /*IF NOT EXISTS ( SELECT *
                 FROM auction AS A, item AS I, computer AS C 
                 WHERE  A.itemId = I.itemId AND
                        A.itemId = C.itemId AND
@@ -334,7 +334,7 @@ FOR EACH ROW BEGIN
                        C.color IS NOT NULL AND
                        C.batteryCapacity IS NOT NULL ) THEN
        SIGNAL SQLSTATE '10002' SET MESSAGE_TEXT = 'The item needs enough information to be on sale';
-    END IF;
+    END IF;*/
     
 END$$
 DELIMITER ;
@@ -342,8 +342,9 @@ DELIMITER ;
 INSERT INTO account(username, password)
 VALUES ('admin', 'admin'),
      ('rep', 'rep'),
-     ('user1', 'user1'),
-     ('user2', 'user2');
+     ('jst', 'user1'),
+     ('mc', 'user2'),
+     ('tcn33','fe');
 
 INSERT INTO admin (username)
 VALUES ('admin');
@@ -351,8 +352,39 @@ VALUES ('admin');
 INSERT INTO representative
 VALUES ('rep', 'Thanh Ngo', 'rep@gmail.com');
 
-INSERT INTO user(username, name, email, address)
-VALUES ('user1', 'Justin Chong', 'user1@gmail.com', 'NJ'),
-    ('user2', 'Michael Reid', 'user2@gmail.com', 'NJ');
+INSERT INTO user(username, name, email, address, profilePicture)
+VALUES 
+('jst', 'Justin Chong', 'jst@gmail.com', 'NJ','jst'),
+('mc', 'Michael Reid', 'mc@gmail.com', 'NJ','mc'),
+('tcn33','Thanh Ngo', 'felix.infinite@gmail.com','NJ','tcn33');
 
+INSERT INTO item
+VALUES
+( 1, 'Macbook Pro', 'Apple', 'NEW', 'The Macbook Pro (Early 2015)', '1'),
+( 2, 'Macbook Air', 'Apple', 'USED', 'Old but functional', '2'),
+( 3, 'The Macbook', 'Apple', 'MANU_REFUR', 'The brand new version (Late 2016 - not a scam )', '3'),
+( 4, 'Vivobook E403', 'Asus', 'USED', 'Brand new on the market, BUY NOW!!', '4'),
+( 5, 'Acer Chromebook 15 - NJ Only', 'Acer', 'NEW', 'Hot!','5');
+	
+INSERT INTO computer(itemId,ram,brandName, operatingSystem) VALUES
+    (1, 32, 'Apple', 'Mac OS'),
+    (2, 64, 'Apple', 'Windows'),
+    (3, 4, 'Apple', 'Android'),
+    (4, 32, 'Asus', 'Windows'),
+    (5, 4,'Google','Chrome OS');
+
+INSERT INTO auction(itemId, seller, openDate, closeDate, minimumPrice, minimumIncrement) VALUES
+    ( 1, 'tcn33', '2016-4-20 00:00:00', '2016-4-27 00:00:00', 300, 20.12 ),
+    ( 2, 'tcn33', '2016-4-21 00:00:00', '2016-4-29 00:00:00',200, 100 ),
+    ( 3, 'tcn33', '2016-4-6 00:00:00', '2016-4-8 00:00:00', 400, 102.23),
+    ( 4, 'tcn33', '2016-4-1 00:00:00', '2016-4-2 00:00:00', 20, 10),
+    ( 5, 'tcn33', '2016-3-1 00:00:00', '2016-3-2 00:00:00', 10, 20.23);
+
+
+INSERT INTO laptop VALUES (3);
+INSERT INTO desktop VALUES
+    (1),
+    (2),
+    (4),
+    (5);
 

@@ -166,7 +166,8 @@ input[type=checkbox] {
 }
 
 .container input[type=text],
-.container input[type=password] {
+.container input[type=password],
+.container input[type=file] {
 	width: 70%;
 	height: 35px;
 	margin-right: 30%;

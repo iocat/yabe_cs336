@@ -4,6 +4,9 @@
 %>
 <%
 	// Page request parameter
+	Account.AccountType type;
+	User user;
+	Representative rep;
 	pagePath = request.getContextPath(); 
 %>
 
@@ -39,24 +42,40 @@
 		<div class="logo">
 			<img src="<%=pagePath%>/resources/img/yabe-logo.png">
 		</div>
+		<% 	
+			user = (User) request.getAttribute("user");
+			if (user == null){
+				rep = (Representative) request.getAttribute("rep");
+				if(rep == null){
+					type = Account.AccountType.REPRESENTATIVE;
+				}else{
+					type = Account.AccountType.NON_USER;
+				}
+			}else{
+				type = Account.AccountType.USER;
+			}
+		%>
+		<nav class="row main-nav">
+			<ul>
+				<%if(type == Account.AccountType.USER){%>
+					<li class="user-name"> Hi,&nbsp;<a href="#"><%=user.getName() %></a>!</li>
+				<%}%>
+			</ul>
+		</nav>
 	</header>
 	
 	<div class="clearfix">
 		<section class = "section-filter ">
 			<div class="create-auction">
-				<a class="btn-important" href="${pagePath}/create-auction">Create New Auction</a>
+				<a class="btn-important" href="<%=pagePath%>/create-auction.jsp">Create New Auction</a>
 			</div>
 			<div class="container-with-tabs">
 				<ul>
-					<li class="active" data-show="item-filter">Item </li>
-					<li data-show="user-filter">User</li>
+					<li class="active" data-show="item-filter" id="item-filter-tab">Item </li>
+					<li data-show="user-filter"  id="user-filter-tab">User</li>
 				</ul>
 					
 				<div class="container user-filter hidden" id="user-filter">
-					<div class="row filter-sub-section">
-						<div class="col span-1-of-3"><label for="username">Username</label></div>
-						<div class="col span-2-of-3"><input type="text" id="username" name="username" placeholder=""/></div>
-					</div>
 					<div class="row filter-sub-section">
 						<div class="col span-1-of-3"><label for="name">Name</label></div>
 						<div class="col span-2-of-3"><input type="text" name="name" id="name" placeholder=""/></div>
@@ -65,138 +84,137 @@
 						<input type="submit" class="btn" value="Find user" id="user-filter-submit">
 					</div>
 				</div>
-				<div class="container item-filter " id="item-filter">
-					<div class="row filter-sub-section">
-						<div class="col span-1-of-3"><label for="item-name">Item's name</label></div>
-						<div class="col span-2-of-3"><input type="text" id="item-name" name="item-name" placeholder=""/></div>
-					</div>
-					<div class="row filter-sub-section">
-						<div class="col span-1-of-3"><label>Category</label></div>
-						<div class="col span-1-of-3 item-filter-input">
-							<div class="category-fields">
-								<input type="checkbox" name="desktop" value="true" id="desktop" checked> <label for="desktop">Desktop</label>
+				
+				<div class="container" id="item-filter">
+					<div class ="item-filter" > 
+						<div class="row filter-sub-section">
+							<div class="col span-1-of-3"><label for="item-name">Item's name</label></div>
+							<div class="col span-2-of-3"><input type="text" id="item-name" name="item-name" placeholder=""/></div>
+						</div>
+						<div class="row filter-sub-section">
+							<div class="col span-1-of-3"><label>Category</label></div>
+							<div class="col span-1-of-3 item-filter-input">
+								<div class="category-fields">
+									<input type="checkbox" name="desktop" value="true" id="desktop"> <label for="desktop">Desktop</label>
+								</div>
+								<div class="category-fields">
+									<input type="checkbox" name="laptop" value="true" id = "laptop" > <label for="laptop">Laptop</label>
+								</div>
 							</div>
-							<div class="category-fields">
-								<input type="checkbox" name="laptop" value="true" id = "laptop" > <label for="laptop">Laptop</label>
+							<div class="col span-1-of-3 item-filter-input">
+								
+								<div class="category-fields">
+									<input type="checkbox" name="tablet" value="true" id="tablet"><label for="tablet">Tablet</label>
+								</div>
+								<div class="category-fields">
+									<input type="checkbox" name="smartphone" value="true" id="smartphone"> <label for="smartphone">Smartphone</label>
+								</div>
 							</div>
 							
 						</div>
-						<div class="col span-1-of-3 item-filter-input">
-							
-							<div class="category-fields">
-								<input type="checkbox" name="tablet" value="true" id="tablet"><label for="tablet">Tablet</label>
+						<div class="row filter-sub-section">
+							<div class="row">
+								<div class="col span-3-of-3 clearfix"><label>Maximum Bid Range</label></div> 
+								
 							</div>
-							<div class="category-fields">
-								<input type="checkbox" name="smartphone" value="true" id="smartphone"> <label for="smartphone">Smartphone</label>
-							</div>
-						</div>
-						
-					</div>
-					<div class="row filter-sub-section">
-						<div class="row">
-							<div class="col span-3-of-3 clearfix"><label>Maximum Bid Range</label></div> 
-							
-						</div>
-						<div class="row item-filter-range">
-							<%// TODO: Set the data max to the maxnimum price item %>
-							<div class="row nstSlider rangeSlider" id="maxBidRangePicker" data-range_min="10" data-range_max="5000" 
-                       			 data-cur_min="300"    data-cur_max="4000" >
-
-    							<div class="bar"></div>
-    							<div class="leftGrip"><div class="leftLabel" ></div></div>
-   								<div class="rightGrip"><div class="rightLabel" ></div></div>
+							<div class="row item-filter-range">
+								<div class="row nstSlider rangeSlider" id="maxBidRangePicker" data-range_min="10" data-range_max="5000" 
+	                       			 data-cur_min="300"    data-cur_max="4000" >
+	
+	    							<div class="bar"></div>
+	    							<div class="leftGrip"><div class="leftLabel" ></div></div>
+	   								<div class="rightGrip"><div class="rightLabel" ></div></div>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="row filter-sub-section">
-						<div class="row">
-							<div class="col span-2-of-3 clearfix"><label>Minimum Increment</label></div> 
-							<div class="col span-1-of-3 " ><span>&nbsp;</span></div>
+						<div class="row filter-sub-section">
+							<div class="row">
+								<div class="col span-2-of-3 clearfix"><label>Minimum Increment</label></div> 
+								<div class="col span-1-of-3 " ><span>&nbsp;</span></div>
+							</div>
+							<div class="nstSlider singleSlider" data-range_min="0" data-range_max="1000"
+	                       				data-cur_min="0" data-cur_max="0" id="minIncPicker" >
+	    						<div class="bar"></div>
+	    						<div class="leftGrip"></div>
+							</div>
+							<div class="leftLabel" ></div>
 						</div>
-						<div class="nstSlider singleSlider" data-range_min="0" data-range_max="1000"
-                       				data-cur_min="0" data-cur_max="0" id="minIncPicker" >
-    						<div class="bar"></div>
-    						<div class="leftGrip"></div>
-						</div>
-						<div class="leftLabel" ></div>
-					</div>
-					<div class="row filter-sub-section">
-						<div class="col span-1-of-3"><label for="conditionPicker">Condition</label></div>
-						<div class="col span-2-of-3  item-filter-input">
-							<div>
-								<input type="checkbox" name="condNew" value="true" id="condNew" > <label for="condNew">New</label>
-							</div>
-							<div>
-								<input type="checkbox" name="condNewOther" value="true" id="condNewOther" > <label for="condNewOther">New Other</label>
-							</div>
-							<div>
-								<input type="checkbox" name="condManuRefur" value="true" id="condManuRefur" > <label for="condManuRefur">Manufacturer Refurbished</label>
-							</div>
-							<div>
-								<input type="checkbox" name="condSellRefur" value="true" id="condSellRefur" > <label for="condSellRefur">Sell Refurbished</label>
-							</div>
-							<div>
-								<input type="checkbox" name="condUsed" value="true" id="condUsed" > <label for="condUsed">Used</label>
-							</div>
-						</div>
-					</div>
-					<div class="row filter-sub-section">
-						<div class="col span-1-of-3"><label for="datepicker">Opened Date</label></div> 
-						<div class="col span-2-of-3 item-filter-input">
-							<input type="text" name="opened-date" id="opened-date-picker">
-						</div>
-					</div>
-					<div class="row filter-sub-section">
-						<div class="col span-1-of-3"><label for="datepicker">Closed Date</label></div> 
-						<div class="col span-2-of-3 item-filter-input">
-							<input type="text" name="closed-date" id="closed-date-picker">
-						</div>
-					</div>
-					<div class="row filter-sub-section">
-						<div class="col span-1-of-3"><label for="brandPicker">Brand</label></div>
-						<div class="col span-1-of-3  item-filter-input">
-							<div>
-								<input type="checkbox" name="brandApple" value="true" id="brandApple" > <label for="brandApple">Apple</label>
-							</div>
-							<div>
-								<input type="checkbox" name="brandSony" value="true" id="brandSony" > <label for="brandSony">Sony</label>
-							</div>
-							<div>
-								<input type="checkbox" name="brandHP" value="true" id="brandHP" > <label for="brandHP">HP</label>
-							</div>
-							<div>
-								<input type="checkbox" name="brandDell" value="true" id="brandDell" > <label for="brandDell">Dell</label>
+						<div class="row filter-sub-section">
+							<div class="col span-1-of-3"><label for="conditionPicker">Condition</label></div>
+							<div class="col span-2-of-3  item-filter-input">
+								<div>
+									<input type="checkbox" name="condNew" value="true" id="condNew" > <label for="condNew">New</label>
+								</div>
+								<div>
+									<input type="checkbox" name="condNewOther" value="true" id="condNewOther" > <label for="condNewOther">New Other</label>
+								</div>
+								<div>
+									<input type="checkbox" name="condManuRefur" value="true" id="condManuRefur" > <label for="condManuRefur">Manufacturer Refurbished</label>
+								</div>
+								<div>
+									<input type="checkbox" name="condSellRefur" value="true" id="condSellRefur" > <label for="condSellRefur">Sell Refurbished</label>
+								</div>
+								<div>
+									<input type="checkbox" name="condUsed" value="true" id="condUsed" > <label for="condUsed">Used</label>
+								</div>
 							</div>
 						</div>
-						<div class="col span-1-of-3  item-filter-input">
-							<div>
-								<input type="checkbox" name="brandSamsung" value="true" id="brandSamsung" > <label for="brandSamsung">Samsung</label>
-							</div>
-							<div>
-								<input type="checkbox" name="brandAsus" value="true" id="brandAsus" > <label for="brandAsus">Asus</label>
-							</div>
-							<div>
-								<input type="checkbox" name="brandIBM" value="true" id="brandIBM" > <label for="brandIBM">IBM</label>
-							</div>
-							<div>
-								<input type="checkbox" name="brandLenovo" value="true" id="brandLenovo" > <label for="brandLenovo">Lenovo</label>
+						<div class="row filter-sub-section">
+							<div class="col span-1-of-3"><label for="datepicker">Opened Date</label></div> 
+							<div class="col span-2-of-3 item-filter-input">
+								<input type="text" name="opened-date" id="opened-date-picker">
 							</div>
 						</div>
-					</div>
-					<div class="row filter-sub-section">
+						<div class="row filter-sub-section">
+							<div class="col span-1-of-3"><label for="datepicker">Closed Date</label></div> 
+							<div class="col span-2-of-3 item-filter-input">
+								<input type="text" name="closed-date" id="closed-date-picker">
+							</div>
+						</div>
+						<div class="row filter-sub-section">
+							<div class="col span-1-of-3"><label for="brandPicker">Brand</label></div>
+							<div class="col span-1-of-3  item-filter-input">
+								<div>
+									<input type="checkbox" name="brandApple" value="true" id="brandApple" > <label for="brandApple">Apple</label>
+								</div>
+								<div>
+									<input type="checkbox" name="brandSony" value="true" id="brandSony" > <label for="brandSony">Sony</label>
+								</div>
+								<div>
+									<input type="checkbox" name="brandHP" value="true" id="brandHP" > <label for="brandHP">HP</label>
+								</div>
+								<div>
+									<input type="checkbox" name="brandDell" value="true" id="brandDell" > <label for="brandDell">Dell</label>
+								</div>
+							</div>
+							<div class="col span-1-of-3  item-filter-input">
+								<div>
+									<input type="checkbox" name="brandSamsung" value="true" id="brandSamsung" > <label for="brandSamsung">Samsung</label>
+								</div>
+								<div>
+									<input type="checkbox" name="brandAsus" value="true" id="brandAsus" > <label for="brandAsus">Asus</label>
+								</div>
+								<div>
+									<input type="checkbox" name="brandIBM" value="true" id="brandIBM" > <label for="brandIBM">IBM</label>
+								</div>
+								<div>
+									<input type="checkbox" name="brandLenovo" value="true" id="brandLenovo" > <label for="brandLenovo">Lenovo</label>
+								</div>
+							</div>
+						</div>
+						<div class="row filter-sub-section">
 						<div class="row">
 							<div class="col span-1-of-3 clearfix"><label>Minimum RAM</label></div> 
 							<div class="col span-2-of-3 " ><span>&nbsp;</span></div>
 						</div>
 						<div class="nstSlider singleSlider" data-range_min="0" data-range_max="64"
-                       				data-cur_min="8" data-cur_max="0" id="ramPicker">
+                       				data-cur_min="0" data-cur_max="0" id="ramPicker">
     						<div class="bar"></div>
     						<div class="leftGrip"></div>
 						</div>
 						<div class="leftLabel" ></div>
 					</div>
-					
-					
+					</div>
 					<div class="row">
 						<a href="#section-result"><input type="submit" class="btn" value="Search" id="item-filter-submit"></a>
 					</div>
@@ -204,7 +222,7 @@
 			</div>
 		</section>
 		<section class="section-result" id="section-result">
-			<div class="container clearfix">
+			<div class="container clearfix" id="results">
 				<!-- Repetitive ( 3 times ) -->
 				<div class="row">
 					<div class="col">

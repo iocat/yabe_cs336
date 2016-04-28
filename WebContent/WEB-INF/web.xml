@@ -28,12 +28,21 @@
   
   
   <servlet>
-    <servlet-name>Item</servlet-name>
-    <jsp-file>/item.jsp</jsp-file>
+    <servlet-name>AuctionPage</servlet-name>
+    <jsp-file>/auction.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Item</servlet-name>
-    <url-pattern>/item.jsp</url-pattern>
+    <servlet-name>AuctionPage</servlet-name>
+    <url-pattern>/auction.jsp</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>CreateAuctionPage</servlet-name>
+    <jsp-file>/create-auction.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateAuctionPage</servlet-name>
+    <url-pattern>/create-auction.jsp</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>

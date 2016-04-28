@@ -1,11 +1,16 @@
 input,
 label,
-a,
+a:link,
+a:active,
 span,
 .leftLabel,
 .rightLabel,
 select{
-	font-size: 70%!important;
+	font-size: 70%;
+}
+
+body{
+	overflow:hidden;
 }
 
 a{
@@ -27,9 +32,30 @@ label:hover{
 	text-decoration: none;
 }
 
+/* -----------------------------*/
+/*           HEADER SECTION     */
+/* -----------------------------*/
+
 header{
 	background-color: #fff;
 	box-shadow: 0 2px 2px rgba(0,0,0,0.3);
+}
+
+.main-nav{
+	position: absolute;
+	left:0;
+	top: 0;
+	height: 48px;
+	width: 100%;
+	color: #000;
+	padding-top: 11px;
+	padding-right: 13px;
+	text-align: right;
+}
+.user-name a{
+	font-size: 120%;
+	text-decoration: none;
+	color: #369660;
 }
 
 /* -----------------------------*/
@@ -47,7 +73,6 @@ header{
 
 .section-filter>div:nth-child(2){
 	margin-top: 20px;
-	min-height: 70vh;
 }
 
 .section-filter>.container-with-tabs>div{
@@ -59,7 +84,17 @@ header{
 	font-weight: 400;
 }
 
+.item-filter{
+	max-height: 50vh;
+	overflow-y: scroll;
+	margin: 10px 0;
+	border-radius: 3px;
+	padding: 0 10px;
+}
 
+.item-filter:hover{
+	box-shadow: 0 0 3px rgba(0,0,0,0.2);
+}
 .filter-sub-section{
 	margin: 15px 0;
 }
@@ -77,6 +112,10 @@ header{
 	overflow: hidden;
 }
 
+.section-result .container{
+	min-height: 70vh;
+}
+
 .section-result:before{
 	content: "Search Results";
 	padding-bottom: 10px;
@@ -86,14 +125,56 @@ header{
 footer{
 	position: relative;
 }
-/* -----------------------------*/
-/*     ITEM  RESULT SECTION     */
-/* -----------------------------*/
 
-.res-item{
+/*     ITEM  RESULT SECTION     */
+
+
+.res-item,
+.res-user{
 	text-align:center;
+	padding: 10px 10px;
+	transition: border 0.6s;
+	border: 1px solid transparent;
 }
-.res-item .item-name{
+
+.res-item:hover,
+.res-user:hover{
+	border: 1px solid rgba(0,0,0,0.09);
+	border: 2%;
+	
+}
+.res-item .item-name,
+.res-user .res-user-name{
 	color: #369660;
 	font-size: 130%;
 }
+.res-item .item-img,
+.res-user .res-user-img{
+	width: 100%;
+	text-align:center;
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+
+.res-item .item-img{
+	padding: 0 20px;
+	height: 150px;
+}
+
+.item-img img,
+.res-user-img img{
+	width: 100%;
+	height: auto;
+}
+
+.res-user-img img{
+	display: block;
+	margin: auto auto;
+}
+
+.res-user .res-user-img{
+	border-radius: 50%;
+	
+}
+
+

@@ -13,7 +13,7 @@ import com.yabe.util.sql.SQLUtils;
 
 public class Item implements Retrievable {
 
-	private String ITEM_PAGE_URL = "item.jsp";
+	private static final String ITEM_PICTURE_LOCATION = "resources/img/item/";
 	private String itemId;
 	private String name;
 	private String manufacturer;
@@ -75,14 +75,14 @@ public class Item implements Retrievable {
 	}
 	public JSONObject getJSONObject() throws JSONException{
 		JSONObject json = new JSONObject();
-		json.put("pictureURL", this.getPictureURL());
+		json.put("pictureURL", ITEM_PICTURE_LOCATION+this.pictureURL+".jpg");
 		json.put("name", name);
 		json.put("description", this.description);
-		json.put("url", ITEM_PAGE_URL+"?id="+itemId);
+		
 		return json;
 	}
 
-	public void retrieveData() {
+	public void retrieve() {
 		final String ITEM_SQL = "SELECT name, manufacturer, cond, description, picture "
 				+ "FROM item " + "WHERE itemId = ? ";
 		Connection conn = null;
