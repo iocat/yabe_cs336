@@ -26,6 +26,10 @@ public class Item implements Retrievable {
 	private String description;
 	private String pictureURL;
 
+	public Item(String itemId) {
+		this.itemId = itemId;
+	}
+
 	public String getItemId() {
 		return itemId;
 	}
@@ -82,9 +86,10 @@ public class Item implements Retrievable {
 		return json;
 	}
 
-	public void retrieve() {
+	public boolean retrieve() {
 		final String ITEM_SQL = "SELECT name, manufacturer, cond, description, picture "
 				+ "FROM item " + "WHERE itemId = ? ";
+		boolean found = false;
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -94,6 +99,7 @@ public class Item implements Retrievable {
 			stmt.setString(1, this.itemId);
 			rs = stmt.executeQuery();
 			if (rs.next()) {
+				found = true;
 				this.name = rs.getString(1);
 				this.manufacturer = rs.getString(2);
 				switch (rs.getString(3)) {
@@ -130,6 +136,6 @@ public class Item implements Retrievable {
 			SQLUtils.closeQuitely(rs);
 
 		}
-
+		return found;
 	}
 }

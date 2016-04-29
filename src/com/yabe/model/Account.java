@@ -153,18 +153,20 @@ public class Account implements Retrievable {
 		}
 	}
 
-	public void retrieve() {
+	public boolean retrieve() {
 		final String SQL_RETRIEVE_ACCOUNT = "SELECT username, password, sessionId "
 				+ " FROM account " + " WHERE username = ?";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		boolean found = false;
 		try {
 			conn = DBConnector.getConnectionPool().getConnection();
 			stmt = conn.prepareStatement(SQL_RETRIEVE_ACCOUNT);
 			stmt.setString(1, this.getUsername());
 			rs = stmt.executeQuery();
 			if (rs.next()) {
+				found = true;
 				this.username = rs.getString(1);
 				this.password = rs.getString(2);
 				this.sessionId = rs.getString(3);
@@ -176,6 +178,7 @@ public class Account implements Retrievable {
 			SQLUtils.closeQuitely(stmt);
 			SQLUtils.closeQuitely(rs);
 		}
+		return found;
 	}
 
 	public String getSessionId() {

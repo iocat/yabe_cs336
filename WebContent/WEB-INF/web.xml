@@ -40,6 +40,16 @@
     <servlet-name>CreateAuctionPage</servlet-name>
     <url-pattern>/create-auction.jsp</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>PageNotFound</servlet-name>
+  	<jsp-file>/404.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PageNotFound</servlet-name>
+    <url-pattern>/404.jsp</url-pattern>
+  </servlet-mapping>
+  
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>/resources/*</url-pattern>

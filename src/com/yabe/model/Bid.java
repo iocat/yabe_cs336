@@ -45,10 +45,11 @@ public class Bid implements Retrievable, Updatable {
 	private float amount;
 	private static final String SQL_RETRIEVE_DATA = "SELECT amount FROM bidsOn WHERE itemId = ? AND bidder = ? AND time = ?";
 	@Override
-	public void retrieve() {
+	public boolean retrieve() {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		boolean found = false;
 		try{
 			conn = DBConnector.getConnectionPool().getConnection();
 			stmt = conn.prepareStatement(SQL_RETRIEVE_DATA);
@@ -57,7 +58,7 @@ public class Bid implements Retrievable, Updatable {
 			stmt.setDate(3, this.time);
 			rs = stmt.executeQuery();
 			if(rs.next()){
-				
+				found = true;
 				this.amount = rs.getFloat(1);
 			}
 		}catch (SQLException e){
@@ -68,6 +69,7 @@ public class Bid implements Retrievable, Updatable {
 			SQLUtils.closeQuitely(rs);
 			SQLUtils.closeQuitely(stmt);
 		}
+		return found;
 	}
 	
 	private static final String SQL_GET_BIDS = "SELECT bidder, time, amount FROM bidsOn WHERE itemId = ?";

@@ -61,7 +61,7 @@
 					<li class="nav-elem sign-out"> <a href="sign-out">Sign out</a></li>
 					<li class="nav-elem user-name"> <a href="#">Hi, <%=user.getName() %>!</a></li>
 				<%}else if(type == Account.AccountType.NON_USER){%>
-					<li class="nav-elem sign-in"><a href="login.jsp">Log In</a>
+					<li class="nav-elem sign-in"><a href="login.jsp">Sign In</a>
 				<%}%>
 			</ul>
 		</nav>

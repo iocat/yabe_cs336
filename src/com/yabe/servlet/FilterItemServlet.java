@@ -188,8 +188,7 @@ public class FilterItemServlet extends HttpServlet {
 			SQLUtils.constructPreparedStatement(stmt, params);
 			rs = stmt.executeQuery();
 			while(rs.next()){
-				Auction item = new Auction();
-				item.setItemId(rs.getString("itemId"));
+				Auction item = new Auction(rs.getString("itemId"));
 				item.setName(rs.getString("name"));
 				item.setDescription(rs.getString("description"));
 				item.setPictureURL(rs.getString("picture"));

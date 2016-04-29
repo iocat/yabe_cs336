@@ -34,20 +34,21 @@ public class Representative extends Account implements Retrievable {
 		super(username);
 	}
 
-	public void retrieve() {
+	public boolean retrieve() {
 		final String SQL_RETRIEVE_REP = "SELECT password, email "
 				+ "FROM account NATURAL JOIN representative "
 				+ "WHERE username = ?";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-
+		boolean found = false;
 		try {
 			conn = DBConnector.getConnectionPool().getConnection();
 			stmt = conn.prepareStatement(SQL_RETRIEVE_REP);
 			stmt.setString(1, this.getUsername());
 			rs = stmt.executeQuery();
 			if (rs.next()) {
+				found = true;
 				this.email = rs.getString(1);
 				this.setPassword(rs.getString(2));
 			}
@@ -58,6 +59,7 @@ public class Representative extends Account implements Retrievable {
 			SQLUtils.closeQuitely(stmt);
 			SQLUtils.closeQuitely(rs);
 		}
+		return found;
 	}
 
 }

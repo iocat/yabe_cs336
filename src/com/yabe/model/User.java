@@ -85,8 +85,9 @@ public class User extends Account implements Retrievable {
 		return rows == 1;
 	}
 
-	public void retrieve() {
+	public boolean retrieve() {
 		super.retrieve();
+		boolean found = false;
 		final String SQL_RETRIEVE_USER = "SELECT name, email, address, profilePicture "
 				+ "FROM user " + "WHERE username = ?";
 		Connection conn = null;
@@ -98,6 +99,7 @@ public class User extends Account implements Retrievable {
 			stmt.setString(1, this.getUsername());
 			rs = stmt.executeQuery();
 			if (rs.next()) {
+				found = true;
 				this.name = rs.getString(1);
 				this.email = rs.getString(2);
 				this.address = rs.getString(3);
@@ -110,6 +112,7 @@ public class User extends Account implements Retrievable {
 			SQLUtils.closeQuitely(stmt);
 			SQLUtils.closeQuitely(rs);
 		}
+		return found;
 	}
 	
 	public JSONObject getJSONObject(){

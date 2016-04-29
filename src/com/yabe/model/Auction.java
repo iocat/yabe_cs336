@@ -25,7 +25,9 @@ public class Auction extends Item implements Retrievable {
 	private float minimumIncrement;
 	private ArrayList<Bid> bids;
 
-	
+	public Auction(String itemId){
+		super(itemId);
+	}
 	public float getSoldPrice() {
 		return soldPrice;
 	}
@@ -103,7 +105,8 @@ public class Auction extends Item implements Retrievable {
 	 * Retrieve data from the database with one item Id
 	 */
 	@Override
-	public void retrieve() {
+	public boolean retrieve() {
+		boolean found = false;
 		super.retrieve();
 		bids = Bid.getBids(this.getItemId());
 		Connection conn = null;
@@ -115,6 +118,7 @@ public class Auction extends Item implements Retrievable {
 			stmt.setString(1, this.getItemId());
 			rs = stmt.executeQuery();
 			if (rs.next()){
+				found = true;
 				this.seller = new User(rs.getString(1));
 				this.seller.retrieve();
 				String purchaserId ;
@@ -136,6 +140,7 @@ public class Auction extends Item implements Retrievable {
 			SQLUtils.closeQuitely(stmt);
 			SQLUtils.closeQuitely(rs);
 		}
+		return found;
 	}
 
 }
