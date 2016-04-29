@@ -311,7 +311,8 @@ FOR EACH ROW BEGIN
         WHERE item.itemId = NEW.itemId ) = 1 THEN
         SIGNAL SQLSTATE '10001' SET MESSAGE_TEXT = 'one item can only have at most one auction associated with it';
     END IF;
-    /*IF NOT EXISTS ( SELECT *
+    /*-------------------------------------------------------------- IGNORE THIS FOR NOW
+    IF NOT EXISTS ( SELECT *
                 FROM auction AS A, item AS I, computer AS C 
                 WHERE  A.itemId = I.itemId AND
                        A.itemId = C.itemId AND
@@ -334,7 +335,8 @@ FOR EACH ROW BEGIN
                        C.color IS NOT NULL AND
                        C.batteryCapacity IS NOT NULL ) THEN
        SIGNAL SQLSTATE '10002' SET MESSAGE_TEXT = 'The item needs enough information to be on sale';
-    END IF;*/
+    END IF;
+    ---------------------------------------------------------------*/
     
 END$$
 DELIMITER ;
