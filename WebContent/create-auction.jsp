@@ -41,8 +41,8 @@
 		<div class="row">
 			<h1>Create New Auction</h1>
 		</div>
+		<div class="row">
 		<div class="create-auction-box container">
-			<div class="row">
 				<div class="row create-auc-field">
 					<div class="col span-1-of-3">
 						<label for="name">Item Name</label>
@@ -64,13 +64,15 @@
 				<div class="row create-auc-field">
 					<div class="col span-1-of-3"><label for="datepicker">Open Date</label></div> 
 					<div class="col span-2-of-3 item-filter-input">
-						<input type="text" name="openDate" id="opened-date-picker">
+						<input type="text" name="openDate" id="opened-date-picker"
+						placeholder="Pick Date" required>
 					</div>
 				</div>
 				<div class="row create-auc-field">
 					<div class="col span-1-of-3"><label for="datepicker">Close Date</label></div> 
 					<div class="col span-2-of-3 item-filter-input">
-						<input type="text" name="closeDate" id="closed-date-picker">
+						<input type="text" name="closeDate" id="closed-date-picker"
+						placeholder="Pick Date" required>
 					</div>
 				</div>
 				<div class="row create-auc-field">
@@ -82,6 +84,203 @@
 						placeholder="" required>
 					</div>
 				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="Condition">Condition</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="cond" id="cond"
+						placeholder="e.g. New, Used..." required>
+					</div>
+				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="manufacturer ">Manufacturer </label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="manufacturer " id="manufacturer"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="ram">RAM</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="ram" id="ram"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="brandName">Brand Name</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="brandName" id="brandName"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="weight">Weight</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="weight" id="weight"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="operatingSystem">Operating System</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="operatingSystem" id="operatingSystem"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="screenType">Screen Type</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="screenType" id="screenType"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="screenWidth">Screen Width</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="screenWidth" id="screenWidth"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="screenResolutionX">Screen Resolution X</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="screenResolutionX" id="screenResolutionX"
+						placeholder="X-Axis" required>
+					</div>
+				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="screenResolutionY">Screen Resolution Y</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="screenResolutionY" id="screenResolutionY"
+						placeholder="Y-Axis" required>
+					</div>
+				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="sizeWidth">Size Width</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="sizeWidth" id="sizeWidth"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="sizeHeight">Size Height</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="sizeHeight" id="sizeHeight"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="sizeDepth">Size Depth</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="sizeDepth" id="sizeDepth"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="color">Color</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="color" id="color"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="batteryCapacity">Battery Capacity</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="batteryCapacity" id="batteryCapacity"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="batteryCapacity">Battery Capacity</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="batteryCapacity" id="batteryCapacity"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row handheld-field">
+					<div class="col span-1-of-3">
+						<label for="externalMemoryMaxSize ">Maximum Memory Size</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="externalMemoryMaxSize" id="externalMemoryMaxSize"
+						placeholder="" required>
+					</div>
+				</div>	
+				<div class="row handheld-field">
+					<div class="col span-1-of-3">
+						<label for="isTablet">Tablet?</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="checkbox" name="isTablet" id="isTablet" required>
+					</div>
+				</div>
+				<div class="row handheld-field">
+					<div class="col span-1-of-3">
+						<label for="externalMemoryType ">External Memory Type</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="externalMemoryType" id="externalMemoryType"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row handheld-field">
+					<div class="col span-1-of-3">
+						<label for="externalMemoryMaxSize ">Maximum Memory Size</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="externalMemoryMaxSize" id="externalMemoryMaxSize"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row handheld-field">
+					<div class="col span-1-of-3">
+						<label for="networkProvider">Network Provider</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="networkProvider" id="networkProvider"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row handheld-field">
+					<div class="col span-1-of-3">
+						<label for="simType">Sim Card Type</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="simType" id="simType"
+						placeholder="STANDARD,MICRO,NANO" required>
+					</div>
+				</div>					
 				<div class="row">
 					<input type="submit" value="Create" class="btn btn-important">
 				</div>
