@@ -42,11 +42,11 @@
 		<div class="logo">
 			<img src="<%=pagePath%>/resources/img/yabe-logo.png">
 		</div>
-		<% 	
+		<% 	//TODO: Let the filter get the type
 			user = (User) request.getAttribute("user");
 			if (user == null){
 				rep = (Representative) request.getAttribute("rep");
-				if(rep == null){
+				if(rep != null){
 					type = Account.AccountType.REPRESENTATIVE;
 				}else{
 					type = Account.AccountType.NON_USER;
@@ -58,7 +58,10 @@
 		<nav class="row main-nav">
 			<ul>
 				<%if(type == Account.AccountType.USER){%>
-					<li class="user-name"> Hi,&nbsp;<a href="#"><%=user.getName() %></a>!</li>
+					<li class="nav-elem sign-out"> <a href="sign-out">Sign out</a></li>
+					<li class="nav-elem user-name"> <a href="#">Hi, <%=user.getName() %>!</a></li>
+				<%}else if(type == Account.AccountType.NON_USER){%>
+					<li class="nav-elem sign-in"><a href="login.jsp">Log In</a>
 				<%}%>
 			</ul>
 		</nav>
@@ -66,10 +69,15 @@
 	
 	<div class="clearfix">
 		<section class = "section-filter ">
-			<div class="create-auction">
+			<% if(type == Account.AccountType.USER){ %>
+			<div class="section-filter-elem create-auction">
 				<a class="btn-important" href="<%=pagePath%>/create-auction.jsp">Create New Auction</a>
 			</div>
-			<div class="container-with-tabs">
+			<div class="section-filter-elem create-alert">
+				<a class="btn-important" href="<%=pagePath%>/create-alert.jsp">Create Alert</a>
+			</div>
+			<%} %>
+			<div class="section-filter-elem container-with-tabs">
 				<ul>
 					<li class="active" data-show="item-filter" id="item-filter-tab">Item </li>
 					<li data-show="user-filter"  id="user-filter-tab">User</li>

@@ -57,7 +57,7 @@ public class CreateAccountServlet extends HttpServlet {
 		try {
 			if (user.insertIntoDB() == true) {
 				// Sucessfully register + redirect to the main page
-				Cookie cookie = new Cookie("account", username);
+				Cookie cookie = new Cookie(Account.COOKIE_NAME, username);
 				response.addCookie(cookie);
 				new Account(username)
 						.storeSession(request.getSession().getId());

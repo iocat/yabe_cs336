@@ -19,14 +19,13 @@ $(document).ready(function(){
 	
 	CTW.find('ul:first-child>li').click(
 			function(){
-				var $data = $(this).data('show')
-				$(this).siblings().removeClass('active')
-				$(this).addClass('active')
-				$(this).parent().siblings().addClass("hidden")
-				$(this).parent().siblings('#'+$data).removeClass("hidden")
+				var $data = $(this).data('show');
+				$(this).siblings().removeClass('active');
+				$(this).addClass('active');
+				$(this).parent().siblings().addClass("hidden");
+				$(this).parent().siblings('#'+$data).removeClass("hidden");
 			}
 	);
-	
 
 });
 

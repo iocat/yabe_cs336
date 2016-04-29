@@ -9,6 +9,7 @@ import com.yabe.util.DBConnector;
 import com.yabe.util.sql.SQLUtils;
 
 public class Account implements Retrievable {
+	public final static String COOKIE_NAME = "account";
 	private String username;
 	private String password;
 	private String sessionId;

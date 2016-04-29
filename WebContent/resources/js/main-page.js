@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-	var $maxBidRangePicker = $('#maxBidRangePicker')
+	var $maxBidRangePicker = $('#maxBidRangePicker');
 	$maxBidRangePicker.nstSlider({
 	    "rounding": {
 	        "100": "1000",
@@ -16,7 +16,7 @@ $(document).ready(function(){
 	    }
 	});
 	
-	var $ramPicker = $('#ramPicker')
+	var $ramPicker = $('#ramPicker');
 	$ramPicker.nstSlider({
 		"rounding":{
 			"2":"4",
@@ -51,12 +51,11 @@ $(document).ready(function(){
 	};
 	$minIncPicker.nstSlider(minBidPickParameter);
 	
-	var picker = new Pikaday({ field: $('#opened-date-picker')[0] });
-	var picker2 = new Pikaday({ field: $('#closed-date-picker')[0] });
+	new Pikaday({ field: $('#opened-date-picker')[0] });
+	new Pikaday({ field: $('#closed-date-picker')[0] });
 	
-	// Get the ajax Request object for item filter
+	// FILTER ITEM AJAX REQUEST
 	var filterItemAjaxRequest = getAjax();
-	//Configure the ajax Request 
 	filterItemAjaxRequest.onreadystatechange = function(){
 		// Receive the data from server
 		if (filterItemAjaxRequest.readyState === 4){
@@ -64,7 +63,7 @@ $(document).ready(function(){
 			$('#results').html("");
 			var items = JSON.parse(filterItemAjaxRequest.responseText)["items"];
 			if(items.length===0){
-				$('#results').html("<div class=\"row\" style=\"margin-top: 100px;\">There is no items.</div>")
+				$('#results').html("<div class=\"row\" style=\"margin-top: 100px;\">There is no items.</div>");
 				return;
 			}
 			for( var i = 0; i < items.length ; i++){
@@ -124,6 +123,8 @@ $(document).ready(function(){
 		filterItemAjaxRequest.send(encodeURI(query));
 		
 	});
+	
+	// FILTER USER AJAX REQUEST
 	var filterUserAjaxRequest = getAjax();
 	filterUserAjaxRequest = getAjax();
 	filterUserAjaxRequest.onreadystatechange = function(){
@@ -131,7 +132,7 @@ $(document).ready(function(){
 			$('.section-result>.container').html("");
 			var users = JSON.parse(filterUserAjaxRequest.responseText)["users"];
 			if(users.length==0){
-				$('#results').html("<div class=\"row\" style=\"margin-top: 100px;\">There is no users.</div>")
+				$('#results').html("<div class=\"row\" style=\"margin-top: 100px;\">There is no users.</div>");
 				return;
 			}
 			for( var i = 0 ; i < users.length; i++){
@@ -146,7 +147,7 @@ $(document).ready(function(){
 							"</p>"+
 						"</a>"+
 					"</div>"	
-				)
+				);
 			}
 		}
 	};
@@ -158,14 +159,15 @@ $(document).ready(function(){
 		filterUserAjaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
 		filterUserAjaxRequest.send();
 	});
+	
 	// Initiate the page
 	$('#item-filter-submit').trigger("click");
 	
 	$('#item-filter-tab').click(function(){
 		$('#item-filter-submit').trigger("click");
-	})
+	});
 	
 	$('#user-filter-tab').click(function(){
 		$('#user-filter-submit').trigger("click");
-	})
+	});
 });

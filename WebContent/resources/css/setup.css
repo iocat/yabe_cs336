@@ -84,6 +84,44 @@ header {
 	z-index: 9999;
 }
 
+.main-nav{
+	position: absolute;
+	left:0;
+	top: 0;
+	height: 50px;
+	width: 100%;
+	color: #000;
+	padding-right: 13px;
+	text-align: right;
+}
+
+.nav-elem{
+	height: 50px;
+	padding-left: 10px;
+	padding-right: 10px;
+	display: inline-block;
+	margin:0 10px 0 10px;
+	color: #000;
+	text-decoration: none;
+}
+
+.main-nav ul{
+	height: 100%;
+}
+
+.nav-elem:hover{
+	background-color: rgba(54,150,96,0.05);
+}
+
+.nav-elem a:link,
+.nav-elem a:visited{
+	color: #369660;
+	font-size: 120%;
+	display: block;
+	height: 100%;
+	padding-top: 10px;
+}
+
 footer p {
 	text-align: center;
 }

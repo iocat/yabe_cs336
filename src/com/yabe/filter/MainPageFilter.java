@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yabe.model.Account;
 import com.yabe.model.User;
+import com.yabe.util.ServletUtils;
 import com.yabe.util.Utils;
 
 @WebFilter("/main-page.jsp")
@@ -42,7 +43,7 @@ public class MainPageFilter implements Filter {
 					if (Utils.isEmpty(acc.getSessionId())
 							|| !acc.getSessionId().equals(
 									req.getSession().getId())) {
-						res.sendRedirect("login.jsp");
+						res.sendRedirect("sign-out");
 					}else{
 						User user = new User(acc.getUsername());
 						user.retrieve();
@@ -52,6 +53,7 @@ public class MainPageFilter implements Filter {
 				}
 			}
 		}
+		ServletUtils.noCache(res);
 		chain.doFilter(request, response);
 	}
 

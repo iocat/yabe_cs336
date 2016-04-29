@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
 				break;
 			case REPRESENTATIVE:
 			case USER:
-				Cookie cookie = new Cookie("account", usernameParam);
+				Cookie cookie = new Cookie(Account.COOKIE_NAME, usernameParam);
 				new Account(usernameParam).storeSession(request.getSession()
 						.getId());
 				response.addCookie(cookie);
