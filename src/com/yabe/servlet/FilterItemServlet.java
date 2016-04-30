@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -82,7 +81,7 @@ public class FilterItemServlet extends HttpServlet {
 				+ " FROM item I, computer C, auction A"
 				+ " WHERE I.itemId = C.itemId AND"
 				+ 		" I.itemId = A.itemId AND"
-				+		" A.minimumIncrement > ? AND"
+				+		" A.minimumIncrement < ? AND"
 				+ 		" C.ram IS NOT NULL AND C.ram >= ? AND"
 				
 				+ 		" ( (NOT EXISTS(  SELECT *"

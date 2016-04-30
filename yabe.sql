@@ -110,10 +110,10 @@ CREATE TABLE auction (
 CREATE TABLE bidsOn (
     itemId INT,
     bidder CHAR(30),
-    time DATETIME,
-
     amount FLOAT,
-    PRIMARY KEY (itemId, bidder, time ),
+    
+    time DATETIME,
+    PRIMARY KEY (itemId, bidder, amount),
     FOREIGN KEY (itemId) REFERENCES auction(itemId) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (bidder) REFERENCES user(username) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -366,7 +366,7 @@ VALUES
 ( 2, 'Macbook Air', 'Apple', 'USED', 'Old but functional', '2'),
 ( 3, 'The Macbook', 'Apple', 'MANU_REFUR', 'The brand new version (Late 2016 - not a scam )', '3'),
 ( 4, 'Vivobook E403', 'Asus', 'USED', 'Brand new on the market, BUY NOW!!', '4'),
-( 5, 'Acer Chromebook 15 - NJ Only', 'Acer', 'NEW', 'Hot!','5');
+(5, 'Acer Chromebook 15 - NJ Only', 'Acer', 'NEW', 'Hot!','5');
 	
 INSERT INTO computer(itemId,ram,brandName, operatingSystem) VALUES
     (1, 32, 'Apple', 'Mac OS'),
@@ -377,10 +377,10 @@ INSERT INTO computer(itemId,ram,brandName, operatingSystem) VALUES
 
 INSERT INTO auction(itemId, seller, openDate, closeDate, minimumPrice, minimumIncrement) VALUES
     ( 1, 'tcn33', '2016-4-20 00:00:00', '2016-4-27 00:00:00', 300, 20.12 ),
-    ( 2, 'tcn33', '2016-4-21 00:00:00', '2016-4-29 00:00:00',200, 100 ),
-    ( 3, 'tcn33', '2016-4-6 00:00:00', '2016-4-8 00:00:00', 400, 102.23),
-    ( 4, 'tcn33', '2016-4-1 00:00:00', '2016-4-2 00:00:00', 20, 10),
-    ( 5, 'tcn33', '2016-3-1 00:00:00', '2016-3-2 00:00:00', 10, 20.23);
+    ( 2, 'mc', '2016-4-21 00:00:00', '2016-4-29 00:00:00',200, 100 ),
+    ( 3, 'jst', '2016-4-6 00:00:00', '2016-4-8 00:00:00', 400, 102.23),
+    ( 4, 'mc', '2016-4-1 00:00:00', '2016-4-2 00:00:00', 20, 10),
+    ( 5, 'jst', '2016-3-1 00:00:00', '2016-3-2 00:00:00', 10, 20.23);
 
 
 INSERT INTO laptop VALUES (3);
@@ -389,4 +389,10 @@ INSERT INTO desktop VALUES
     (2),
     (4),
     (5);
+
+INSERT INTO bidsOn
+VALUES 
+(1, 'mc',100,'2016-4-27 00:00:00'),
+(1, 'jst',120,'2016-4-27 00:00:00'),
+(1, 'mc',150, '2016-4-30 12:43:00');
 

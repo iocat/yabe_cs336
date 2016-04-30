@@ -122,11 +122,11 @@
 						</div>
 						<div class="row filter-sub-section">
 							<div class="row">
-								<div class="col span-2-of-3 clearfix"><label>Minimum Increment</label></div> 
+								<div class="col span-2-of-3 clearfix"><label>Minimum Increment<br>less than</label></div> 
 								<div class="col span-1-of-3 " ><span>&nbsp;</span></div>
 							</div>
 							<div class="nstSlider singleSlider" data-range_min="0" data-range_max="1000"
-	                       				data-cur_min="0" data-cur_max="0" id="minIncPicker" >
+	                       				data-cur_min="400" data-cur_max="0" id="minIncPicker" >
 	    						<div class="bar"></div>
 	    						<div class="leftGrip"></div>
 							</div>
@@ -197,7 +197,7 @@
 						</div>
 						<div class="row filter-sub-section">
 						<div class="row">
-							<div class="col span-1-of-3 clearfix"><label>Minimum RAM</label></div> 
+							<div class="col span-1-of-3 clearfix"><label>Minimum RAM<br>greater than</label></div> 
 							<div class="col span-2-of-3 " ><span>&nbsp;</span></div>
 						</div>
 						<div class="nstSlider singleSlider" data-range_min="0" data-range_max="64"
