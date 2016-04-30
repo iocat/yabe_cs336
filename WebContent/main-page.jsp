@@ -4,9 +4,7 @@
 %>
 <%
 	// Page request parameter
-	Account.AccountType type;
-	User user;
-	Representative rep;
+	Account acc = (Account) request.getAttribute("account");
 	pagePath = request.getContextPath(); 
 %>
 
@@ -42,25 +40,12 @@
 		<div class="logo">
 			<img src="<%=pagePath%>/resources/img/yabe-logo.png">
 		</div>
-		<% 	//TODO: Let the filter get the type
-			user = (User) request.getAttribute("user");
-			if (user == null){
-				rep = (Representative) request.getAttribute("rep");
-				if(rep != null){
-					type = Account.AccountType.REPRESENTATIVE;
-				}else{
-					type = Account.AccountType.NON_USER;
-				}
-			}else{
-				type = Account.AccountType.USER;
-			}
-		%>
 		<nav class="row main-nav">
 			<ul>
-				<%if(type == Account.AccountType.USER){%>
+				<%if(acc instanceof User){%>
 					<li class="nav-elem sign-out"> <a href="sign-out">Sign out</a></li>
-					<li class="nav-elem user-name"> <a href="#">Hi, <%=user.getName() %>!</a></li>
-				<%}else if(type == Account.AccountType.NON_USER){%>
+					<li class="nav-elem user-name"> <a href="#">Hi, <%= ((User) acc).getName() %>!</a></li>
+				<%}else if(!(acc instanceof User || acc instanceof Representative)){%>
 					<li class="nav-elem sign-in"><a href="login.jsp">Sign In</a>
 				<%}%>
 			</ul>
@@ -69,7 +54,7 @@
 	
 	<div class="clearfix">
 		<section class = "section-filter ">
-			<% if(type == Account.AccountType.USER){ %>
+			<% if(acc instanceof User){ %>
 			<div class="section-filter-elem create-auction">
 				<a class="btn-important" href="<%=pagePath%>/create-auction.jsp">Create New Auction</a>
 			</div>
@@ -89,7 +74,7 @@
 						<div class="col span-2-of-3"><input type="text" name="name" id="name" placeholder=""/></div>
 					</div>
 					<div class="row">
-						<input type="submit" class="btn" value="Find user" id="user-filter-submit">
+						<input type="submit" class="btn search-btn" value="Find user" id="user-filter-submit">
 					</div>
 				</div>
 				
@@ -224,7 +209,7 @@
 					</div>
 					</div>
 					<div class="row">
-						<a href="#section-result"><input type="submit" class="btn" value="Search" id="item-filter-submit"></a>
+						<a href="#section-result"><input type="submit" class="btn search-btn" value="Search" id="item-filter-submit"></a>
 					</div>
 				</div>
 			</div>

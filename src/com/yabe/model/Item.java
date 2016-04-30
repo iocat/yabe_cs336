@@ -79,7 +79,7 @@ public class Item implements Retrievable {
 	}
 	public JSONObject getJSONObject() throws JSONException{
 		JSONObject json = new JSONObject();
-		json.put("pictureURL", ITEM_PICTURE_LOCATION+this.pictureURL+".jpg");
+		json.put("pictureURL", this.pictureURL);
 		json.put("name", name);
 		json.put("description", this.description);
 		
@@ -125,7 +125,7 @@ public class Item implements Retrievable {
 					this.condition = Condition.NOT_DEFINED;
 				}
 				this.description = rs.getString(4);
-				this.pictureURL = rs.getString(5);
+				this.pictureURL = ITEM_PICTURE_LOCATION + rs.getString(5)+ ".jpg";
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

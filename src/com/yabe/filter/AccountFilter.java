@@ -14,14 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yabe.model.Account;
+import com.yabe.model.Representative;
 import com.yabe.model.User;
 import com.yabe.util.ServletUtils;
 import com.yabe.util.Utils;
 
-@WebFilter("/main-page.jsp")
-public class MainPageFilter implements Filter {
+@WebFilter({"/main-page.jsp","/auction.jsp"})
+public class AccountFilter implements Filter {
 
-	public MainPageFilter() {
+	public AccountFilter() {
 	}
 
 	public void destroy() {
@@ -44,10 +45,14 @@ public class MainPageFilter implements Filter {
 							|| !acc.getSessionId().equals(
 									req.getSession().getId())) {
 						res.sendRedirect("sign-out");
-					}else{
+					}else if(acc.getType()==Account.AccountType.USER){
 						User user = new User(acc.getUsername());
 						user.retrieve();
-						request.setAttribute("user", user);
+						request.setAttribute("account", user);
+					}else if(acc.getType() == Account.AccountType.ADMIN){
+						Representative rep = new Representative(acc.getUsername());
+						rep.retrieve();
+						request.setAttribute("account", rep);
 					}
 					break;
 				}

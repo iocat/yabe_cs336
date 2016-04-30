@@ -3,22 +3,24 @@
 }
 
 .icon-404{
-	font-size: 400%;
+	font-size: 500%;
+	display: block;
+	margin: 0 auto;
+	width: 30%;
+	
 }
 
 .message{
 	height: 100%;
-	text-align: left;
+	text-align: center;
+	
 }
 
 .message p{
-	margin: auto 0;
-	display: inline-block;
+	margin: 10px 0;
+	color: rgba(0,0,0, 0.4);
 }
-.message div{
-	margin: 15px 5px;
-	display: block;
-}
+
 .message .error{
 	color: #e53935;
 	font-weight: 700;

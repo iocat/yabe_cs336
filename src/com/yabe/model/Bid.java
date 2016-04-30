@@ -42,7 +42,7 @@ public class Bid implements Retrievable, Updatable {
 
 	private User bidder;
 	private Date time;
-	private float amount;
+	private float amount = 0;
 	private static final String SQL_RETRIEVE_DATA = "SELECT amount FROM bidsOn WHERE itemId = ? AND bidder = ? AND time = ?";
 	@Override
 	public boolean retrieve() {
@@ -72,7 +72,7 @@ public class Bid implements Retrievable, Updatable {
 		return found;
 	}
 	
-	private static final String SQL_GET_BIDS = "SELECT bidder, time, amount FROM bidsOn WHERE itemId = ?";
+	private static final String SQL_GET_BIDS = "SELECT bidder, time, amount FROM bidsOn WHERE itemId = ? ORDER BY amount DESC";
 	public static ArrayList<Bid> getBids(String itemId){
 		ArrayList<Bid> bids  = new ArrayList<Bid>();
 		Connection conn = null;

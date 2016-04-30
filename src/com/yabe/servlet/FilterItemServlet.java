@@ -78,7 +78,7 @@ public class FilterItemServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		String FILTER_ITEM = "SELECT I.itemId, I.name, I.description, I.picture"
+		String FILTER_ITEM = "SELECT I.itemId"
 				+ " FROM item I, computer C, auction A"
 				+ " WHERE I.itemId = C.itemId AND"
 				+ 		" I.itemId = A.itemId AND"
@@ -189,9 +189,7 @@ public class FilterItemServlet extends HttpServlet {
 			rs = stmt.executeQuery();
 			while(rs.next()){
 				Auction item = new Auction(rs.getString("itemId"));
-				item.setName(rs.getString("name"));
-				item.setDescription(rs.getString("description"));
-				item.setPictureURL(rs.getString("picture"));
+				item.retrieve();
 				items.put(item.getJSONObject());
 			}
 			result.put("items", items);

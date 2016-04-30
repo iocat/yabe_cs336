@@ -13,11 +13,6 @@ body{
 	overflow:hidden;
 }
 
-a{
-	text-decoration: none;
-	font-size: 200%;
-}
-
 label{
 	transition: color 0.2s;
 	width: inherit;
@@ -90,6 +85,9 @@ header{
 	margin-bottom: 3px;
 }
 
+.search-btn{
+	margin: 0 auto;
+}
 /* -----------------------------*/
 /*           RESULT SECTION     */
 /* -----------------------------*/
@@ -121,15 +119,15 @@ footer{
 .res-user{
 	text-align:center;
 	padding: 10px 10px;
-	transition: border 0.6s;
+	transition: border 0.3s, background-color 0.3s;
 	border: 1px solid transparent;
 }
 
 .res-item:hover,
 .res-user:hover{
-	border: 1px solid rgba(0,0,0,0.09);
+	border: 1px solid rgba(54,150,96,0.06);
 	border: 2%;
-	
+	background-color: rgba(54,150,96,0.04);
 }
 .res-item .item-name,
 .res-user .res-user-name{

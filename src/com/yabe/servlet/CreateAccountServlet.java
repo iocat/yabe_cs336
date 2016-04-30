@@ -63,14 +63,11 @@ public class CreateAccountServlet extends HttpServlet {
 						.storeSession(request.getSession().getId());
 				response.sendRedirect("main-page.jsp");
 			} else {
-				// TODO: Create an unable to create an account page or rediect
-				// back to the login page
-				response.sendRedirect("");
+				
+				response.sendRedirect("new-account.jsp?login=failed");
 			}
 		} catch (SQLException e) {
-			response.setStatus(302);
-			response.setHeader("Location", this.getServletContext()
-					.getContextPath() + "/new-account.jsp?login=failed");
+			response.sendRedirect("new-account.jsp?login=failed");
 		}
 
 	}

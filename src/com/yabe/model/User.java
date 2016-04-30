@@ -13,7 +13,7 @@ import com.yabe.util.Utils;
 import com.yabe.util.sql.SQLUtils;
 
 public class User extends Account implements Retrievable {
-	private static final String USER_PAGE_URL = "user.jsp";
+	public static final String USER_PAGE_URL = "user.jsp?uname=";
 	private static final String USER_PROFILE_PICTURE_LOCATION = "resources/img/user/";
 	private static final String SQL_CREATE_USER = "INSERT INTO "
 			+ "user(username,name,email,address)" + " VALUES (?, ?, ?, ?) ";
@@ -103,7 +103,7 @@ public class User extends Account implements Retrievable {
 				this.name = rs.getString(1);
 				this.email = rs.getString(2);
 				this.address = rs.getString(3);
-				this.profilePicture = rs.getString(4);
+				this.profilePicture = USER_PROFILE_PICTURE_LOCATION+rs.getString(4)+".jpg";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -120,8 +120,8 @@ public class User extends Account implements Retrievable {
 		try {
 			user.put("username", this.getUsername());
 			user.put("name", this.name);
-			user.put("profile-picture", USER_PROFILE_PICTURE_LOCATION+this.profilePicture+".jpg");
-			user.put("url", USER_PAGE_URL+"?uname="+this.getUsername());
+			user.put("profile-picture", this.profilePicture);
+			user.put("url", USER_PAGE_URL+this.getUsername());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

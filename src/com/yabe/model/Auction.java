@@ -15,16 +15,26 @@ import com.yabe.util.sql.SQLUtils;
 
 public class Auction extends Item implements Retrievable {
 	private static final String AUCTION_PAGE_URL = "auction.jsp";
+	
 	private User seller;
 	private User purchaser;
 	private float soldPrice;
+	
 	private Date soldTime;
 	private Date openDate;
 	private Date closeDate;
-	private float minimumPrice;
+	private float minimumPrice = 0;
 	private float minimumIncrement;
 	private ArrayList<Bid> bids;
-
+	private Bid maxBid;
+	public Bid getMaxBid(){
+		//TODO: change this 
+		if (bids != null && bids.size() > 0){
+			return bids.get(0);
+		}else{
+			return null;
+		}
+	}
 	public Auction(String itemId){
 		super(itemId);
 	}
@@ -97,6 +107,19 @@ public class Auction extends Item implements Retrievable {
 		json.put("url", AUCTION_PAGE_URL+"?id="+this.getItemId());
 		return json;
 	}
+	
+	public float getCurrentMaxBixAmount(){
+		if(this.getMaxBid() == null){
+			return 0;
+		}else{
+			return this.getMaxBid().getAmount();
+		}
+	}
+	
+	public boolean isSold(){
+		return this.purchaser != null;
+	}
+	
 	private final String SQL_RETRIEVE_DATA = "SELECT seller, purchaser,soldPrice, "
 			+ "soldTime, openDate, closeDate, minimumPrice, minimumIncrement FROM auction WHERE itemId = ?";
 	private final String SQL_RETRIEVE_BIDS = "SELECT bidder,time, amount FROM bidsOn WHERE itemId = ?";
@@ -108,7 +131,7 @@ public class Auction extends Item implements Retrievable {
 	public boolean retrieve() {
 		boolean found = false;
 		super.retrieve();
-		bids = Bid.getBids(this.getItemId());
+		setBids(Bid.getBids(this.getItemId()));
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -141,6 +164,12 @@ public class Auction extends Item implements Retrievable {
 			SQLUtils.closeQuitely(rs);
 		}
 		return found;
+	}
+	public ArrayList<Bid> getBids() {
+		return bids;
+	}
+	public void setBids(ArrayList<Bid> bids) {
+		this.bids = bids;
 	}
 
 }

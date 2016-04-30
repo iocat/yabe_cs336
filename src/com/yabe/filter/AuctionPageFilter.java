@@ -43,15 +43,19 @@ public class AuctionPageFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		String itemId = req.getParameter("id");
-		RequestDispatcher unfoundDispatcher = req.getRequestDispatcher("/404.jsp");
+		RequestDispatcher unfoundDispatcher ;
 		if (Utils.isEmpty(itemId)){
+			unfoundDispatcher = req.getRequestDispatcher("/404.jsp");
 			unfoundDispatcher.forward(req, res);
 		}else{
 			Auction auction = new Auction(itemId);
 			boolean found = auction.retrieve();
 			if (found){
+				// set the auction
 				req.setAttribute("auction", auction);
 			}else{
+				// Unfound auction
+				unfoundDispatcher = req.getRequestDispatcher("/404.jsp");
 				unfoundDispatcher.forward(req, res);
 			}
 		}

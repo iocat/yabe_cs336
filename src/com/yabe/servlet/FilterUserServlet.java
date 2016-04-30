@@ -49,8 +49,7 @@ public class FilterUserServlet extends HttpServlet {
 			rs = stmt.executeQuery();
 			while(rs.next()){
 				User user = new User(rs.getString(1));
-				user.setName(rs.getString(2));
-				user.setProfilePicture(rs.getString(3));
+				user.retrieve();
 				users.put(user.getJSONObject());
 			}
 			result.put("users", users);

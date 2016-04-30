@@ -148,11 +148,17 @@ h3 {
 	font-size: 150%;
 }
 
+a:link,
+a:visited{
+	text-decoration: none;
+}
+
 /* ------------------------- 
 	BUTTONS
  -------------------------*/
 .btn,
 .btn-important {
+	display: block;
 	padding: 10px 30px;
 	border: 2px solid #9cdbb7;
 	background-color: rgba(0,0,0,0);
@@ -188,8 +194,6 @@ a.btn-important{
 input[type=checkbox] {
 	margin-right: 5px;
 }
-
-
 
 /* ------------------------- 
 	SPECIAL CONTAINTER
@@ -240,30 +244,35 @@ input[type=checkbox] {
 div.popup{
  	position: absolute;
  	top: -100vh;	
- 	
+ 	opacity: 0;
  	width: 50%;
  	min-width: 200px;
- 	height: 30%;
- 	max-height: 60vh;
  	
  	padding: 20px 20px;
  	z-index: 9998;
- 	
  	background: #fff;
  	border-radius: 5px;
+ 	box-shadow: 0px 0px 25px rgba(0,0,0,0.4);
 }
 
 div.popup.alert.active{
 	border: 1px solid rgba(229,57,53,0.4);
 	box-shadow: 0px 0px 25px rgba(229,57,53,0.4);
+	display: block;
+	opacity: 1;
 }
 
 div.popup.active{
- 	transition: top 0.2s;
- 	top: 150px;
- 	bottom: auto;
+	opacity: 1;
+	display: block;
+ 	transition: top 0.2s ease-in-out, opacity 0.2s ease-in-out;
+ 	top: 40%;
+ 	min-height: 30%;
+ 	overflow-y: scroll;
+ 	
  	left: 25%;
  	border: 1px solid #369660;
+ 	
 }
 
  
