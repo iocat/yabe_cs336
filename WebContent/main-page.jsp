@@ -111,8 +111,8 @@
 								
 							</div>
 							<div class="row item-filter-range">
-								<div class="row nstSlider rangeSlider" id="maxBidRangePicker" data-range_min="10" data-range_max="5000" 
-	                       			 data-cur_min="300"    data-cur_max="4000" >
+								<div class="row nstSlider rangeSlider" id="maxBidRangePicker" data-range_min="0" data-range_max="5000" 
+	                       			 data-cur_min="0"    data-cur_max="4000" >
 	
 	    							<div class="bar"></div>
 	    							<div class="leftGrip"><div class="leftLabel" ></div></div>

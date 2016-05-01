@@ -14,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yabe.model.Auction;
+import com.yabe.model.Computer;
+import com.yabe.model.Desktop;
+import com.yabe.model.Handheld;
+import com.yabe.model.Laptop;
 import com.yabe.util.Utils;
 
 /**
@@ -50,12 +54,16 @@ public class AuctionPageFilter implements Filter {
 		}else{
 			Auction auction = new Auction(itemId);
 			boolean found = auction.retrieve();
+			Computer computer = Computer.getComputer(itemId);
+			
 			if (found){
 				// set the auction
 				req.setAttribute("auction", auction);
+				req.setAttribute("computer",computer);
+				System.out.println(computer.toString());
 			}else{
 				// Unfound auction
-				unfoundDispatcher = req.getRequestDispatcher("/404.jsp");
+				unfoundDispatcher = req.getRequestDispatcher("/Error404.jsp");
 				unfoundDispatcher.forward(req, res);
 			}
 		}

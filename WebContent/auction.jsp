@@ -1,14 +1,16 @@
-<%@ page import="com.yabe.util.Utils,com.yabe.model.*"%>
+<%@ page import="com.yabe.util.Utils,com.yabe.model.*, java.util.ArrayList, java.time.format.DateTimeFormatter,java.time.LocalDateTime"%>
 <%! 
 	Account account;
 	Auction auction;
 	String pagePath;// Page context path 
+	Computer computer;
 	float minimumPossibleBid;
 %>
 <%
 	// Page request parameter
 	 account = (Account) request.getAttribute("account");
 	 auction = (Auction) request.getAttribute("auction");
+	 computer = (Computer) request.getAttribute("computer");
 	pagePath = request.getContextPath(); 
 	Bid maxBid;
 	if ((maxBid=auction.getMaxBid()) != null){
@@ -67,7 +69,10 @@
 			<div class="container span-1-of-3 item-image-and-name">
 					<div class="item-image"> <img src="<%= auction.getPictureURL() %>"></img> </div>
 					<p class="item-name"> <%= auction.getName() %></p>
+					<% if(!auction.isSold() ){ 
+							if(account instanceof User){%>
 					<form action="bid" method="post" class="bid-form" >
+						<input type="hidden" name="item-id" value="<%= auction.getItemId() %>">
 						<div class="row ">
 							<div class="col span-1-of-2 amount-label">
 								<label for="bid-amount">Amount</label>
@@ -96,7 +101,7 @@
 								$('#bad-amount-ignore').click(function(){
 									$('#bad-amount-alert').removeClass('active');
 								});
-								$('#place-bid-ignore').click(function(){
+								$('#place-bid-ignore').add('#place-bid-confirmed').click(function(){
 									$('#place-bid-confirmation').removeClass('active');
 								});
 							});
@@ -123,7 +128,21 @@
 							<a class="btn" class="bad-amount-ignore" id="bad-amount-ignore">OK</a>
 						</div>
 					</form>
+					<% 
+							}else{
+					%>
+							<div class="row">
+								<a href="login.jsp?item=<%=auction.getItemId()%>" class="btn make-bid-btn">Sign In To Bid</a>
+							</div>
+					<%
+							}
+						}else if(auction.isSold()){ 
+					%>
+						<div class="row">
+							<div class="sold-tag"> Sold </div>
+						</div>
 					
+					<% } %>
 				</div>
 			<div class="row">
 				<div class="col span-1-of-3">&nbsp;</div>
@@ -134,36 +153,72 @@
 			<div class="row" >
 				<div class="col span-1-of-3">&nbsp;</div>
 				<div class="col span-2-of-3">
-					<div class=" container" style="<%if(auction.isSold()) {%> background-color:rgba(32,90,57,0.1); <% } %>">
+					<div class=" container" style="<%if(auction.isSold()) {%> background-color:rgba(229,57,53,0.03); <% } %>">
 						<div class="row permanent-info">
 							<div class="col span-2-of-3 auction-info">
 								<p class="info-label">Auction</p>
-								<div class="open-date"><p>Close Date: <%= auction.getCloseDate().toString() %></p></div>
-								<div class="close-date"><p>Open Date: <%= auction.getOpenDate().toString() %></p></div>
-								
-								<div class="minInc"><p>Minimum Increment: $ <%= auction.getMinimumIncrement() %></p></div>
+								<div class="row close-date">
+									<div class="col span-1-of-2">
+										<p>Open</p> 
+									</div>
+									<div class="col span-1-of-2">
+										<p><%= auction.getOpenDate() %></p>
+									</div>
+								</div>
+								<div class="row open-date">
+									<div class="col span-1-of-2">
+										<p>Close</p> 
+									</div>
+									<div class="col span-1-of-2">
+										<p><%= auction.getCloseDate().toString() %></p>
+									</div>
+								</div>
+								<div class="row minInc">
+									<div class="col span-1-of-2">
+										<p>Increment</p> 
+									</div>
+									<div class="col span-1-of-2">
+										<p>$ <%= auction.getMinimumIncrement() %></p>
+									</div>
+								</div>
 							</div>
 							<div class="col span-1-of-3 seller-info">
-								<p class="info-label">Seller</p>
-								<img src="<%= auction.getSeller().getProfilePicture() %>" />
-								<a href="user.jsp?uname=<%= auction.getSeller().getUsername() %>">
-									<p class="seller-name"> <%= auction.getSeller().getName() %></p>
+								<div class="row">
+									<p class="info-label">Seller</p>
+								</div>
+								<a class="seller-link" href="user.jsp?uname=<%= auction.getSeller().getUsername() %>">
+									<div class="row">
+										<div class="seller-img">
+											<img src="<%= auction.getSeller().getProfilePicture() %>" />
+										</div>
+									</div>
+									<div class="row">
+											<span class="seller-name"> <%= auction.getSeller().getName() %></span>
+									</div>
 								</a>
 							</div>
 						</div>
 						<div class="row intermediate-info">
+							<% if(auction.isSold()){%>
 							<div class="current-bid">
-								<span class="current-bid-label">Current Bid: </span>
-								<span class="current-bid">
+								<span class="current-bid-label">Sold Price: </span>
+								<span class="current-bid sold">
 									<%= auction.getCurrentMaxBixAmount() %>
 								</span>
 							</div>
+							<div class="row buyer-info">
+								<div class="sold-date">Sold Date: <%= auction.getSoldTime().toString() %></div>
+							</div>
+							<% }else{ %>
+							<div class="current-bid">
+								<span class="current-bid-label">Current Bid: </span>
+								<span class="current-bid">
+									$ <%= auction.getCurrentMaxBixAmount() %>
+								</span>
+							</div>
+							<% } %>
 						</div>
-						<% if(auction.isSold()){%>
-						<div class="row buyer-info">
-							<div class="sold-date">Sold Date: <%= auction.getSoldTime().toString() %></div>
-						</div>
-						<% } %>
+						
 					</div>
 				</div>
 			</div>
@@ -174,11 +229,88 @@
 			<div class="row">
 				<div class="col span-1-of-3">&nbsp;</div>
 				<div class="col span-2-of-3">
-					<h5 class="section-name">Item Information</h5>
+					<div class="row">
+						<h5 class="section-name">Item Information</h5>
+					</div>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col span-1-of-3">&nbsp;</div>
+				<div class="col span-2-of-3">
+					<div class="container item">
+						<div class="row item-info">
+							<div class=" item-desc-value"><%= computer.getDescription() %></div>
+						</div>
+						<div class="row item-info">
+							<div class="col span-1-of-2 item-info-field"><p>Brand</p></div>
+							<div class="col span-1-of-2 item-info-value"><p><%= computer.getBrandName() %></p></div>
+						</div>
+						<div class="row item-info">
+							<div class="col span-1-of-2 item-info-field"><p>Ram</p></div>
+							<div class="col span-1-of-2 item-info-value"><p><%= computer.getRam() %> GB</p></div>
+						</div>
+						<div class="row item-info">
+							<div class="col span-1-of-2 item-info-field"><p>Weight</p></div>
+							<div class="col span-1-of-2 item-info-value"><p><%= computer.getWeight() %> lbs</p></div>
+						</div>
+						<div class="row item-info">
+							<div class="col span-1-of-2 item-info-field"><p>Operating System</p></div>
+							<div class="col span-1-of-2 item-info-value"><p><%= computer.getOperatingSystem() %></p></div>
+						</div>
+						<div class="row item-info">
+							<div class="col span-1-of-3 item-info-field"> <p>Screen</p> </div>
+							<div class="col span-2-of-3">
+								<div class="row">
+									<div class="col span-1-of-8">&nbsp;</div>
+									<div class="col span-7-of-8">
+										<div class="row item-info">
+											<div class="col span-1-of-2 item-info-field"><p>Type</p></div>
+											<div class="col span-1-of-2 item-info-value"><p><%= computer.getScreen().getType() %></p></div>
+										</div>
+										<div class="row item-info">
+											<div class="col span-1-of-2 item-info-field"><p>Size</p></div>
+											<div class="col span-1-of-2 item-info-value"><p><%= computer.getScreen().getWidth() %> &#215; <%= computer.getScreen().getHeight() %> </p></div>
+										</div>
+										<div class="row item-info">
+											<div class="col span-1-of-2 item-info-field"><p>Resolution</p></div>
+											<div class="col span-1-of-2 item-info-value">
+												<p> <%= computer.getScreen().getResolutionX() %> &#215; <%= computer.getScreen().getResolutionY() %> </p>	
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						<div class="row item-info">
+							<div class="col span-1-of-2 item-info-field"><p>Battery Capacity</p></div>
+							<div class="col span-1-of-2 item-info-value"><p><%= computer.getBatteryCapacity() %></p></div>
+						</div>
+						</div>
+						<% if( computer.getColor() != null ){ %>
+						<div class="row item-info">
+							<div class="col span-1-of-2 item-info-field"><p>Color</p></div>
+							<div class="col span-1-of-2 item-info-value">
+								<div style="width:30px; height:100%; background-color: #<%=computer.getColor()%>; margin: 0 auto;">
+									&nbsp;
+								</div>
+							</div>
+						</div>
+						<% } %>
+						<div class="row item-info">
+							<div class="col span-1-of-2 item-info-field"><p>Size</p></div>
+							<div class="col span-1-of-2 item-info-value">
+								<p>
+									<%= computer.getWidth() %> &#215; <%= computer.getHeight() %> &#215; <%= computer.getDepth() %>
+								</p>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			
+			</div>
 		</section>
-		<section class="section-bid-history ">
+		<section class="section-bid-history" id="bid-history">
 			<div class="row">
 				<div class="col span-1-of-3">&nbsp;</div>
 				<div class="col span-2-of-3">
@@ -189,26 +321,46 @@
 				<div class="col span-1-of-3">&nbsp;</div>
 				<div class="col span-2-of-3 bids">
 				<% 	int i = 0;
+					ArrayList<Bid> bids = auction.getBids();
+					if( bids == null || bids.size() == 0){%>
+						<div class="container">
+							<p> There is no bid. </p>
+						</div>
+					<% }else{%>
+						<div class="row col-name">
+							<div class="col span-1-of-5">&nbsp;</div>
+							<div class="col span-1-of-5"><p>Name</p></div>
+							<div class="col span-1-of-5"><p>Amount</p></div>
+							<div class="col span-1-of-5"><p>Time</p></div>
+							<div class="col span-1-of-5"><p>Date</p></div>
+						</div>
+					<%
+					DateTimeFormatter hourformat = DateTimeFormatter.ofPattern("hh:mm");
+					DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 					for( Bid bid: auction.getBids() ){ 
+						LocalDateTime time = bid.getTime().toLocalDateTime();
 					%>
 					<!-- Profile picture name amount time -->
-					<a href="<%= User.USER_PAGE_URL + bid.getBidder().getUsername() %> " >
 						<div class="row bid">
-							<div class="bid-elem col span-1-of-4">
+							<a href="<%= User.USER_PAGE_URL + bid.getBidder().getUsername() %>" class="user-link" >
+							<div class="bid-elem col span-1-of-5">
 								<div class="small-profile">
 									<img src="<%= bid.getBidder().getProfilePicture() %>">
 								</div>
 							</div>
-							<div class="bid-elem col span-1-of-4"><p><%= bid.getBidder().getName() %></p></div>
-							<div class="bid-elem col span-1-of-4"><p>$<%= bid.getAmount() %></p></div>
-							<div class="bid-elem col span-1-of-4"><p><%= bid.getTime().toLocalDate() %></p></div>
+							<div class="bid-elem col span-1-of-5"><p><%= bid.getBidder().getName() %></p></div>
+							<div class="bid-elem col span-1-of-5"><p>$<%= bid.getAmount() %></p></div>
+							<div class="bid-elem col span-1-of-5"><p><%= time.format(hourformat) %></p></div>
+							<div class="bid-elem col span-1-of-5"><p><%= time.format(dateformat) %></p></div>
+							</a>
 						</div>
-					</a>
+					
 					<div class="row link-bid <%if(i== auction.getBids().size()-1){ %>hidden<%}%>">
-							<div class="col span-1-of-4 "><span class="link">&nbsp;</span></div>
+							<div class="col span-1-of-5 "><span class="link">&nbsp;</span></div>
 					</div>
-				<% 	i++;
-					} %>
+					<% 	i++;
+						} 
+					}%>
 				</div>
 			</div>
 		</section>

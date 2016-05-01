@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.xml.internal.fastinfoset.stax.events.Util;
 import com.yabe.model.Account;
 import com.yabe.util.Utils;
 
@@ -44,8 +45,13 @@ public class LoginServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd;
 		String usernameParam = request.getParameter("username");
-		String passwordParam = Utils.encodePassword(request
-				.getParameter("password"));
+		String passwordParam = Utils.encodePassword(request.getParameter("password"));
+		String redirectItem = request.getParameter("item");
+		if(Util.isEmptyString(redirectItem)){
+			redirectItem="main-page.jsp";
+		}else{
+			redirectItem ="auction.jsp?id="+redirectItem;
+		}
 		if (Utils.isEmpty(usernameParam) || Utils.isEmpty(passwordParam)) {
 			response.sendRedirect("login.jsp?login=failed");
 		} else {
@@ -59,10 +65,10 @@ public class LoginServlet extends HttpServlet {
 				new Account(usernameParam).storeSession(request.getSession()
 						.getId());
 				response.addCookie(cookie);
-				response.sendRedirect("main-page.jsp");
+				response.sendRedirect(redirectItem);
 				break;
 			default:
-				response.sendRedirect("login.jsp?login=failed");
+				response.sendRedirect("login.jsp?login=failed&item="+redirectItem);
 			}
 
 		}

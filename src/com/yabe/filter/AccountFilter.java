@@ -19,7 +19,7 @@ import com.yabe.model.User;
 import com.yabe.util.ServletUtils;
 import com.yabe.util.Utils;
 
-@WebFilter({"/main-page.jsp","/auction.jsp"})
+@WebFilter({"/main-page.jsp","/auction.jsp","/bid"})
 public class AccountFilter implements Filter {
 
 	public AccountFilter() {

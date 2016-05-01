@@ -267,7 +267,7 @@ CREATE TABLE handheld(
     externalMemoryType CHAR(30),
 
     hasSimLock TINYINT(1),
-    netWorkProvider CHAR(30),
+    networkProvider CHAR(30),
 
     simType ENUM('STANDARD','MICRO', 'NANO') ,
 
@@ -297,6 +297,11 @@ FOR EACH ROW BEGIN
                     NEW.bidder = A.seller) THEN
         SIGNAL SQLSTATE '10000' SET MESSAGE_TEXT = 'the bidder cannot be the seller';
     END IF;
+    DELETE FROM bidsOn WHERE (bidsOn.itemId = NEW.itemId AND bidsOn.amount = NEW.amount
+        AND bidsOn.bidder= NEW.bidder AND EXISTS(  SELECT *
+                                                   FROM(SELECT MAX(amount) ,itemId, amount
+                                                   FROM bidsOn) BO
+                                                   WHERE BO.itemId = NEW.itemId AND BO.bidder= NEW.bidder));
 END$$
 DELIMITER ;
 
@@ -341,12 +346,13 @@ FOR EACH ROW BEGIN
 END$$
 DELIMITER ;
 
+
 INSERT INTO account(username, password)
 VALUES ('admin', 'admin'),
      ('rep', 'rep'),
-     ('jst', 'user1'),
-     ('mc', 'user2'),
-     ('tcn33','fe');
+     ('jst', '7e58d63b60197ceb55a1c487989a3720'), -- Password: user2
+     ('mc', '92877af7a45fd6a2ed7fe81e1236b78'), -- Paswword: user3
+     ('tcn33','bb9836f5e2ce756d59b9a4556283bc0'); -- password: user1
 
 INSERT INTO admin (username)
 VALUES ('admin');

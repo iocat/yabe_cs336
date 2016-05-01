@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.sql.Date;
 
 import com.yabe.util.DBConnector;
 import com.yabe.util.sql.SQLUtils;
@@ -27,10 +27,10 @@ public class Bid implements Retrievable, Updatable {
 	public void setBidder(User bidder) {
 		this.bidder = bidder;
 	}
-	public Date getTime() {
+	public Timestamp getTime() {
 		return time;
 	}
-	public void setTime(Date time) {
+	public void setTime(Timestamp time) {
 		this.time = time;
 	}
 	public float getAmount() {
@@ -41,7 +41,7 @@ public class Bid implements Retrievable, Updatable {
 	}
 
 	private User bidder;
-	private Date time;
+	private Timestamp time;
 	private float amount = 0;
 	private static final String SQL_RETRIEVE_DATA = "SELECT amount FROM bidsOn WHERE itemId = ? AND bidder = ? AND time = ?";
 	@Override
@@ -55,7 +55,7 @@ public class Bid implements Retrievable, Updatable {
 			stmt = conn.prepareStatement(SQL_RETRIEVE_DATA);
 			stmt.setString(1,itemId);
 			stmt.setString(2, this.bidder.getUsername());
-			stmt.setDate(3, this.time);
+			stmt.setTimestamp(3, this.time);
 			rs = stmt.executeQuery();
 			if(rs.next()){
 				found = true;
@@ -90,7 +90,7 @@ public class Bid implements Retrievable, Updatable {
 				bidder.retrieve();
 				
 				bid.setBidder(bidder);
-				bid.setTime(rs.getDate(2));
+				bid.setTime(rs.getTimestamp(2));
 				bid.setAmount(rs.getFloat(3));
 				bids.add(bid);
 			}
@@ -114,7 +114,7 @@ public class Bid implements Retrievable, Updatable {
 			stmt = conn.prepareStatement(SQL_UPDATE);
 			stmt.setString(1, this.itemId);
 			stmt.setString(2, this.bidder.getUsername());
-			stmt.setDate(3, this.time);
+			stmt.setTimestamp(3, this.time);
 			stmt.setFloat(4, this.amount);
 			stmt.setFloat(5, this.amount);
 			stmt.executeUpdate();
@@ -124,7 +124,7 @@ public class Bid implements Retrievable, Updatable {
 			SQLUtils.closeQuitely(conn);
 			SQLUtils.closeQuitely(stmt);
 		}
-		
 	}
+	
 	
 }

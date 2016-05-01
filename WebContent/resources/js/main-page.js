@@ -3,7 +3,9 @@ $(document).ready(function(){
 	var $maxBidRangePicker = $('#maxBidRangePicker');
 	$maxBidRangePicker.nstSlider({
 	    "rounding": {
-	        "100": "1000",
+	    	"1":"100",
+	        "10": "300",
+	        "20": "800",
 	    },
 	    "crossable_handles": false,
 	    "left_grip_selector": ".leftGrip",

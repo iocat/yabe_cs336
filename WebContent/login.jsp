@@ -73,6 +73,7 @@
 							id="keepSignedIn" checked> <label for="keepSignedIn">Keep
 							me signed in.</label>
 					</div>
+					<input type="hidden" name="item" value="<%=request.getParameter("item")%>">
 					<input class="btn-important" type="submit" value="Sign In">
 					<a href="<%=pagePath%>/new-account.jsp" class="register-link">
 						Create a new Account ?</a>

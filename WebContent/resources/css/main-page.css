@@ -121,6 +121,10 @@ footer{
 	padding: 10px 10px;
 	transition: border 0.3s, background-color 0.3s;
 	border: 1px solid transparent;
+	margin: 0 0;
+	width: 25%;
+	padding: 20px;
+	overflow: hidden;
 }
 
 .res-item:hover,
@@ -133,6 +137,8 @@ footer{
 .res-user .res-user-name{
 	color: #369660;
 	font-size: 130%;
+	white-space: nowrap;
+	overflow: hidden;
 }
 .res-item .item-img,
 .res-user .res-user-img{
@@ -144,7 +150,7 @@ footer{
 
 .res-item .item-img{
 	padding: 0 20px;
-	height: 150px;
+	height: 100px;
 }
 
 .item-img img,

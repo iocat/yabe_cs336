@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -20,15 +21,14 @@ public class Auction extends Item implements Retrievable {
 	private User purchaser;
 	private float soldPrice;
 	
-	private Date soldTime;
-	private Date openDate;
-	private Date closeDate;
+	private Timestamp soldTime;
+	private Timestamp openDate;
+	private Timestamp closeDate;
 	private float minimumPrice = 0;
 	private float minimumIncrement;
 	private ArrayList<Bid> bids;
 	private Bid maxBid;
 	public Bid getMaxBid(){
-		//TODO: change this 
 		if (bids != null && bids.size() > 0){
 			return bids.get(0);
 		}else{
@@ -50,7 +50,7 @@ public class Auction extends Item implements Retrievable {
 		return soldTime;
 	}
 
-	public void setSoldTime(Date soldTime) {
+	public void setSoldTime(Timestamp soldTime) {
 		this.soldTime = soldTime;
 	}
 
@@ -58,7 +58,7 @@ public class Auction extends Item implements Retrievable {
 		return openDate;
 	}
 
-	public void setOpenDate(Date openDate) {
+	public void setOpenDate(Timestamp openDate) {
 		this.openDate = openDate;
 	}
 
@@ -66,7 +66,7 @@ public class Auction extends Item implements Retrievable {
 		return closeDate;
 	}
 
-	public void setCloseDate(Date closeDate) {
+	public void setCloseDate(Timestamp closeDate) {
 		this.closeDate = closeDate;
 	}
 
@@ -150,9 +150,9 @@ public class Auction extends Item implements Retrievable {
 					this.purchaser.retrieve();
 				}
 				this.soldPrice = rs.getFloat(3);
-				this.soldTime = rs.getDate(4);
-				this.openDate = rs.getDate(5);
-				this.closeDate = rs.getDate(6);
+				this.soldTime = rs.getTimestamp(4);
+				this.openDate = rs.getTimestamp(5);
+				this.closeDate = rs.getTimestamp(6);
 				this.minimumPrice = rs.getFloat(7);
 				this.minimumIncrement = rs.getFloat(8);
 			}
