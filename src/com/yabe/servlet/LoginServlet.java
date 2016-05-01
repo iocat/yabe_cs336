@@ -46,8 +46,9 @@ public class LoginServlet extends HttpServlet {
 		RequestDispatcher rd;
 		String usernameParam = request.getParameter("username");
 		String passwordParam = Utils.encodePassword(request.getParameter("password"));
-		String redirectItem = request.getParameter("item");
-		if(Util.isEmptyString(redirectItem)){
+		String item =request.getParameter("item");
+		String redirectItem = item ;
+		if(Util.isEmptyString(item)){
 			redirectItem="main-page.jsp";
 		}else{
 			redirectItem ="auction.jsp?id="+redirectItem;
@@ -68,7 +69,12 @@ public class LoginServlet extends HttpServlet {
 				response.sendRedirect(redirectItem);
 				break;
 			default:
-				response.sendRedirect("login.jsp?login=failed&item="+redirectItem);
+				if(Utils.isEmpty(item)){
+					response.sendRedirect("login.jsp?login=failed");
+				}else{
+					response.sendRedirect("login.jsp?login=failed&item="+request.getParameter("item"));
+				}
+				
 			}
 
 		}

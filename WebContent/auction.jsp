@@ -198,9 +198,9 @@
 								</a>
 							</div>
 						</div>
-						<div class="row intermediate-info">
+						<div class="row intermediate-info" id="intermediate-info">
 							<% if(auction.isSold()){%>
-							<div class="current-bid">
+							<div class="current-bid" id="current-bid">
 								<span class="current-bid-label">Sold Price: </span>
 								<span class="current-bid sold">
 									<%= auction.getCurrentMaxBixAmount() %>
@@ -210,7 +210,7 @@
 								<div class="sold-date">Sold Date: <%= auction.getSoldTime().toString() %></div>
 							</div>
 							<% }else{ %>
-							<div class="current-bid">
+							<div class="current-bid" id="current-bid">
 								<span class="current-bid-label">Current Bid: </span>
 								<span class="current-bid">
 									$ <%= auction.getCurrentMaxBixAmount() %>
@@ -340,8 +340,8 @@
 					for( Bid bid: auction.getBids() ){ 
 						LocalDateTime time = bid.getTime().toLocalDateTime();
 					%>
-					<!-- Profile picture name amount time -->
-						<div class="row bid">
+					<!-- Profile-picture name amount time -->
+						<div class="row bid <%if(i==0){%>recent-bid<%}%>">
 							<a href="<%= User.USER_PAGE_URL + bid.getBidder().getUsername() %>" class="user-link" >
 							<div class="bid-elem col span-1-of-5">
 								<div class="small-profile">
@@ -371,7 +371,8 @@
 	
 	
 	</footer>
+	<script src="<%= pagePath %>/vendors/js/jquery.waypoints.min.js"></script>
+	<script src="<%= pagePath %>/resources/js/auction.js"></script>
 	
-	<script src="<%=pagePath%>/resources/js/auction.js"></script>
 </body>
 </html>
