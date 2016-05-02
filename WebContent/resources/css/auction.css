@@ -1,6 +1,9 @@
-
-html{
+html:not(header){
 	font-weight: 400;
+}
+
+header{
+	font-weight: 300;
 }
 
 a:link,
