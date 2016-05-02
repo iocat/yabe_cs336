@@ -87,6 +87,16 @@ CREATE TABLE item(
     PRIMARY KEY (itemId)
 );
 
+CREATE TABLE automaticallyBidsOn (
+    itemId INT,
+    username CHAR(30),
+    time DATETIME,
+    maximumPrice FLOAT NOT NULL,
+    PRIMARY KEY (itemId,user,time),
+    FOREIGN KEY (username) REFERENCES user(username) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (itemId) REFERENCES item(itemId) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 -- Merge Auction with sells and purchased(By someone) 
 CREATE TABLE auction (
     itemId INT,
@@ -338,6 +348,23 @@ FOR EACH ROW BEGIN
     END IF;
     ---------------------------------------------------------------*/
     
+
+-- TRIGGER FOR AUTOMATIC BIDDING SYSYEM
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER automaticBid
+AFTER INSERT ON bidsOn
+FOR EACH ROW BEGIN
+    IF EXISTS(SELECT * 
+              FROM automaticallyBidsOn A, auction X 
+              WHERE NEW.itemId = A.itemId AND
+                    NEW.bidder <> A.username AND
+                    (NEW.amount + X.minimumIncrement) < A.maximumPrice) THEN
+        INSERT INTO bidsOn (itemId, bidder, amount, time)
+        VALUES (A.itemId, A.username, NEW.amount + X.minimumIncrement, A.time);
+    END IF;
 END$$
 DELIMITER ;
 
