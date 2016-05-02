@@ -92,7 +92,7 @@ CREATE TABLE automaticallyBidsOn (
     username CHAR(30),
     time DATETIME,
     maximumPrice FLOAT NOT NULL,
-    PRIMARY KEY (itemId,user,time),
+    PRIMARY KEY (itemId,username,time),
     FOREIGN KEY (username) REFERENCES user(username) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (itemId) REFERENCES item(itemId) ON DELETE CASCADE ON UPDATE CASCADE
 );
