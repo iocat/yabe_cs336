@@ -297,11 +297,6 @@ FOR EACH ROW BEGIN
                     NEW.bidder = A.seller) THEN
         SIGNAL SQLSTATE '10000' SET MESSAGE_TEXT = 'the bidder cannot be the seller';
     END IF;
-    DELETE FROM bidsOn WHERE (bidsOn.itemId = NEW.itemId AND bidsOn.amount = NEW.amount
-        AND bidsOn.bidder= NEW.bidder AND EXISTS(  SELECT *
-                                                   FROM(SELECT MAX(amount) ,itemId, amount
-                                                   FROM bidsOn) BO
-                                                   WHERE BO.itemId = NEW.itemId AND BO.bidder= NEW.bidder));
 END$$
 DELIMITER ;
 

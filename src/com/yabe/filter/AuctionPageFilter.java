@@ -49,8 +49,9 @@ public class AuctionPageFilter implements Filter {
 		String itemId = req.getParameter("id");
 		RequestDispatcher unfoundDispatcher ;
 		if (Utils.isEmpty(itemId)){
-			unfoundDispatcher = req.getRequestDispatcher("/404.jsp");
+			unfoundDispatcher = req.getRequestDispatcher("/Error404.jsp");
 			unfoundDispatcher.forward(req, res);
+			return;
 		}else{
 			Auction auction = new Auction(itemId);
 			boolean found = auction.retrieve();
@@ -65,6 +66,7 @@ public class AuctionPageFilter implements Filter {
 				// Unfound auction
 				unfoundDispatcher = req.getRequestDispatcher("/Error404.jsp");
 				unfoundDispatcher.forward(req, res);
+				return;
 			}
 		}
 		chain.doFilter(request, response);

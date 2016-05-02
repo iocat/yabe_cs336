@@ -1,3 +1,8 @@
+
+html{
+	font-weight: 400;
+}
+
 a:link,
 a:visited{
 	color: rgb(0,0,0);

@@ -34,6 +34,7 @@ public class AccountFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		Cookie[] cookies = req.getCookies();
 		Account acc;
+		ServletUtils.noCache(res);
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
 				switch (cookie.getName()) {
@@ -58,7 +59,6 @@ public class AccountFilter implements Filter {
 				}
 			}
 		}
-		ServletUtils.noCache(res);
 		chain.doFilter(request, response);
 	}
 
