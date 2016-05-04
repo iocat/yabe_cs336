@@ -66,7 +66,7 @@ public class Auction extends Item implements Retrievable {
 		this.soldTime = soldTime;
 	}
 
-	public Date getOpenDate() {
+	public Timestamp getOpenDate() {
 		return openDate;
 	}
 
@@ -74,7 +74,7 @@ public class Auction extends Item implements Retrievable {
 		this.openDate = openDate;
 	}
 
-	public Date getCloseDate() {
+	public Timestamp getCloseDate() {
 		return closeDate;
 	}
 

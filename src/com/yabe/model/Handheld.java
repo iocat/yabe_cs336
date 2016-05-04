@@ -89,18 +89,20 @@ public class Handheld extends Computer implements Retrievable, Updatable{
 				this.netWorkProvider = rs.getString("networkProvider");
 				this.isTablet = rs.getBoolean("hasSimLock");
 				this.simLock = rs.getBoolean("hasSimLock");
-				switch(rs.getString("simType")){
-					case "STANDARD":
-						this.simType = SimType.STANDARD;
-						break;
-					case "MICRO":
-						this.simType = SimType.MICRO;
-						break;
-					case "NANO":
-						this.simType = SimType.NANO;
-						break;
-					default: 
-						this.simType = null;
+				if(rs.getString("simType") == null){
+					this.simType = null;
+				}else{
+					switch(rs.getString("simType")){
+						case "STANDARD":
+							this.simType = SimType.STANDARD;
+							break;
+						case "MICRO":
+							this.simType = SimType.MICRO;
+							break;
+						case "NANO":
+							this.simType = SimType.NANO;
+							break;
+					}
 				}
 			}
 		}catch(SQLException e){

@@ -6,6 +6,8 @@
 	Computer computer;
 	float minimumPossibleBid;
 	AutoBid autoBid;
+	DateTimeFormatter hourformat = DateTimeFormatter.ofPattern("HH:mm");
+	DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 %>
 <%
 	// Page request parameter
@@ -219,7 +221,8 @@
 										<p>Open</p> 
 									</div>
 									<div class="col span-1-of-2">
-										<p><%= auction.getOpenDate() %></p>
+										<p><%= auction.getOpenDate().toLocalDateTime().format(dateformat) %></p>
+										<p><%= auction.getOpenDate().toLocalDateTime().format(hourformat) %></p>
 									</div>
 								</div>
 								<div class="row open-date">
@@ -227,7 +230,8 @@
 										<p>Close</p> 
 									</div>
 									<div class="col span-1-of-2">
-										<p><%= auction.getCloseDate().toString() %></p>
+										<p><%= auction.getCloseDate().toLocalDateTime().format(dateformat) %></p>
+										<p><%= auction.getCloseDate().toLocalDateTime().format(hourformat) %></p>
 									</div>
 								</div>
 								<div class="row minInc">
@@ -391,8 +395,7 @@
 							<div class="col span-1-of-5"><p>Date</p></div>
 						</div>
 					<%
-					DateTimeFormatter hourformat = DateTimeFormatter.ofPattern("hh:mm");
-					DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+					
 					for( Bid bid: auction.getBids() ){ 
 						LocalDateTime time = bid.getTime().toLocalDateTime();
 					%>
