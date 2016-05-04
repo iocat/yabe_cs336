@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yabe.model.Auction;
+import com.yabe.model.AutoBid;
 import com.yabe.model.Computer;
 import com.yabe.model.Desktop;
 import com.yabe.model.Handheld;

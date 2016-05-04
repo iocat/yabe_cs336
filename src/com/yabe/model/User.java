@@ -48,6 +48,14 @@ public class User extends Account implements Retrievable {
 		this.address = address;
 	}
 
+	public boolean hasAutoBid(String itemId){
+		AutoBid aBid = new AutoBid();
+		aBid.setBidder(this);
+		aBid.setItem(new Item(itemId));
+		return aBid.retrieve();
+		
+	}
+	
 	// Constructor
 	public User(String username, String password, String name, String email,
 			String address) {

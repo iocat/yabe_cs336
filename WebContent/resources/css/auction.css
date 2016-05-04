@@ -4,11 +4,22 @@ html:not(header){
 
 header{
 	font-weight: 300;
+	background-color: #fff;
+	box-shadow: 0 2px 2px rgba(0,0,0,0.3);
 }
 
 a:link,
 a:visited{
 	color: rgb(0,0,0);
+	z-index: 9999;
+}
+.logo img{
+	display: inline-block;
+}
+
+.logo a{
+	z-index: 6000;
+	position: relative;
 }
 
 a:hover, 
@@ -23,7 +34,7 @@ p{
 section{
 	padding-left: 5%;
 	padding-right: 5%;
-	padding-bottom: 10px;
+	min-height: 60vh;
 }
 
 section:first-of-type{
@@ -32,10 +43,15 @@ section:first-of-type{
 }
 
 section:not(:first-of-type){
-	padding-top: 5px!important;	
+	padding-top: 40px;
+	padding-bottom: 40px;	
+	margin-bottom: 30px;
 }
 
-
+.section-item{
+	background: rgba(0,0,0,0.01);
+	box-shadow: -1px 0 10px rgba(0,0,0,0.1);
+}
 
 .section-name{
 	font-size: 120%;
@@ -99,6 +115,7 @@ section:not(:first-of-type){
 	border-right: 0.5px solid rgba(0,0,0,0.1);
 	box-shadow: 1px 0 10px rgba(0,0,0,0.1);
 	position: fixed;
+	background-color: rgb(255,255,255);
 	
 	top: 0;
 	left: 0;
@@ -109,10 +126,6 @@ section:not(:first-of-type){
 	z-index: 10;
 }
 
- header{
- 	background-color: #fff;
-	box-shadow: 0 2px 2px rgba(0,0,0,0.3);
- }
  
 .item-image{
 	overflow: hidden;
@@ -128,6 +141,7 @@ section:not(:first-of-type){
 	margin-right: auto;
 	width: 100%;
 }
+
 .section-name{
 	text-transform: uppercase;
 }
@@ -260,15 +274,17 @@ span.current-bid.sold{
 
 div.current-bid.current-bid-on-top{
 	position:fixed;
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-top: 12px;
+	padding-bottom: 12px;
 	top: 50px;
-	left: 50vw;
-	width: 30vw;
+	left: 55vw;
+	width: 20vw;
 	z-index: 5;
 	background-color: rgb(255,255,255);
 	border-bottom: 0.5px solid rgba(0,0,0,0.1);
 	box-shadow: 0px 1px 10px rgba(0,0,0,0.1);
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
 	
 	
 }

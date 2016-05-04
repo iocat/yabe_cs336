@@ -5,6 +5,7 @@
 	String pagePath;// Page context path 
 	Computer computer;
 	float minimumPossibleBid;
+	AutoBid autoBid;
 %>
 <%
 	// Page request parameter
@@ -17,6 +18,12 @@
 		minimumPossibleBid = auction.getMaxBid().getAmount()+auction.getMinimumIncrement();
 	}else{
 		minimumPossibleBid = auction.getMinimumIncrement();
+	}
+	autoBid = new AutoBid();
+	if(account instanceof User){
+		autoBid.setBidder((User)account);
+		autoBid.setItem(computer);
+		autoBid.retrieve();
 	}
 %>
 
@@ -51,7 +58,9 @@
 <body>
 	<header>
 		<div class="logo">
-			<img src="<%=pagePath%>/resources/img/yabe-logo.png">
+			<a href="main-page.jsp">
+				<img src="<%=pagePath%>/resources/img/yabe-logo.png">
+			</a>
 		</div>
 		<nav class="row main-nav">
 			<ul>
@@ -69,6 +78,7 @@
 			<div class="container span-1-of-3 item-image-and-name">
 					<div class="item-image"> <img src="<%= auction.getPictureURL() %>"></img> </div>
 					<p class="item-name"> <%= auction.getName() %></p>
+					
 					<% if(!auction.isSold() ){ 
 							if(account instanceof User){%>
 					<form action="bid" method="post" class="bid-form" >
@@ -98,15 +108,45 @@
 										$('#place-bid-confirmation').addClass('active');
 									}
 								});
+								$("#set-auto-bid-param").val('false');
+								$('#auto-bid').click(function(){
+									if( $('#bid-amount').val() < <%=minimumPossibleBid%> ){
+										$('#bad-amount-alert').addClass('active');
+									}else{
+										$("#set-auto-bid-param").val('true');
+										$('#auto-bid-amount').html(+$('#bid-amount').val());
+										$('#auto-bid-confirmation').addClass('active');
+									}
+								});
 								$('#bad-amount-ignore').click(function(){
 									$('#bad-amount-alert').removeClass('active');
 								});
 								$('#place-bid-ignore').add('#place-bid-confirmed').click(function(){
 									$('#place-bid-confirmation').removeClass('active');
 								});
+								$('#place-auto-bid-confirmed').click(function(){
+									$('#auto-bid-confirmation').removeClass('active');
+								});
+								$('#place-auto-bid-ignore').click(function(){
+									$("#set-auto-bid-param").val('false');
+									$('#auto-bid-confirmation').removeClass('active');
+								});
+								
 							});
 							</script>
 						</div>
+						<% if(autoBid.getMaxAmount()!=0){%>
+							<div class="row">
+								<div class="col span-1-of-2">
+									<p>Auto Bid set</p>
+								</div>
+								<div class="col span-1-of-2 auto-amount">
+									<p>
+										$<%= autoBid.getMaxAmount() %> 
+									</p>
+								</div>
+							</div>
+						<% } %>
 						<div class="row">
 							<a class="btn make-bid-btn" id="place-bid">Place a Bid</a>
 						</div>
@@ -121,6 +161,16 @@
 							
 							<input type = "submit" id="place-bid-confirmed" class="btn btn-important place-bid-confirmed" value="Yes">
 							<a class="btn" class="place-bid-ignore" id="place-bid-ignore">No</a>
+						</div>
+						
+						<div class="popup clearfix" id="auto-bid-confirmation">
+							<input id="set-auto-bid-param" type="hidden" name="set-auto" >
+							<p class="prompt"> 
+								Are you sure you want to AUTOMATICALLY bid on this item ? Your maximum amount is $<span id="auto-bid-amount"></span>
+							</p>
+							
+							<input type = "submit" id="place-auto-bid-confirmed" class="btn btn-important place-bid-confirmed" value="Yes">
+							<a class="btn" class="place-bid-ignore" id="place-auto-bid-ignore">No</a>
 						</div>
 						
 						<div class="popup alert clearfix" id="bad-amount-alert">
@@ -218,7 +268,6 @@
 							</div>
 							<% } %>
 						</div>
-						
 					</div>
 				</div>
 			</div>

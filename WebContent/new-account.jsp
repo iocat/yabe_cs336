@@ -43,7 +43,7 @@
 		</div>
 		<div class="row">
 			<div class="new-account-box container <%if (failedToLogin){ %>alert<%}%> ">
-				<form method="POST" action="<%=pagePath%>/create-account">
+				<form method="POST" action="<%=pagePath%>/create-account" enctype="multipart/form-data">
 					<%  
 						if (failedToLogin) {%>
 							<div class="row">

@@ -38,7 +38,9 @@
 <body>
 	<header>
 		<div class="logo">
-			<img src="<%=pagePath%>/resources/img/yabe-logo.png">
+			<a href="main-page.jsp">
+				<img src="<%=pagePath%>/resources/img/yabe-logo.png">
+			</a>
 		</div>
 		<nav class="row main-nav">
 			<ul>

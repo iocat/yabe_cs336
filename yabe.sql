@@ -130,6 +130,17 @@ CREATE TABLE bidsOn (
     FOREIGN KEY (bidder) REFERENCES user(username) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE autoBidsOn(
+	itemId INT,
+	bidder CHAR(30),
+	maxAmount FLOAT,
+	setTime DATETIME,
+	PRIMARY KEY(itemId, maxAmount),
+	UNIQUE(itemId, bidder),
+	FOREIGN KEY (itemId) REFERENCES auction(itemId) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (bidder) REFERENCES user(username) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 CREATE TABLE alert (
     username CHAR(30),
     itemId INT,
@@ -312,6 +323,8 @@ FOR EACH ROW BEGIN
 END$$
 DELIMITER ;
 
+
+
 -- 2. One item can have at most 1 auction tied with it. ( key constraint that is not covered.
 -- 3. If an item is onSale then some of the fields must not be NULL. Because if an item is ‘virtually’ on alert NULL are allowed for most of the fields.
 DELIMITER $$
@@ -370,13 +383,52 @@ FOR EACH ROW BEGIN
 END$$
 DELIMITER ;
 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS autoBidsOnPro $$
+CREATE PROCEDURE autoBidsOnPro
+(IN itemId INT)
+BEGIN
+    SET @minInc = 0;
+	SET @maxBid = 0;
+    SELECT minimumIncrement FROM auction WHERE auction.itemId = itemId INTO @minInc;
+    SELECT MAX(amount) FROM bidsOn WHERE bidsOn.itemId = itemId INTO @maxBid;
+  
+    CREATE TEMPORARY TABLE IF NOT EXISTS autoBidItem(
+        bidder CHAR(30),
+        maxAmount FLOAT
+    );
+    INSERT INTO autoBidItem 
+    SELECT bidder, maxAmount
+    FROM autoBidsOn AS ABO
+    WHERE ABO.itemId = itemId AND ABO.maxAmount >= @maxBid + @minInc
+    ORDER BY maxAmount DESC, setTime ASC;
+    
+    SET @maxMaxAmount = 0;
+    
+    -- Select the bidder with maximum amount
+    SELECT bidder, MAX(maxAmount), COUNT(*)  FROM autoBidItem INTO @bidder, @maxMaxAmount, @countAutoBid;
+    SET @bidAmount = 0;
+    IF( @countAutoBid >= 2) 
+    THEN
+        SET @secondMaxAmount = 0;
+        SELECT MAX(maxAmount) FROM autoBidItem WHERE maxAmount < @maxMaxAmount INTO @secondMaxAmount;
+   	    SET @bidAmount = @secondMaxAmount;
+   	    INSERT INTO bidsOn VALUES (itemId, @bidder, @bidAmount, (SELECT NOW()));
+   	ELSEIF (@countAutoBid = 1)
+   	THEN
+   	    SET @bidAmount = @maxBid + @minInc;
+        INSERT INTO bidsOn VALUES (itemId, @bidder, @bidAmount, (SELECT NOW()));
+   	END IF;
+    TRUNCATE TABLE autoBidItem;
+END$$
+DELIMITER ;
 
 INSERT INTO account(username, password)
 VALUES ('admin', 'admin'),
      ('rep', 'rep'),
      ('jst', '7e58d63b60197ceb55a1c487989a3720'), -- Password: user2
      ('mc', '92877af7a45fd6a2ed7fe81e1236b78'), -- Paswword: user3
-     ('tcn33','bb9836f5e2ce756d59b9a4556283bc0'); -- password: user1
+     ('tcn33','24c9e15e52afc47c225b757e7bee1f9d'); -- password: user1
 
 INSERT INTO admin (username)
 VALUES ('admin');

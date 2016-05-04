@@ -1,5 +1,6 @@
 package com.yabe.model;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -86,12 +87,12 @@ public class Item implements Retrievable {
 	public void setPictureURL(String pictureURL) {
 		this.pictureURL = pictureURL;
 	}
+	
 	public JSONObject getJSONObject() throws JSONException{
 		JSONObject json = new JSONObject();
 		json.put("pictureURL", this.pictureURL);
 		json.put("name", name);
 		json.put("description", this.description);
-		
 		return json;
 	}
 	
@@ -200,8 +201,26 @@ public class Item implements Retrievable {
 			SQLUtils.closeQuitely(conn);
 			SQLUtils.closeQuitely(stmt);
 			SQLUtils.closeQuitely(rs);
-
 		}
 		return found;
+	}
+	
+	private final String AUTO_BID = "{call autoBidsOnPro(?)}";
+	public void autoBid(){
+		Connection conn = null;
+		CallableStatement cstmt = null;
+		try{
+			conn = DBConnector.getConnectionPool().getConnection();
+			cstmt = conn.prepareCall(AUTO_BID);
+			cstmt.setString(1, this.itemId);
+			cstmt.execute();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			SQLUtils.closeQuitely(cstmt);
+			SQLUtils.closeQuitely(conn);
+		}
+		
+		
 	}
 }
