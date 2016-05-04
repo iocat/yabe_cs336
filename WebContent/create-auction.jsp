@@ -179,7 +179,7 @@
 				</div>
 				<div class="row create-auc-field">
 					<div class="col span-1-of-3">
-						<label for="screenHeight">Screen Width</label>
+						<label for="screenHeight">Screen Height</label>
 					</div>
 					<div class="col span-2-of-3">
 						<input type="text" name="screenHeight" id="screenHeight"
