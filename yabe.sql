@@ -416,7 +416,18 @@ BEGIN
 END$$
 DELIMITER ;
 
-
+DELIMITER $$
+DROP PROCEDURE IF EXISTS setItemAsSold $$
+CREATE PROCEDURE setItemAsSold
+(IN itemId INT,
+ OUT purchaser CHAR(30),
+     soldPrice FLOAT,
+     soldTime DATETIME)
+BEGIN
+    SELECT bidder, MAX(amount), NOW() FROM bidsOn WHERE bidsOn.itemId = itemId INTO purchaser, soldPrice, soldTime;
+    UPDATE auction SET auction.purchaser = bidder, auction.soldPrice = soldPrice, auction.soldTime = (SELECT NOW()) WHERE auction.itemId = itemId;
+END$$
+DELIMITER ;
 
 
 /*-----------------
