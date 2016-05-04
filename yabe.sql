@@ -331,12 +331,10 @@ DELIMITER $$
 CREATE TRIGGER itemHasAtMostOneAuction
 BEFORE INSERT ON auction
 FOR EACH ROW BEGIN
-    IF (SELECT COUNT(*)
-        FROM auction JOIN item ON item.itemId = auction.itemId
-        WHERE item.itemId = NEW.itemId ) = 1 THEN
-        SIGNAL SQLSTATE '10001' SET MESSAGE_TEXT = 'one item can only have at most one auction associated with it';
+    IF ( NEW.openDate > NEW.closeDate )THEN
+        SIGNAL SQLSTATE '10001' SET MESSAGE_TEXT = 'The closing date must be after the opened date';
     END IF;
-    /*-------------------------------------------------------------- IGNORE THIS FOR NOW
+    /*
     IF NOT EXISTS ( SELECT *
                 FROM auction AS A, item AS I, computer AS C 
                 WHERE  A.itemId = I.itemId AND
@@ -360,14 +358,9 @@ FOR EACH ROW BEGIN
                        C.color IS NOT NULL AND
                        C.batteryCapacity IS NOT NULL ) THEN
        SIGNAL SQLSTATE '10002' SET MESSAGE_TEXT = 'The item needs enough information to be on sale';
-    END IF;
-    ---------------------------------------------------------------*/
-    
-
--- TRIGGER FOR AUTOMATIC BIDDING SYSYEM
+    END IF;*/
 END$$
 DELIMITER ;
-
 DELIMITER $$
 CREATE TRIGGER automaticBid
 AFTER INSERT ON bidsOn
@@ -423,6 +416,13 @@ BEGIN
 END$$
 DELIMITER ;
 
+
+
+
+/*-----------------
+INTERNAL DATA (DOES NOT CONFORM TO INTEGRITY CONSTRAINT FOR TESTING ONLY )
+-------------------*/
+
 INSERT INTO account(username, password)
 VALUES ('admin', 'admin'),
      ('rep', 'rep'),
@@ -448,17 +448,17 @@ VALUES
 ( 2, 'Macbook Air', 'Apple', 'USED', 'Old but functional', '2'),
 ( 3, 'The Macbook', 'Apple', 'MANU_REFUR', 'The brand new version (Late 2016 - not a scam )', '3'),
 ( 4, 'Vivobook E403', 'Asus', 'USED', 'Brand new on the market, BUY NOW!!', '4'),
-(5, 'Acer Chromebook 15 - NJ Only', 'Acer', 'NEW', 'Hot!','5');
-(6, 'Galaxy s6', 'Samsung' 'SELL_REFUR', 'Works just like New!','6');
-(7, 'Dell Venue 10', 'Dell', 'NEW', 'Comes with 5 year warranty', '7');
-(8, 'IBM PS1 Desktop', 'IBM', 'FOR_PARTS', 'VINTAGE COMPUTER PARTS!', '8');
-(9, 'Sony Xperia z5', 'Sony', 'MANU_REFUR', 'Why pay more for a new phone?', '9');
-(10, 'Acer Aspire TC', 'Acer', 'NEW', 'BRAND NEW FACTORY MODEL', '10');
+(5, 'Acer Chromebook 15 - NJ Only', 'Acer', 'NEW', 'Hot!','5'),
+(6, 'Galaxy s6', 'Samsung', 'SELL_REFUR', 'Works just like New!','6'),
+(7, 'Dell Venue 10', 'Dell', 'NEW', 'Comes with 5 year warranty', '7'),
+(8, 'IBM PS1 Desktop', 'IBM', 'FOR_PARTS', 'VINTAGE COMPUTER PARTS!', '8'),
+(9, 'Sony Xperia z5', 'Sony', 'MANU_REFUR', 'Why pay more for a new phone?', '9'),
+(10, 'Acer Aspire TC', 'Acer', 'NEW', 'BRAND NEW FACTORY MODEL', '10'),
 (11, 'Lenovo Tab 2', 'Lenovo', 'NEW_OTHER', 'Never used but no box', '11');
     
 INSERT INTO computer(itemId,ram,brandName, operatingSystem) VALUES
     (1, 32, 'Apple', 'Mac OS'),
-    (2, 64, 'Apple', 'Windows'),
+    (2, 64, 'Apple', 'Mac OS'),
     (3, 4, 'Apple', 'Android'),
     (4, 32, 'Asus', 'Windows'),
     (5, 4,'Google','Chrome OS'),
@@ -483,14 +483,6 @@ INSERT INTO auction(itemId, seller, openDate, closeDate, minimumPrice, minimumIn
     ( 10, 'tcn33', '2016-4-6 00:00:00', '2016-5-16 00:00:00', 1400, 55),
     ( 11, 'jst', '2016-4-1 00:00:00', '2016-5-17 00:00:00', 50, 500);
 
-
-(7, 'jst',2500,'2016-4-28 00:00:00'),
-(7, 'mc',1000, '2016-4-30 11:46:00');
-(8, 'tcn33',500,'2016-4-23 11:30:00'),
-(8, 'mc',510, '2016-4-30 12:43:00');
-(9, 'jst',1000,'2016-5-1 12:23:00');
-(11, 'tcn33',50, '2016-4-2 10:29:00');
-
 INSERT INTO laptop VALUES (3);
 INSERT INTO desktop VALUES
     (1),
@@ -499,7 +491,6 @@ INSERT INTO desktop VALUES
     (5),
     (8),
     (10);
-
 
 INSERT INTO handheld (itemId, isTablet) VALUES
     (6,0),
@@ -511,13 +502,4 @@ INSERT INTO bidsOn
 VALUES 
 (1, 'mc',100,'2016-4-27 00:00:00'),
 (1, 'jst',120,'2016-4-27 00:00:00'),
-(1, 'mc',150, '2016-4-30 12:43:00'),
-(6, 'tcn33',400,'2016-4-27 00:00:00'),
-(6, 'jst',600,'2016-4-28 00:00:00'),
-(7, 'jst',2500,'2016-4-28 00:00:00'),
-(7, 'mc',1000, '2016-4-30 11:46:00'),
-(8, 'tcn33',500,'2016-4-23 11:30:00'),
-(8, 'mc',510, '2016-4-30 12:43:00'),
-(9, 'jst',1000,'2016-5-1 12:23:00'),
-(11, 'tcn33',50, '2016-4-2 10:29:00');
-
+(1, 'mc',150, '2016-4-30 12:43:00');

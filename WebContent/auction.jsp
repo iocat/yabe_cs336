@@ -80,7 +80,7 @@
 					<p class="item-name"> <%= auction.getName() %></p>
 					
 					<% if(!auction.isSold() ){ 
-							if(account instanceof User){%>
+							if(account instanceof User && !(account != null && auction.getSeller().getUsername().equals(account.getUsername()))){%>
 					<form action="bid" method="post" class="bid-form" >
 						<input type="hidden" name="item-id" value="<%= auction.getItemId() %>">
 						<div class="row ">
@@ -179,6 +179,13 @@
 						</div>
 					</form>
 					<% 
+							}else if( account!=null && auction.getSeller().getUsername().equals(account.getUsername())){
+					%>
+							<div class="row">
+								<a href="contact-rep" class="btn make-bid-btn">Contact the Representative</a>
+							</div>
+					
+					<%
 							}else{
 					%>
 							<div class="row">
