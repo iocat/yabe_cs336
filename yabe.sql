@@ -396,31 +396,31 @@ VALUES
 ( 2, 'Macbook Air', 'Apple', 'USED', 'Old but functional', '2'),
 ( 3, 'The Macbook', 'Apple', 'MANU_REFUR', 'The brand new version (Late 2016 - not a scam )', '3'),
 ( 4, 'Vivobook E403', 'Asus', 'USED', 'Brand new on the market, BUY NOW!!', '4'),
-(5, 'Acer Chromebook 15 - NJ Only', 'Acer', 'NEW', 'Hot!','5');
-(6, 'Galaxy s6', 'Samsung' 'SELL_REFUR', 'Works just like New!','6');
-(7, 'Dell Venue 10', 'Dell', 'NEW', 'Comes with 5 year warranty', '7');
-(8, 'IBM PS1 Desktop', 'IBM', 'FOR_PARTS', 'VINTAGE COMPUTER PARTS!', '8');
-(9, 'Sony Xperia z5', 'Sony', 'MANU_REFUR', 'Why pay more for a new phone?', '9');
-(10, 'Acer Aspire TC', 'Acer', 'NEW', 'BRAND NEW FACTORY MODEL', '10');
+(5, 'Acer Chromebook 15 - NJ Only', 'Acer', 'NEW', 'Hot!','5'),
+(6, 'Galaxy s6', 'Samsung', 'SELL_REFUR', 'Works just like New!','6'),
+(7, 'Dell Venue 10', 'Dell', 'NEW', 'Comes with 5 year warranty', '7'),
+(8, 'IBM PS1 Desktop', 'IBM', 'FOR_PARTS', 'VINTAGE COMPUTER PARTS!', '8'),
+(9, 'Sony Xperia z5', 'Sony', 'MANU_REFUR', 'Why pay more for a new phone?', '9'),
+(10, 'Acer Aspire TC', 'Acer', 'NEW', 'BRAND NEW FACTORY MODEL', '10'),
 (11, 'Lenovo Tab 2', 'Lenovo', 'NEW_OTHER', 'Never used but no box', '11');
     
-INSERT INTO computer(itemId,ram,brandName, operatingSystem) VALUES
-    (1, 32, 'Apple', 'Mac OS'),
-    (2, 64, 'Apple', 'Windows'),
-    (3, 4, 'Apple', 'Android'),
-    (4, 32, 'Asus', 'Windows'),
-    (5, 4,'Google','Chrome OS'),
-    (6, 4, 'Samsung', 'Android'),
-    (7, 8, 'Dell', 'Android'),
-    (8, 64, 'IBM', 'Windows'),
-    (9, 8, 'Sony', 'Android'),
-    (10, 32, 'Acer', 'Windows'),
-    (11, 8, 'Lenovo', 'Android');
+INSERT INTO computer(itemId,ram,brandName, weight, operatingSystem, screenType, screenWidth, screenHeight, screenResolutionX, screenResolutionY, sizeWidth, sizeHeight, sizeDepth, color, batteryCapacity) VALUES
+    (1, 32, 'Apple', 4.59, 'Apple', 'RETINA', 13.3, 13.3, 1280, 800, 12.00, 0.95, 8.75, 'Silver', 7),
+    (2, 64, 'Apple', 1.99, 'Windows', 'RETINA', 12.0,12.0, 1280, 800, 11.50, 0.50, 8.55, 'Gold', 6),
+    (3, 4, 'Apple', 3.05, 'Android', 'LCD', 13.0,13.0,1280,800,12.78, 0.75, 8.50, 'Gray', 7),
+    (4, 32, 'Asus', 2.02, 'Windows', 'LED', 13.3,13.3, 1280,800, 11.50, 0.65, 8.45, 'Black', 8),
+    (5, 4,'Google', 3.56,'Chrome OS', 'LED', 15.0,15.0, 1280, 800, 12.9,0.80,9.0,'White',11),
+    (6, 4, 'Samsung', 4.59, 'Android', 'AMOLED', 2.83, 5.1, 1080, 1920, 2.85, 5.74, 0.35, 'Black', 6),
+    (7, 8, 'Dell', 0.86, 'Android', 'LED', 8.0,8.0,1280,800, 5.1,8.0,0.35,'Gray', 8),
+    (8, 64, 'IBM', 100.00, 'Windows', 'IDKLOL',2.0,2.0,100,100,100.0,100.0,100.0,'white',0),
+    (9, 8, 'Sony', 4.50, 'Android', 'LCD', 2.5, 5.75, 1080, 1920, 2.83 , 5.75 ,0.29, 'Silver', 9),
+    (10, 32, 'Acer', 16.00, 'Windows', 'NONE', 0.00,0.00,0,0,6.9,15.0,16.3,'Black', 0),
+    (11, 8, 'Lenovo', 10.8, 'Android', 'CTP', 10.1,10.1, 1920,1200,6.73,9.72,0.35,'Black', 10);
 
 
 INSERT INTO auction(itemId, seller, openDate, closeDate, minimumPrice, minimumIncrement) VALUES
-    ( 1, 'tcn33', '2016-4-20 00:00:00', '2016-4-27 00:00:00', 300, 20.12 ),
-    ( 2, 'mc', '2016-4-21 00:00:00', '2016-4-29 00:00:00',200, 100 ),
+    ( 1, 'tcn33', '2016-4-20 00:00:00', '2016-5-06 00:00:00', 300, 20.12 ),
+    ( 2, 'mc', '2016-4-21 00:00:00', '2016-5-10 00:00:00',200, 100 ),
     ( 3, 'jst', '2016-4-6 00:00:00', '2016-4-8 00:00:00', 400, 102.23),
     ( 4, 'mc', '2016-4-1 00:00:00', '2016-4-2 00:00:00', 20, 10),
     ( 5, 'jst', '2016-3-1 00:00:00', '2016-3-2 00:00:00', 10, 20.23),
@@ -431,13 +431,6 @@ INSERT INTO auction(itemId, seller, openDate, closeDate, minimumPrice, minimumIn
     ( 10, 'tcn33', '2016-4-6 00:00:00', '2016-5-16 00:00:00', 1400, 55),
     ( 11, 'jst', '2016-4-1 00:00:00', '2016-5-17 00:00:00', 50, 500);
 
-
-(7, 'jst',2500,'2016-4-28 00:00:00'),
-(7, 'mc',1000, '2016-4-30 11:46:00');
-(8, 'tcn33',500,'2016-4-23 11:30:00'),
-(8, 'mc',510, '2016-4-30 12:43:00');
-(9, 'jst',1000,'2016-5-1 12:23:00');
-(11, 'tcn33',50, '2016-4-2 10:29:00');
 
 INSERT INTO laptop VALUES (3);
 INSERT INTO desktop VALUES
