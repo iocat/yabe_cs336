@@ -78,7 +78,7 @@ CREATE TABLE emails (
 -- From the item part to every item specifications ( via ISA) the non NULL constraint is checked dynamically using triggers as item can either be on sale or on alert, if the item is on alert then it is a virtual item and can have NULL value for anything.
 
 CREATE TABLE item(
-    itemId INT,
+    itemId INT AUTO_INCREMENT,
     name VARCHAR(100),
     manufacturer CHAR(30),
     cond ENUM('NEW', 'NEW_OTHER','MANU_REFUR' ,'SELL_REFUR','USED','FOR_PARTS') ,
@@ -86,6 +86,8 @@ CREATE TABLE item(
     picture CHAR(36),
     PRIMARY KEY (itemId)
 );
+
+ALTER TABLE item AUTO_INCREMENT=100;
 
 CREATE TABLE automaticallyBidsOn (
     itemId INT,

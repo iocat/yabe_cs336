@@ -35,6 +35,18 @@ public class Auction extends Item implements Retrievable {
 			return null;
 		}
 	}
+	
+	//Constructor
+	public Auction(String name, String manufacturer, Condition condition, String description ,User seller, Timestamp openDate, Timestamp closeDate, float minimumPrice,
+			float minimumIncrement) {
+		super(name, manufacturer, condition, description);
+		this.seller = seller;
+		this.openDate = openDate;
+		this.closeDate = closeDate;
+		this.minimumPrice = minimumPrice;
+		this.minimumIncrement = minimumIncrement;
+	}
+	
 	public Auction(String itemId){
 		super(itemId);
 	}
@@ -100,6 +112,41 @@ public class Auction extends Item implements Retrievable {
 
 	public void setPurchaser(User purchaser) {
 		this.purchaser = purchaser;
+	}
+	
+	private final String SQL_CREATE_AUCTION = "INSERT INTO "
+			+ "auction(itemId, seller, openDate,closeDate, minimumPrice, minimumIncrement) "
+			+ "VALUES "
+			+ " (?,?,?,?,?,?)";
+	
+	/*
+	 * insertIntoDB() inserts this auction data into the database
+	 */
+	public boolean insertIntoDB() throws SQLException {
+		super.insertIntoDB();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		int rows = 0;
+		try {
+			conn = DBConnector.getConnectionPool().getConnection();
+			stmt = conn.prepareStatement(SQL_CREATE_AUCTION);
+			stmt.setString(1, this.getItemId());
+			stmt.setString(2, this.seller.getUsername());
+			stmt.setTimestamp(3, this.openDate);
+			stmt.setTimestamp(4, this.closeDate);
+			stmt.setFloat(5, this.minimumPrice);
+			stmt.setFloat(6,this.minimumIncrement);
+			// Optionally receives
+			
+			rows = stmt.executeUpdate();
+		} catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		finally {
+			SQLUtils.closeQuitely(conn);
+			SQLUtils.closeQuitely(stmt);
+		}
+		return rows == 1;
 	}
 
 	public JSONObject getJSONObject() throws JSONException{

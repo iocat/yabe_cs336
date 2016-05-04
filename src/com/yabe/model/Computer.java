@@ -80,7 +80,7 @@ public class Computer extends Item implements Retrievable, Updatable{
 		float megapixel;
 		float isBack;
 	}
-	
+
 	
 	private HardDrive hardDrive;
 	public HardDrive getHardDrive() {
@@ -222,6 +222,28 @@ public class Computer extends Item implements Retrievable, Updatable{
 		super(itemId);
 	}
 	
+	//Constructor for Computer
+	public Computer(String itemId,int ram, String brandName, float weight, String operatingSystem, 
+			String screenType, float screenWidth, float screenHeight, int screenResX,
+			int screenResY, float width, float height, float depth, String color, int batteryCapacity){
+		super(itemId);
+		this.ram = ram;
+		this.brandName = brandName;
+		this.weight = weight;
+		this.operatingSystem = operatingSystem;
+		this.screen = new Screen();
+		this.screen.type = screenType;
+		this.screen.width = screenWidth;
+		this.screen.height = screenHeight;
+		this.screen.resolutionX = screenResX;
+		this.screen.resolutionY = screenResY;
+		this.width = width;
+		this.height = height;
+		this.depth = depth;
+		this.color = color;
+		this.batteryCapacity = batteryCapacity;
+	}
+	
 	public static Computer getComputer(String itemId){
 		Computer computer = new Desktop(itemId);
 		if (!computer.retrieve()){
@@ -235,6 +257,46 @@ public class Computer extends Item implements Retrievable, Updatable{
 		}
 		return computer;
 	}
+	
+	private final String SQL_CREATE_COMPUTER = "INSERT INTO "
+			+ "computer(itemId,ram,brandName,weight,operatingSystem,screenType,screenWidth,screenHeight, screenResolutionX,screenResolutionY,sizeWidth,sizeHeight,sizeDepth,color,batteryCapacity) "
+			+ "VALUES "
+			+ " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	
+	/*
+	 * insertIntoDB() inserts this computer data into the database
+	 */
+	public boolean insertIntoDB() throws SQLException {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		int rows = 0;
+		try {
+			conn = DBConnector.getConnectionPool().getConnection();
+			stmt = conn.prepareStatement(SQL_CREATE_COMPUTER);
+			stmt.setString(1, this.getItemId());
+			stmt.setInt(2, this.ram);
+			stmt.setString(3, this.brandName);
+			stmt.setFloat(4, this.weight);
+			stmt.setString(5, this.operatingSystem);
+			stmt.setString(6,this.screen.type);
+			stmt.setFloat(7, this.screen.width);
+			stmt.setFloat(8, this.screen.height);
+			stmt.setInt(9,this.screen.resolutionX);
+			stmt.setInt(10, this.screen.resolutionY);
+			stmt.setFloat(11,this.width);
+			stmt.setFloat(12, this.height);
+			stmt.setFloat(13, this.depth);
+			stmt.setString(14, this.color);
+			stmt.setInt(15, this.batteryCapacity);
+			// Optionally receivesdth
+			rows = stmt.executeUpdate();
+		} finally {
+			SQLUtils.closeQuitely(conn);
+			SQLUtils.closeQuitely(stmt);
+		}
+		return rows == 1;
+	}
+
 	
 	private final static String SQL_RETRIEVE = 
 			"SELECT * FROM (computer LEFT OUTER JOIN graphicCard "

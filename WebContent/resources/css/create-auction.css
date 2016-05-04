@@ -28,7 +28,7 @@
 	vertical-align: middle;
 }
 
-.new-auc-field div:first-child {
+.create-auc-field div:first-child {
 	text-align: right;
 }
 
@@ -40,4 +40,8 @@
 footer{
 	position: fixed;
 	bottom: 0;
+}
+
+.handheld-field div:first-child {
+	text-align: right;
 }

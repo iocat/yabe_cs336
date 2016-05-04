@@ -3,10 +3,12 @@
 <%! 
 	// Page variable declaration 
 	String pagePath;				// Page context path
+	Account user;
 %>
 <%	
 	// Page variable initialization
 	pagePath = request.getContextPath();
+	user = (User)request.getAttribute("account");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -43,6 +45,16 @@
 		</div>
 		<div class="row">
 		<div class="create-auction-box container">
+		<form method="POST" action="<%=pagePath%>/create-auction">
+				<input name="seller" value="<%=user.getUsername() %>" type="hidden"> 
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="isDesktop">Check here for Desktop</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="checkbox" name="isDesktop" id="isDesktop" value="true">
+					</div>
+				</div>
 				<div class="row create-auc-field">
 					<div class="col span-1-of-3">
 						<label for="name">Item Name</label>
@@ -95,10 +107,19 @@
 				</div>
 				<div class="row create-auc-field">
 					<div class="col span-1-of-3">
-						<label for="manufacturer ">Manufacturer </label>
+						<label for="manufacturer">Manufacturer </label>
 					</div>
 					<div class="col span-2-of-3">
-						<input type="text" name="manufacturer " id="manufacturer"
+						<input type="text" name="manufacturer" id="manufacturer"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="description">Item Description</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="description" id="description"
 						placeholder="" required>
 					</div>
 				</div>
@@ -153,6 +174,15 @@
 					</div>
 					<div class="col span-2-of-3">
 						<input type="text" name="screenWidth" id="screenWidth"
+						placeholder="" required>
+					</div>
+				</div>
+				<div class="row create-auc-field">
+					<div class="col span-1-of-3">
+						<label for="screenHeight">Screen Width</label>
+					</div>
+					<div class="col span-2-of-3">
+						<input type="text" name="screenHeight" id="screenHeight"
 						placeholder="" required>
 					</div>
 				</div>
@@ -219,24 +249,7 @@
 						placeholder="" required>
 					</div>
 				</div>
-				<div class="row create-auc-field">
-					<div class="col span-1-of-3">
-						<label for="batteryCapacity">Battery Capacity</label>
-					</div>
-					<div class="col span-2-of-3">
-						<input type="text" name="batteryCapacity" id="batteryCapacity"
-						placeholder="" required>
-					</div>
-				</div>
-				<div class="row handheld-field">
-					<div class="col span-1-of-3">
-						<label for="externalMemoryMaxSize ">Maximum Memory Size</label>
-					</div>
-					<div class="col span-2-of-3">
-						<input type="text" name="externalMemoryMaxSize" id="externalMemoryMaxSize"
-						placeholder="" required>
-					</div>
-				</div>	
+				<!--
 				<div class="row handheld-field">
 					<div class="col span-1-of-3">
 						<label for="isTablet">Tablet?</label>
@@ -247,7 +260,7 @@
 				</div>
 				<div class="row handheld-field">
 					<div class="col span-1-of-3">
-						<label for="externalMemoryType ">External Memory Type</label>
+						<label for="externalMemoryType ">Ext. Memory Type</label>
 					</div>
 					<div class="col span-2-of-3">
 						<input type="text" name="externalMemoryType" id="externalMemoryType"
@@ -256,7 +269,7 @@
 				</div>
 				<div class="row handheld-field">
 					<div class="col span-1-of-3">
-						<label for="externalMemoryMaxSize ">Maximum Memory Size</label>
+						<label for="externalMemoryMaxSize ">Max Memory Size</label>
 					</div>
 					<div class="col span-2-of-3">
 						<input type="text" name="externalMemoryMaxSize" id="externalMemoryMaxSize"
@@ -280,10 +293,12 @@
 						<input type="text" name="simType" id="simType"
 						placeholder="STANDARD,MICRO,NANO" required>
 					</div>
-				</div>					
+				</div>	
+				-->				
 				<div class="row">
 					<input type="submit" value="Create" class="btn btn-important">
 				</div>
+				</form>
 			</div>
 		</div>
 	</section>
