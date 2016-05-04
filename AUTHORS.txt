@@ -1,0 +1,48 @@
+Thanh Ngo, Justin Chong and Michael Rein
+Prin. Info & Data Mngt. Final Project
+Group 7
+
+Code Contributions:
+
+Thanh Ngo
+admin.jsp
+auction.jsp
+create-alert.jsp
+Error404.jsp
+homepage.jsp
+login.jsp
+main-page.jsp
+new-account.jsp
+profile.jsp
+update-account.jsp
+user.jsp
+404.css
+auction.css
+login.css
+main-page.css
+new-account.css
+setup.css
+auction.js
+main-page.js
+setup.js
+creeat-auction.js
+CreateAccountServlet
+FilterItemServlet
+FilterUserServlet
+LoginServlet
+DBConnector.java
+**Thanh also created the data model (.java) files that were implemented in this project.
+
+Justin Chong
+
+create-account.jsp
+create-account.css
+CreateAuctionServlet
+Updates Justin made to the data model to insert and retrieve queries from mySQL database.
+Auction.java
+Item.java
+Computer.java
+Laptap.java
+Desktop.java
+Handheld.java
+
