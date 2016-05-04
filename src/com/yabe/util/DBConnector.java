@@ -11,7 +11,7 @@ public class DBConnector {
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "AWizN283lNN";
 
-	private static String projectDB = CLASS_PROJECT_DB;
+	private static String projectDB = CLASS_PROJECT_DB; 
 
 	private static HikariDataSource ds ;
 	static {

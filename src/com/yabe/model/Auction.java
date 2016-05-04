@@ -1,10 +1,12 @@
 package com.yabe.model;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -200,6 +202,20 @@ public class Auction extends Item implements Retrievable {
 				this.soldTime = rs.getTimestamp(4);
 				this.openDate = rs.getTimestamp(5);
 				this.closeDate = rs.getTimestamp(6);
+				
+				Timestamp actualTime = null;
+
+				try {
+					Date actual = new Date();
+					actualTime = new Timestamp(actual.getTime());
+				} catch (Exception exc) {
+					exc.printStackTrace();
+				}
+
+				if (this.closeDate.before(actualTime)){
+					retrievePurchaser();
+				}
+				
 				this.minimumPrice = rs.getFloat(7);
 				this.minimumIncrement = rs.getFloat(8);
 			}
@@ -212,11 +228,37 @@ public class Auction extends Item implements Retrievable {
 		}
 		return found;
 	}
+	
+	private final String ITEM_SOLD = "{call setItemAsSold(?,?,?,?)}";
+	public void retrievePurchaser(){
+		Connection conn = null;
+		CallableStatement cstmt = null;
+		try{
+			conn = DBConnector.getConnectionPool().getConnection();
+			cstmt = conn.prepareCall(ITEM_SOLD);
+			cstmt.setString(1,this.getItemId());
+			cstmt.registerOutParameter(2,Types.CHAR);
+			cstmt.registerOutParameter(3, Types.FLOAT);
+			cstmt.registerOutParameter(4, Types.DATE);
+			cstmt.executeUpdate();
+			this.purchaser = new User(cstmt.getString(2));
+			this.soldPrice = cstmt.getFloat(3);
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			SQLUtils.closeQuitely(cstmt);
+			SQLUtils.closeQuitely(conn);
+		}
+	}
+
+	
 	public ArrayList<Bid> getBids() {
 		return bids;
 	}
 	public void setBids(ArrayList<Bid> bids) {
 		this.bids = bids;
 	}
-
+	
 }
+

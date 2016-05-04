@@ -419,13 +419,14 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS setItemAsSold $$
 CREATE PROCEDURE setItemAsSold
-(IN itemId INT,
- OUT purchaser CHAR(30),
-     soldPrice FLOAT,
-     soldTime DATETIME)
+(   IN itemId INT,
+    OUT purchaser CHAR(30),
+    OUT soldPrice FLOAT,
+    OUT soldTime DATETIME)
 BEGIN
-    SELECT bidder, MAX(amount), NOW() FROM bidsOn WHERE bidsOn.itemId = itemId INTO purchaser, soldPrice, soldTime;
-    UPDATE auction SET auction.purchaser = bidder, auction.soldPrice = soldPrice, auction.soldTime = (SELECT NOW()) WHERE auction.itemId = itemId;
+    SELECT bidder, MAX(amount) FROM bidsOn WHERE bidsOn.itemId = itemId GROUP BY itemId INTO purchaser, soldPrice;
+    SET soldTime = (SELECT NOW());
+    UPDATE auction SET auction.purchaser = purchaser, auction.soldPrice = soldPrice, auction.soldTime = (SELECT NOW()) WHERE auction.itemId = itemId;
 END$$
 DELIMITER ;
 
