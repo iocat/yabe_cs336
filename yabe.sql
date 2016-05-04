@@ -397,32 +397,75 @@ VALUES
 ( 3, 'The Macbook', 'Apple', 'MANU_REFUR', 'The brand new version (Late 2016 - not a scam )', '3'),
 ( 4, 'Vivobook E403', 'Asus', 'USED', 'Brand new on the market, BUY NOW!!', '4'),
 (5, 'Acer Chromebook 15 - NJ Only', 'Acer', 'NEW', 'Hot!','5');
-	
+(6, 'Galaxy s6', 'Samsung' 'SELL_REFUR', 'Works just like New!','6');
+(7, 'Dell Venue 10', 'Dell', 'NEW', 'Comes with 5 year warranty', '7');
+(8, 'IBM PS1 Desktop', 'IBM', 'FOR_PARTS', 'VINTAGE COMPUTER PARTS!', '8');
+(9, 'Sony Xperia z5', 'Sony', 'MANU_REFUR', 'Why pay more for a new phone?', '9');
+(10, 'Acer Aspire TC', 'Acer', 'NEW', 'BRAND NEW FACTORY MODEL', '10');
+(11, 'Lenovo Tab 2', 'Lenovo', 'NEW_OTHER', 'Never used but no box', '11');
+    
 INSERT INTO computer(itemId,ram,brandName, operatingSystem) VALUES
     (1, 32, 'Apple', 'Mac OS'),
     (2, 64, 'Apple', 'Windows'),
     (3, 4, 'Apple', 'Android'),
     (4, 32, 'Asus', 'Windows'),
-    (5, 4,'Google','Chrome OS');
+    (5, 4,'Google','Chrome OS'),
+    (6, 4, 'Samsung', 'Android'),
+    (7, 8, 'Dell', 'Android'),
+    (8, 64, 'IBM', 'Windows'),
+    (9, 8, 'Sony', 'Android'),
+    (10, 32, 'Acer', 'Windows'),
+    (11, 8, 'Lenovo', 'Android');
+
 
 INSERT INTO auction(itemId, seller, openDate, closeDate, minimumPrice, minimumIncrement) VALUES
     ( 1, 'tcn33', '2016-4-20 00:00:00', '2016-4-27 00:00:00', 300, 20.12 ),
     ( 2, 'mc', '2016-4-21 00:00:00', '2016-4-29 00:00:00',200, 100 ),
     ( 3, 'jst', '2016-4-6 00:00:00', '2016-4-8 00:00:00', 400, 102.23),
     ( 4, 'mc', '2016-4-1 00:00:00', '2016-4-2 00:00:00', 20, 10),
-    ( 5, 'jst', '2016-3-1 00:00:00', '2016-3-2 00:00:00', 10, 20.23);
+    ( 5, 'jst', '2016-3-1 00:00:00', '2016-3-2 00:00:00', 10, 20.23),
+    ( 6, 'jst', '2016-4-21 00:00:00', '2016-5-15 00:00:00', 400, 200),
+    ( 7, 'tcn33', '2016-4-24 00:00:00', '2016-5-16 00:00:00',2500, 1000),
+    ( 8, 'jst', '2016-4-20 00:00:00', '2016-5-21 00:00:00', 500, 10),
+    ( 9, 'mc', '2016-4-24 00:00:00', '2016-5-17 00:00:00', 1000, 45),
+    ( 10, 'tcn33', '2016-4-6 00:00:00', '2016-5-16 00:00:00', 1400, 55),
+    ( 11, 'jst', '2016-4-1 00:00:00', '2016-5-17 00:00:00', 50, 500);
 
+
+(7, 'jst',2500,'2016-4-28 00:00:00'),
+(7, 'mc',1000, '2016-4-30 11:46:00');
+(8, 'tcn33',500,'2016-4-23 11:30:00'),
+(8, 'mc',510, '2016-4-30 12:43:00');
+(9, 'jst',1000,'2016-5-1 12:23:00');
+(11, 'tcn33',50, '2016-4-2 10:29:00');
 
 INSERT INTO laptop VALUES (3);
 INSERT INTO desktop VALUES
     (1),
     (2),
     (4),
-    (5);
+    (5),
+    (8),
+    (10);
+
+
+INSERT INTO handheld (itemId, isTablet) VALUES
+    (6,0),
+    (7,1),
+    (9,0),
+    (11,1);
 
 INSERT INTO bidsOn
 VALUES 
 (1, 'mc',100,'2016-4-27 00:00:00'),
 (1, 'jst',120,'2016-4-27 00:00:00'),
-(1, 'mc',150, '2016-4-30 12:43:00');
+(1, 'mc',150, '2016-4-30 12:43:00'),
+(6, 'tcn33',400,'2016-4-27 00:00:00'),
+(6, 'jst',600,'2016-4-28 00:00:00'),
+(7, 'jst',2500,'2016-4-28 00:00:00'),
+(7, 'mc',1000, '2016-4-30 11:46:00'),
+(8, 'tcn33',500,'2016-4-23 11:30:00'),
+(8, 'mc',510, '2016-4-30 12:43:00'),
+(9, 'jst',1000,'2016-5-1 12:23:00'),
+(11, 'tcn33',50, '2016-4-2 10:29:00');
 
