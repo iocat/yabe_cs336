@@ -210,7 +210,13 @@ public class FilterItemServlet extends HttpServlet {
 		if(time != 0){
 			append+= " OR ";
 		}
-		append+=  "I.itemId IN ( SELECT I1.itemId FROM "+ category +" I1 )" ;
+		if(category.equals("smartphone")){
+			append+=  "I.itemId IN ( SELECT I1.itemId FROM handheld I1 WHERE I1.isTablet <> 1 )" ;
+		}else if (category.equals("tablet")){
+			append+=  "I.itemId IN ( SELECT I1.itemId FROM handheld I1 WHERE I1.isTablet = 1 )" ;
+		}else{
+			append+=  "I.itemId IN ( SELECT I1.itemId FROM "+ category +" I1 )" ;
+		}
 		return append;
 	}
 }

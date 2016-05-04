@@ -326,7 +326,6 @@ DELIMITER ;
 
 
 -- 2. One item can have at most 1 auction tied with it. ( key constraint that is not covered.
--- 3. If an item is onSale then some of the fields must not be NULL. Because if an item is ‘virtually’ on alert NULL are allowed for most of the fields.
 DELIMITER $$
 CREATE TRIGGER itemHasAtMostOneAuction
 BEFORE INSERT ON auction
@@ -334,31 +333,6 @@ FOR EACH ROW BEGIN
     IF ( NEW.openDate > NEW.closeDate )THEN
         SIGNAL SQLSTATE '10001' SET MESSAGE_TEXT = 'The closing date must be after the opened date';
     END IF;
-    /*
-    IF NOT EXISTS ( SELECT *
-                FROM auction AS A, item AS I, computer AS C 
-                WHERE  A.itemId = I.itemId AND
-                       A.itemId = C.itemId AND
-                       NEW.itemId = I.itemId AND 
-                       I.manufacturer IS NOT NULL AND
-                       I.cond IS NOT NULL AND 
-                       I.description IS NOT NULL AND
-                       C.ram IS NOT NULL AND
-                       C.brandName IS NOT NULL AND
-                       C.weight IS NOT NULL AND
-                       C.operatingSystem IS NOT NULL AND
-                       C.screenType IS NOT NULL AND
-                       C.screenWidth IS NOT NULL AND
-                       C.screenHeight IS NOT NULL AND
-                       C.screenResolutionX IS NOT NULL AND
-                       C.screenResolutionY IS NOT NULL AND
-                       C.sizeWidth IS NOT NULL AND
-                       C.sizeHeight IS NOT NULL AND
-                       C.sizeDepth IS NOT NULL AND
-                       C.color IS NOT NULL AND
-                       C.batteryCapacity IS NOT NULL ) THEN
-       SIGNAL SQLSTATE '10002' SET MESSAGE_TEXT = 'The item needs enough information to be on sale';
-    END IF;*/
 END$$
 DELIMITER ;
 DELIMITER $$

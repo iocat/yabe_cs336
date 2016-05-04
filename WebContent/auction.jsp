@@ -7,7 +7,7 @@
 	float minimumPossibleBid;
 	AutoBid autoBid;
 	DateTimeFormatter hourformat = DateTimeFormatter.ofPattern("HH:mm");
-	DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+	DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("MMM dd, yyyy");
 %>
 <%
 	// Page request parameter
